@@ -259,10 +259,13 @@ Welcome to CIS211
 
 # The Three-Headed Monster
 
+<!-- column -->
 - Data Structures
 - Algorithms
 - Efficiency
 
+<!-- column -->
+![Three Headed Monster](images/three-headed-monster.jpg)
 ---
 
 # Data Structures
@@ -319,12 +322,15 @@ Resources:
 
 # Be Honest With Yourself
 
-What are your goals?
+<!-- column -->
+### What are your goals?
 
 - Short-term
 - Long-term
 
-What topics need review?
+### What topics need review?
+<!-- column -->
+![Fork on the road image](images/fork.jpg)
 
 ---
 
@@ -378,6 +384,15 @@ https://www.kaggle.com/datasets/NUFORC/ufo-sightings
 ---
 
 # What Is Each Row?
+<pre>
+First 2 Rows:
+datetime,city,state,country,shape,duration (seconds),duration (hours/min),comments,date posted,latitude,longitude
+10/10/1949 20:30,san marcos,tx,us,cylinder,2700,45 minutes,"This event took place in early fall around 1949-50. It occurred after a Boy Scout meeting in the Baptist Church. The Baptist Church sit",4/27/2004,29.8830556,-97.9411111
+</pre>
+
+---
+
+
 
 A UFO Sighting.
 
@@ -394,6 +409,8 @@ Fields include:
 - longitude
 
 ---
+
+# UFO Sightings
 
 # UFO Sighting Class
 

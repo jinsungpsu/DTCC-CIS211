@@ -134,30 +134,35 @@
     font-size: var(--heading-h2-size);
     color: var(--heading-color);
     margin: var(--heading-margin);
+    text-align: left;
 }
 
 .reveal h3 {
     font-size: var(--heading-h3-size);
     color: var(--heading-color);
     margin: var(--heading-margin);
+    text-align: left;
 }
 
 .reveal h4 {
     font-size: var(--heading-h4-size);
     color: var(--heading-color);
     margin: var(--heading-margin);
+    text-align: left;
 }
 
 .reveal h5 {
     font-size: var(--heading-h5-size);
     color: var(--heading-color);
     margin: var(--heading-margin);
+    text-align: left;
 }
 
 .reveal h6 {
     font-size: var(--heading-h6-size);
     color: var(--heading-color);
     margin: var(--heading-margin);
+    text-align: left;
 }
 
 /* ===== BODY TEXT ===== */
