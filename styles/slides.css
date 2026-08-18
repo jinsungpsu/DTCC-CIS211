@@ -94,7 +94,8 @@
     gap: 4px;
 }
 
-#toolbar button {
+#toolbar button,
+#searchBtn {
     height: 34px;
     padding: 0 10px;
     border: 1px solid #555;
@@ -105,18 +106,34 @@
     cursor: pointer;
 }
 
-#toolbar button:hover {
+#toolbar button:hover,
+#searchBtn:hover {
     background: rgba(50,50,50,.95);
     border-color: #888;
     color: white;
 }
 
-#toolbar button:active {
+#toolbar button:active,
+#searchBtn:active {
     transform: scale(.96);
 }
 
-#toolbar button:focus {
+#toolbar button:focus,
+#searchBtn:focus {
     outline: none;
+}
+
+#searchBtn {
+    position: fixed;
+    top: 12px;
+    right: 12px;
+    z-index: 10000;
+}
+
+/* Keep Reveal search UI below the fixed search button */
+.reveal .searchbox {
+    top: 56px !important;
+    right: 12px !important;
 }
 
 .fullscreen-mode #toolbar button:not(#fullscreenBtn) {
