@@ -138,6 +138,9 @@ ${markdown}
                 controls: true,
                 progress: true,
                 slideNumber: true,
+                transition: "none",
+                backgroundTransition: 'none',
+                autoAnimate: false,
                 plugins: [
                     RevealMarkdown,
                     RevealNotes,
