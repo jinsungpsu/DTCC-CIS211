@@ -22,7 +22,7 @@ Note:
 - Speaker notes!
 
 <!-- footer -->
-[ Another Link ](https://google.com)
+[ A link in footer ](https://google.com)
 ---
 
 # You
@@ -32,16 +32,6 @@ Note:
 - Goals
 - Career?
 - Other?
-
----
-
-# Post a Picture... Any Picture...
-
-Actually, maybe not **ANY** picture.
-
-Keep it PG-13.
-
-https://padlet.com/jindeltech/cis211sp26
 
 ---
 
