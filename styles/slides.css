@@ -451,6 +451,18 @@ img.large {
     display: none;
 }
 
+.print-slide-footer {
+    display: none;
+}
+
+body.printing .slide-footer {
+    display: none !important;
+}
+
+body.printing .print-slide-footer {
+    display: block !important;
+}
+
 #fixed-footer {
     display: none;
     text-align: center;
@@ -469,6 +481,10 @@ img.large {
     background: transparent;
 }
 
+body.printing #fixed-footer {
+    display: none !important;
+}
+
 #fixed-footer p {
     margin: 0;
 }
@@ -482,6 +498,43 @@ img.large {
 
 #fixed-footer a:hover {
     color: #b0d0ff;
+}
+
+@media print {
+    #fixed-footer {
+        display: none !important;
+        visibility: hidden !important;
+    }
+
+    .reveal .slides section {
+        position: relative !important;
+        padding-bottom: 2.4em !important;
+        box-sizing: border-box;
+    }
+
+    .slide-footer {
+        display: none !important;
+    }
+
+    .print-slide-footer {
+        display: block !important;
+        text-align: center;
+        font-size: var(--footer-font-size);
+        opacity: 1;
+        color: inherit;
+        padding: var(--footer-padding);
+        border-top: var(--footer-border-width) solid var(--footer-border-color);
+        margin-top: 0;
+        position: absolute !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+    }
+
+    .print-slide-footer a {
+        color: inherit;
+        text-decoration: underline;
+    }
 }
 
 /* ===== ADDITIONAL HELPER CLASSES ===== */

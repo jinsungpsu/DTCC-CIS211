@@ -93,6 +93,50 @@ ${markdown}
         );
     }
 
+    function enterPrintMode() {
+        document.body.classList.add("printing");
+        preparePrintFooters();
+        const footerHost = document.getElementById(FOOTER_HOST_ID);
+        if (footerHost) {
+            footerHost.innerHTML = "";
+            footerHost.style.display = "none";
+            footerHost.style.visibility = "hidden";
+        }
+    }
+
+    function exitPrintMode() {
+        document.body.classList.remove("printing");
+        clearPrintFooters();
+        const footerHost = document.getElementById(FOOTER_HOST_ID);
+        if (footerHost) {
+            footerHost.style.visibility = "visible";
+        }
+        syncFixedFooter();
+    }
+
+    function printSlides() {
+        enterPrintMode();
+        window.print();
+    }
+
+    function clearPrintFooters() {
+        document.querySelectorAll(".print-slide-footer").forEach(node => node.remove());
+    }
+
+    function preparePrintFooters() {
+        clearPrintFooters();
+        document.querySelectorAll(".reveal .slides section").forEach(section => {
+            const sourceFooter = section.querySelector(".slide-footer");
+            if (!sourceFooter) {
+                return;
+            }
+
+            const printFooter = sourceFooter.cloneNode(true);
+            printFooter.classList.add("print-slide-footer");
+            section.appendChild(printFooter);
+        });
+    }
+
     function bindToolbar() {
         document.getElementById(BUTTON_IDS.search).addEventListener("click", openSearch);
         document.getElementById(BUTTON_IDS.home).addEventListener("click", () => {
@@ -100,7 +144,7 @@ ${markdown}
         });
         document.getElementById(BUTTON_IDS.prev).addEventListener("click", () => Reveal.prev());
         document.getElementById(BUTTON_IDS.next).addEventListener("click", () => Reveal.next());
-        document.getElementById(BUTTON_IDS.print).addEventListener("click", () => window.print());
+        document.getElementById(BUTTON_IDS.print).addEventListener("click", printSlides);
         document.getElementById(BUTTON_IDS.fullscreen).addEventListener("click", toggleFullscreen);
     }
 
@@ -152,6 +196,8 @@ ${markdown}
             bindToolbar();
             updateFullscreenButton();
             document.addEventListener("fullscreenchange", updateFullscreenButton);
+            window.addEventListener("beforeprint", enterPrintMode);
+            window.addEventListener("afterprint", exitPrintMode);
         })
         .catch(error => {
             console.error("Error loading markdown:", error);
