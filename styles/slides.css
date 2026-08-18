@@ -124,10 +124,15 @@
 }
 
 /* ===== HEADINGS ===== */
+.reveal .slides section {
+    text-align: left;
+}
+
 .reveal h1 {
     font-size: var(--heading-h1-size);
     color: var(--heading-color);
     margin: var(--heading-margin);
+    text-align: left;
 }
 
 .reveal h2 {
@@ -284,6 +289,7 @@ img.large {
     max-width: 100%;
     word-wrap: break-word;
     overflow-wrap: break-word;
+    text-align: left;
     padding: var(--column-padding);
     max-height: 65vh;
     overflow-y: auto;
