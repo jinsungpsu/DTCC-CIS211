@@ -1,0 +1,83 @@
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #f5f7fa;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.hero {
+    background: linear-gradient(135deg, #005a9c, #0078d4);
+    color: white;
+    padding: 40px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, .15);
+}
+
+.hero h1 {
+    margin: 0;
+    font-size: 3em;
+}
+
+.hero p {
+    margin-top: 10px;
+    font-size: 1.2em;
+    opacity: .95;
+}
+
+.module-card {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .08);
+}
+
+.module-card h2 {
+    margin-top: 0;
+    color: #005a9c;
+    border-bottom: 2px solid #e8ecf1;
+    padding-bottom: 10px;
+}
+
+.lecture-link {
+    display: block;
+    text-decoration: none;
+    color: #333;
+    padding: 14px 18px;
+    margin: 10px 0;
+    border: 1px solid #dde3ea;
+    border-radius: 8px;
+    transition: all .2s ease;
+}
+
+.lecture-link:hover {
+    background: #f0f7ff;
+    border-color: #0078d4;
+    transform: translateX(4px);
+}
+
+.lecture-title {
+    font-weight: 600;
+    font-size: 1.1em;
+}
+
+.lecture-desc {
+    color: #666;
+    font-size: .9em;
+    margin-top: 4px;
+}
+
+.footer {
+    text-align: center;
+    color: #888;
+    margin-top: 40px;
+    font-size: .9em;
+}

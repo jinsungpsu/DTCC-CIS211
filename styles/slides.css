@@ -1,0 +1,60 @@
+#toolbar {
+    position: fixed;
+    top: 12px;
+    left: 12px;
+
+    z-index: 10000;
+
+    display: flex;
+    gap: 4px;
+}
+
+#toolbar button {
+
+    height: 34px;
+    padding: 0 10px;
+
+    border: 1px solid #555;
+    border-radius: 4px;
+
+    background: rgba(30,30,30,.85);
+    color: #ddd;
+
+    font-size: 14px;
+    cursor: pointer;
+}
+
+#toolbar button:hover {
+    background: rgba(50,50,50,.95);
+    border-color: #888;
+    color: white;
+}
+
+#toolbar button:active {
+    transform: scale(.96);
+}
+
+#toolbar button:focus {
+    outline: none;
+}
+
+
+.fullscreen-mode #toolbar button:not(#fullscreenBtn) {
+    display: none;
+}
+
+.search-container {
+    margin-right: 10px;
+}
+
+#searchBox {
+    width: 220px;
+    height: 42px;
+
+    padding: 0 12px;
+
+    border: 1px solid #d0d7de;
+    border-radius: 6px;
+
+    font-size: 14px;
+}

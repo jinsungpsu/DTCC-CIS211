@@ -15,7 +15,9 @@
 - Family
 - Technology
 - Sports
-- Faculty Advisor for InterVarsity Christian Fellowship
+
+Note:
+- Speaker notes!
 
 ---
 

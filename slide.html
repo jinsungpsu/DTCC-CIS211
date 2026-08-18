@@ -1,0 +1,122 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js/plugin/highlight/highlight.js"> </script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js/plugin/search/search.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/theme/black.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/plugin/highlight/monokai.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/plugin/search/search.css">
+
+    <link rel="stylesheet" href="styles/slides.css">
+
+</head>
+
+<body>
+
+    <div id="toolbar">
+        <button onclick="openSearch()" title="Search Slides">🔍 Search</button>
+
+        <button onclick="window.location.href='index.html'" title="Return to Lectures">↩ All Lectures</button>
+        <button onclick="Reveal.prev()">◀ Prev</button>
+        <button onclick="Reveal.next()">Next ▶</button>
+        <button onclick="window.print()">🖨 Print</button>
+        <button onclick="toggleFullscreen()" id="fullscreenBtn">⛶ Fullscreen</button>
+    </div>
+
+    <div class="reveal">
+        <div class="slides">
+            <section id="markdown-slide"></section>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js/plugin/markdown/markdown.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js/plugin/notes/notes.js"></script>
+
+    <script>
+
+        const file =
+            new URLSearchParams(window.location.search)
+                .get("deck");
+
+        document
+            .getElementById("markdown-slide")
+            .setAttribute("data-markdown", file);
+
+        Reveal.initialize({
+            hash: true,
+            controls: true,
+            progress: true,
+            slideNumber: true,
+            plugins: [
+                RevealMarkdown,
+                RevealNotes,
+                RevealHighlight,
+                RevealSearch
+            ]
+        });
+
+
+        function toggleFullscreen() {
+
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            }
+            else {
+                document.exitFullscreen();
+            }
+
+        }
+
+        document.addEventListener("fullscreenchange", () => {
+
+            const btn =
+                document.getElementById("fullscreenBtn");
+
+            if (!btn) return;
+
+            if (document.fullscreenElement) {
+
+                document.body.classList.add("fullscreen-mode");
+
+                btn.innerHTML = "✕";
+                btn.title = "Exit Fullscreen";
+
+            }
+            else {
+
+                document.body.classList.remove("fullscreen-mode");
+
+                btn.innerHTML = "⛶ Fullscreen";
+                btn.title = "Enter Fullscreen";
+
+            }
+
+        });
+
+
+        function openSearch() {
+
+            document.dispatchEvent(
+                new KeyboardEvent("keydown", {
+                    key: "F",
+                    ctrlKey: true,
+                    shiftKey: true,
+                    bubbles: true
+                })
+            );
+
+        }
+
+
+    </script>
+
+</body>
+
+</html>
