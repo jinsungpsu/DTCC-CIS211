@@ -2,19 +2,6 @@
 
 ## Data Structures
 
-<!-- column -->
-- some data
-- some more data
-![AI decorative image](images/ai.jpg)
-
-<!-- column -->
-Some more data hi 
-- hi
-- more stuff
-1. hi
-2. hi
-3. bye
-
 <!-- footer -->
 [ Google Link ](https://google.com)
 ---
@@ -150,11 +137,13 @@ Possible situations:
 
 # What About Generative AI?
 
+<!-- column -->
+![AI decorative image](images/ai.jpg)
 
+<!-- column -->
+- (ChatGPT, Gemini, Meta AI, etc.)
 
-(ChatGPT, Gemini, Meta AI, etc.)
-
-- It's a tool
+- It's a tool!
 - In this class, it's a learning tool
 
 ---
@@ -245,9 +234,15 @@ Welcome to CIS211
 
 # Textbooks
 
+<!-- column -->
+
 - Data Structures & Algorithm Analysis
 - Clifford A. Shaffer
-- https://people.cs.vt.edu/shaffer/Book/
+- [Shaffer Textbook Website](https://people.cs.vt.edu/shaffer/Book/)
+
+<!-- column -->
+
+![Shaffer Textbook Screenshot Decorative](images/shaffer-textbook.png)
 
 ---
 

@@ -1,27 +1,27 @@
 /* ===== GLOBAL VARIABLES ===== */
 :root {
     /* ----- MASTER FONT SCALE ----- */
-    --font-scale: 0.80;
+    --font-scale: 1.0;
     
     /* ----- Headings ----- */
-    --heading-h1-size: calc(2.5em * var(--font-scale));
-    --heading-h2-size: calc(1.8em * var(--font-scale));
-    --heading-h3-size: calc(1.4em * var(--font-scale));
-    --heading-h4-size: calc(1.2em * var(--font-scale));
-    --heading-h5-size: calc(1.0em * var(--font-scale));
-    --heading-h6-size: calc(0.9em * var(--font-scale));
+    --heading-h1-size: calc(1.5em * var(--font-scale));
+    --heading-h2-size: calc(1.2em * var(--font-scale));
+    --heading-h3-size: calc(1.0em * var(--font-scale));
+    --heading-h4-size: calc(0.8em * var(--font-scale));
+    --heading-h5-size: calc(0.6em * var(--font-scale));
+    --heading-h6-size: calc(0.4em * var(--font-scale));
     --heading-color: #fff;
     --heading-margin: 0.3em 0 0.2em 0;
     
     /* ----- Body Text ----- */
-    --body-font-size: calc(1em * var(--font-scale));
+    --body-font-size: calc(0.8em * var(--font-scale));
     --body-line-height: 1.4;
     --body-color: #ddd;
     --body-margin: 0.3em 0;
     
     /* ----- Lists ----- */
-    --list-font-size: calc(1em * var(--font-scale));
-    --list-line-height: 1.3;
+    --list-font-size: calc(0.8em * var(--font-scale));
+    --list-line-height: 0.8;
     --list-color: #ddd;
     --list-padding-left: 1.8em;
     --list-margin: 0.15em 0;
@@ -71,14 +71,17 @@
     --column-scrollbar-width: 4px;
     --columns-margin: 0.3rem 0;
     
-    /* ----- Footer - SIMPLE BOTTOM OF CONTENT ----- */
-    --footer-font-size: calc(0.5em * var(--font-scale));
+    /* ----- Footer ----- */
+    --footer-base-font-size: 2em;
+    --footer-font-size: calc(var(--footer-base-font-size) * var(--font-scale));
     --footer-color: #999;
     --footer-opacity: 0.5;
     --footer-padding: 6px 0 4px 0;
     --footer-border-color: rgba(255, 255, 255, 0.06);
     --footer-border-width: 1px;
-    --footer-margin-top: 1rem;
+    --footer-left: 16px;
+    --footer-bottom: 10px;
+    --footer-max-width: 45vw;
 }
 
 /* ===== TOOLBAR ===== */
@@ -118,19 +121,6 @@
 
 .fullscreen-mode #toolbar button:not(#fullscreenBtn) {
     display: none;
-}
-
-.search-container {
-    margin-right: 10px;
-}
-
-#searchBox {
-    width: 220px;
-    height: 42px;
-    padding: 0 12px;
-    border: 1px solid #d0d7de;
-    border-radius: 6px;
-    font-size: 14px;
 }
 
 /* ===== HEADINGS ===== */
@@ -428,32 +418,42 @@ img.large {
     flex: 1;
 }
 
-/* ===== FOOTER - SIMPLE, AT BOTTOM OF SLIDE CONTENT ===== */
+/* ===== FOOTER - FIXED TO VIEWPORT BOTTOM LEFT ===== */
 .slide-footer {
-    display: block !important;
-    visibility: visible !important;
-    text-align: center !important;
-    font-size: var(--footer-font-size) !important;
-    opacity: var(--footer-opacity) !important;
-    color: var(--footer-color) !important;
-    padding: var(--footer-padding) !important;
-    border-top: var(--footer-border-width) solid var(--footer-border-color) !important;
-    margin-top: var(--footer-margin-top) !important;
-    width: 100% !important;
-    pointer-events: auto !important;
-    position: relative !important;
-    clear: both !important;
+    display: none;
 }
 
-.slide-footer a {
-    color: #8bb9ff !important;
-    text-decoration: underline !important;
-    pointer-events: auto !important;
-    cursor: pointer !important;
+#fixed-footer {
+    display: none;
+    text-align: center;
+    font-size: var(--footer-font-size);
+    opacity: var(--footer-opacity);
+    color: var(--footer-color);
+    padding: var(--footer-padding);
+    border-top: var(--footer-border-width) solid var(--footer-border-color);
+    width: auto;
+    max-width: var(--footer-max-width);
+    pointer-events: auto;
+    position: fixed;
+    left: var(--footer-left);
+    bottom: var(--footer-bottom);
+    z-index: 10010;
+    background: transparent;
 }
 
-.slide-footer a:hover {
-    color: #b0d0ff !important;
+#fixed-footer p {
+    margin: 0;
+}
+
+#fixed-footer a {
+    color: #8bb9ff;
+    text-decoration: underline;
+    pointer-events: auto;
+    cursor: pointer;
+}
+
+#fixed-footer a:hover {
+    color: #b0d0ff;
 }
 
 /* ===== ADDITIONAL HELPER CLASSES ===== */
