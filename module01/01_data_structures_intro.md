@@ -2,6 +2,21 @@
 
 ## Data Structures
 
+<!-- column -->
+- some data
+- some more data
+![AI decorative image](images/ai.jpg)
+
+<!-- column -->
+Some more data hi 
+- hi
+- more stuff
+1. hi
+2. hi
+3. bye
+
+<!-- footer -->
+[ Google Link ](https://google.com)
 ---
 
 # Introductions
@@ -134,6 +149,8 @@ Possible situations:
 ---
 
 # What About Generative AI?
+
+
 
 (ChatGPT, Gemini, Meta AI, etc.)
 
