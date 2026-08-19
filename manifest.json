@@ -1,0 +1,146 @@
+{
+    "course": {
+        "code": "CIS211",
+        "name": "Data Structures",
+        "institution": "Delaware Technical Community College",
+        "title": "DTCC"
+    },
+    "modules": [
+        {
+            "folder": "module01",
+            "title": "00_ds_module_overview",
+            "lectures": [
+                {
+                    "file": "01_ds_data_structures_intro.md",
+                    "title": "Welcome to CIS211"
+                }
+            ]
+        },
+        {
+            "folder": "module02",
+            "title": "Array Implementation of the Stack Abstract Data Type (ADT)",
+            "lectures": [
+                {
+                    "file": "01_ds_data_structures_stack_array_interfaces.md",
+                    "title": "Review"
+                },
+                {
+                    "file": "02_ds_same2.md",
+                    "title": "Review"
+                }
+            ]
+        },
+        {
+            "folder": "module03",
+            "title": "Linked Node Implementation of the Stack ADT",
+            "lectures": [
+                {
+                    "file": "01_ds_.md",
+                    "title": "Reference Variables vs. Objects Review"
+                }
+            ]
+        },
+        {
+            "folder": "module04",
+            "title": "Time and Space Complexity - Big O Notation",
+            "lectures": [
+                {
+                    "file": "01_ds_.md",
+                    "title": "Efficiency"
+                }
+            ]
+        },
+        {
+            "folder": "module05",
+            "title": "Circular Array implementation of the Queue ADT",
+            "lectures": [
+                {
+                    "file": "01_ds_.md",
+                    "title": "Queue ADT"
+                }
+            ]
+        },
+        {
+            "folder": "module06",
+            "title": "Doubly-Linked Node Implementation of the Deque ADT",
+            "lectures": [
+                {
+                    "file": "01_ds_.md",
+                    "title": "Deque ADT"
+                }
+            ]
+        },
+        {
+            "folder": "module07",
+            "title": "Hash Table Implementation of the Dictionary/Map ADT",
+            "lectures": [
+                {
+                    "file": "01_ds_.md",
+                    "title": "Dictionary/Map ADT"
+                }
+            ]
+        },
+        {
+            "folder": "module08",
+            "title": "Recursion",
+            "lectures": [
+                {
+                    "file": "01_ds_.md",
+                    "title": "Recursion"
+                }
+            ]
+        },
+        {
+            "folder": "module09",
+            "title": "Sorting Algorithms",
+            "lectures": [
+                {
+                    "file": "01_ds_.md",
+                    "title": "Sorting"
+                }
+            ]
+        },
+        {
+            "folder": "module10",
+            "title": "Tree ADT",
+            "lectures": [
+                {
+                    "file": "01_ds_.md",
+                    "title": "Tree ADT"
+                }
+            ]
+        },
+        {
+            "folder": "module11",
+            "title": "Graph ADT",
+            "lectures": [
+                {
+                    "file": "01_ds_.md",
+                    "title": "Graphs"
+                }
+            ]
+        },
+        {
+            "folder": "module12",
+            "title": "Exam Review",
+            "lectures": [
+                {
+                    "file": "01_ds_exam1_review.md",
+                    "title": "CIS 211 Exam 1"
+                },
+                {
+                    "file": "02_ds_exam2_review.md",
+                    "title": "CIS 211 Exam 2"
+                },
+                {
+                    "file": "03_ds_exam3_review.md",
+                    "title": "CIS 211 Exam 3"
+                },
+                {
+                    "file": "04_ds_exam4_review.md",
+                    "title": "CIS 211 Exam 4"
+                }
+            ]
+        }
+    ]
+}
