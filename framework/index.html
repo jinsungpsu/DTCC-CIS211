@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Course Lectures</title>
+
+    <link rel="stylesheet" href="styles/home.css">
+</head>
+
+<body>
+    <div class="hero">
+        <h1 id="course-code">Course</h1>
+        <p id="course-name">Course Name</p>
+    </div>
+
+    <div id="modules-container">
+        <!-- dynamically generated -->
+    </div>
+
+    <div class="footer" id="course-footer">
+        Institution
+    </div>
+
+    </div>
+
+    <script>
+
+        async function loadManifest() {
+
+            try {
+
+                const response =
+                    await fetch("../manifest.json");
+
+                if (!response.ok) {
+                    throw new Error(
+                        "Could not load manifest.json");
+                }
+
+                const manifest =
+                    await response.json();
+
+                initializeCourse(
+                    manifest.course);
+
+                renderModules(
+                    manifest.modules);
+
+            }
+            catch (error) {
+
+                document.getElementById(
+                    "modules-container")
+                    .innerHTML = `
+                        <div class="module-card">
+                            <h2>Error</h2>
+                            <p>Unable to load lecture catalog.</p>
+                        </div>
+                    `;
+
+                console.error(error);
+            }
+        }
+
+        function initializeCourse(course) {
+
+            document.title =
+                course.homeTitle ??
+                `${course.institution}, ${course.code}`;
+
+            document.getElementById(
+                "course-code")
+                .textContent =
+                course.code;
+
+            document.getElementById(
+                "course-name")
+                .textContent =
+                course.name;
+
+            document.getElementById(
+                "course-footer")
+                .textContent =
+                `${course.institution} • ${course.code}`;
+        }
+
+        function renderModules(modules) {
+
+            const container =
+                document.getElementById(
+                    "modules-container");
+
+            container.innerHTML = "";
+
+            modules.forEach(
+                (module, index) => {
+
+                    const moduleCard =
+                        document.createElement(
+                            "div");
+
+                    moduleCard.className =
+                        "module-card";
+
+                    const moduleTitle =
+                        document.createElement(
+                            "h2");
+
+                    moduleTitle.textContent =
+                        `Module ${index + 1}: ${module.title}`;
+
+                    moduleCard.appendChild(
+                        moduleTitle);
+
+                    module.lectures.forEach(
+                        lecture => {
+
+                            const lectureLink =
+                                document.createElement(
+                                    "a");
+
+                            lectureLink.className =
+                                "lecture-link";
+
+                            lectureLink.href =
+                                `./slide.html?deck=../${module.folder}/${lecture.file}`;
+
+                            lectureLink.innerHTML = `
+                                <div class="lecture-title">
+                                    ${lecture.title}
+                                </div>
+                                <div class="lecture-desc">
+                                    Lecture Slides
+                                </div>
+                            `;
+
+                            moduleCard.appendChild(
+                                lectureLink);
+                        });
+
+                    container.appendChild(
+                        moduleCard);
+                });
+        }
+
+        loadManifest();
+
+    </script>
+
+</body>
+
+</html>
