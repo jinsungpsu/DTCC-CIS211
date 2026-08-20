@@ -116,7 +116,7 @@
 
             if (footerText) {
                 result.push(
-                    `<div class="slide-footer" data-markdown>\n\n${footerText}\n\n</div>`
+                    `<div class="slide-footer" data-markdown>\n\n${footerText}\n\n</div>\n\n`
                 );
             }
         }
@@ -149,7 +149,7 @@
                 `<div class="col" data-markdown>\n\n${colContent}\n\n</div>\n`;
         });
 
-        html += "</div>";
+        html += "</div>\n\n";
 
         return html;
     }
