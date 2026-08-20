@@ -189,6 +189,23 @@ ${markdown}
                 transition: "none",
                 backgroundTransition: 'none',
                 autoAnimate: false,
+                customcontrols: {
+                    controls: [
+                        {
+                            icon: '<i class="fa fa-pen-square"></i>',
+                            title: 'Toggle chalkboard (B)',
+                            action: 'RevealChalkboard.toggleChalkboard();'
+                        },
+                        {
+                            icon: '<i class="fa fa-pen"></i>',
+                            title: 'Toggle notes canvas (C)',
+                            action: 'RevealChalkboard.toggleNotesCanvas();'
+                        }
+                    ]
+                },
+                chalkboard: {
+                    // add configuration here
+                },
                 menu: {
                     // Specifies which side of the presentation the menu will
                     // be shown. Use 'left' or 'right'.
@@ -320,7 +337,9 @@ ${markdown}
                     RevealNotes,
                     RevealHighlight,
                     RevealSearch,
-                    RevealMenu
+                    RevealMenu,
+                    RevealChalkboard,
+                    RevealCustomControls
                 ]
             });
 

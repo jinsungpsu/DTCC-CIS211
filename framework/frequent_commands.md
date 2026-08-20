@@ -5,10 +5,23 @@ python .\framework\tools\generate_manifest.py
 
 ## To pull latest copy of Reveal Lecture Framework code
 `
-git fetch framework
-git rm -r framework
-git commit -m "Remove framework"
-git subtree add --prefix=framework framework main --squash
+framework/tools/test.ps1
+`
+
+it's a script which:
+`
+$repo = "https://github.com/jinsungpsu/DTCC-Lectures-RevealJS-Framework.git"
+
+if (Test-Path framework) {
+    Remove-Item -Recurse -Force framework
+}
+
+git clone $repo framework
+
+Remove-Item -Recurse -Force framework\.git
+
+git add framework
+git commit -m "Update framework"
 git push origin main
 `
 
