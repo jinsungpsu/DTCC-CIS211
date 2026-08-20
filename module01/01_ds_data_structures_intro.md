@@ -216,6 +216,22 @@ Welcome to CIS211
 
 ---
 
+# Review in D2L Brightspace
+
+- Homepage
+    - Announcements
+
+- Getting Started Module
+    - Instructor info
+    - Syllabus
+    - Course policies
+        - ***Late policy: 15% penalty per week, up to 2 weeks***
+            - **If there are extenuating circumstances, communicate them ASAP**
+    - Evaluation Measures & Grading Breakdown
+    - Course Schedule
+
+---
+
 # Textbook
 
 <!-- column -->
