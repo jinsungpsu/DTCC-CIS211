@@ -8,7 +8,7 @@
     "modules": [
         {
             "folder": "module01",
-            "title": "00_ds_module_overview",
+            "title": "Module 1: Introduction to ADT's",
             "lectures": [
                 {
                     "file": "01_ds_data_structures_intro.md",
