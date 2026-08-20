@@ -8,101 +8,113 @@
 
 # Introductions
 
+- About me
+- About you
+- About the course
 ---
 
 # Me
 
-- https://www.linkedin.com/in/jinsungpsu/
-- More about me not in LinkedIn:
+<!-- column -->
+- [LinkedIn: Jin An](https://www.linkedin.com/in/jinsungpsu/)
 - Family
 - Technology
-- Sports
+- Sports (playing/watching)
 
-Note:
-- Speaker notes!
+<!-- column -->
+![Jin An Family Cartoon Image](images/family-cartoon.png)
+![Tennis Image](images/tennis.png)
 
-<!-- footer -->
-[ A link in footer ](https://google.com)
 ---
 
 # You
 
 - Preferred name
-- Hobbies
-- Goals
-- Career?
-- Other?
+- Major
+- Memorable thing from break
+- What makes you happy?
+    - Hobbies? Favorite game/show/food?
 
 ---
 
-# In Case of Emergency...
+# In case of emergency…
 
-Public Safety
+<!-- column -->
 
-https://www.dtcc.edu/about/public-safety/
+- Public Safety
+- https://www.dtcc.edu/about/public-safety/
+- Wilmington: (302) 552-5911
 
-Wilmington: (302) 573-5418
+<!-- column -->
+![Emergency placard hanging in classroom wall](images/dtcc-emergency-placard.png)
 
 ---
 
 # Resources
 
 - Alerts
-- https://dtcc.regroup.com/network/dtcc/preferences/profile
+    - https://dtcc.app.regroup.com/
 - Student Support Center
-- https://www.dtcc.edu/support
+    - https://www.dtcc.edu/support
 - Students in Need
-- https://www.dtcc.edu/student-resources/need/
+    - https://www.dtcc.edu/student-resources/need/
 - Public Safety
-- https://www.dtcc.edu/about/public-safety
+    - https://www.dtcc.edu/about/public-safety
+
+---
+
+# Classroom Expectations
+
+![No headphones or videos during class](images/no-headphones-videos.png)
 
 ---
 
 # Ground Rules
 
+
+## Be respectful and professional
+
+- Be respectful of your classmates and instructor.
+
+## Focus on your goals
+
+- Think about your goals for this course and your future career.
+- Put yourself in the best position to succeed.
+
+## Communicate early
+
+- If something comes up, let me know as early as possible so we can work together on a solution.
 ---
 
-# Treat Each Other as Adults
 
-- Be respectful
-- Put yourself in the best position to succeed
 
-Possible situations:
+# Scenarios
+
+Common situations where communication matters:
 
 - Need to miss class?
-- Late submitting an assignment?
-- Conflict for an upcoming exam?
-- Need to go to the bathroom?
+- Need to submit an assignment late?
+- Have a conflict with an upcoming exam?
+- Need to step out briefly?
 - Expecting an important phone call?
 - Have a question about the topic we're discussing?
+
 
 ---
 
 # Course Communication
 
-- D2L announcements
-- Email
+- D2L (announcements, sign up for notifications)
+- Emails
 
 ---
 
 # Communication Plan and Expectations
 
-- jin.an@dtcc.edu
-- Replies within 24 hours on weekdays
-- 302-223-9494
-- Texts are OK
+- preferred: jin.an@dtcc.edu (replies within 24 hours on weekdays)
+- 302-223-9494 (text messages are OK, but don’t expect instant replies)
 - https://calendly.com/jinandtcc
-- Zoom, phone, or in-person appointments
-
----
-
-# Class
-
-- Syllabus
-- Policies
-- Grading breakdown
-- Assignments overview
-- Tentative schedule
+    - Appointments on Zoom, phone, or in person at WW363
 
 ---
 
@@ -111,108 +123,93 @@ Possible situations:
 - Lecture
 - Discussion
 - Coding demo
-- Hands-on coding
+- Hands on coding
 - Lab time
 
 ---
 
 # Course Resources
 
-- GitHub repository
-- Instructor
-- Classmates
-- Google
-- Stack Overflow
-- YouTube
+- Github code repository
+- Me
+- You
+- [Google](https://lmgtfy.app/?q=how+do+i+write+a+loop), Stack Overflow, YouTube, etc.
 
 ---
 
-# What About Generative AI?
+# What about generative AI (ChatGPT, Gemini, Meta AI, etc.)
 
 <!-- column -->
-![AI decorative image](images/ai.jpg)
+- So what do you do with this technology?
+- It's a tool
+- In your context, it's a learning tool
 
 <!-- column -->
-- (ChatGPT, Gemini, Meta AI, etc.)
-
-- It's a tool!
-- In this class, it's a learning tool
+![AI Decorative Image](images/ai.jpg)
 
 ---
 
 # Academic Integrity
 
----
-
-# Academic Integrity
-
-https://dtcc.smartcatalogiq.com/Current/Catalog/Academics/Academic-Integrity
+- [DTCC Student Handbook / Academic Integrity](https://dtcc.smartcatalogiq.com/Current/Catalog/Academics/Academic-Integrity)
 
 ---
 
-# Most Common in Our Department
+# Most common in our department
 
-Cheating and Plagiarism
+- Cheating and Plagiarism
 
 ---
 
 # Cheating
 
-Examples include:
+Cheating is an act of deception by which a student misrepresents that he or she has mastered information on an academic exercise that he or she has not mastered.
 
-- Copying another student's work
-- Allowing others to copy your work
-- Using unauthorized materials
-- Unauthorized collaboration during testing
-- Using prohibited notes or resources
+- Using and/or copying from another student's work such as test paper, project, or computer program.
+- Allowing another student to copy one’s work.
+- Using unauthorized materials such as a textbook, notebook, cell phone or other technology/materials during testing or competency performance without permission.
+- Collaborating during a test or competency performance without permission.
+- Using specifically prepared materials that are not permitted during a test.
 
 ---
 
 # Plagiarism
 
-Plagiarism is presenting someone else's words, ideas, or data as your own.
+Plagiarism is the inclusion of someone else's words, ideas, or data as one's own work.
 
-Cite sources whenever:
-
-- Quoting
-- Using another person's ideas
-- Using statistics or programs
-- Borrowing non-common knowledge
+- Whenever quoting another person's words.
+- Whenever using another person's idea, opinion, or theory.
+- Whenever borrowing facts, statistics, computer programs, or other illustrative materials unless the information is common knowledge.
 
 ---
 
-# It's OK to Work Together
+# It's OK to work together!
 
-- Write your own code
-- No emailing complete programs
-- No copy/paste submissions
-- Understand everything you submit
-- When in doubt, cite or ask
+- But you still have to write your own code
+- No emailing whole programs
+- No copy/paste
+- Understand everything you are handing in
+- When in doubt, cite and/or contact instructor
 
 ---
 
-# What's the Goal Here?
+# What's the goal here?
 
 - Learning!
-- I'm not trying to "get you"
+- I am not here to "get you."
+- I am not actively trying to find academic integrity infractions.
 
 ---
 
-# Don't Put Yourself in That Position
+# Don't put yourself in that position...
 
-Students who cheat are often:
-
-- Overwhelmed
-- Stressed
-- Behind schedule
-
-Start early.
-
-Communicate.
+- Students who cheat are often stressed and desperate because they waited too long to complete an assignment.
+- Start your work early.
+- Communicate with your instructor.
 
 ---
 
-# Very Obvious Red Flags
+# Very obvious red flags
 
 ...
 
