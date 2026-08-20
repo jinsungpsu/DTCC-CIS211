@@ -202,5 +202,5 @@ class ArrayList<T> implements List<T> {
 
 ---
 
-# Practice/demo
-> Work in class implementing our own ArrayList class
+# Demo
+> In class demonstration working through examples and code live in class.
