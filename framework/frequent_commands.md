@@ -5,8 +5,10 @@ python .\framework\tools\generate_manifest.py
 
 ## To pull latest copy of Reveal Lecture Framework code
 `
-git fetch framework                                                                     
-git subtree pull --prefix=framework framework main --squash
+git fetch framework
+git rm -r framework
+git commit -m "Remove framework"
+git subtree add --prefix=framework framework main --squash
 git push origin main
 `
 
