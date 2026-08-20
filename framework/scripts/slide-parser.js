@@ -1,6 +1,8 @@
 (function (global) {
     const FOOTER_MARKER = "<!-- footer -->";
     const COLUMN_MARKER = "<!-- column -->";
+    const END_COLUMNS_MARKER = "<!-- endcolumns -->";
+
     const SLIDE_SEPARATORS = new Set(["---", "***", "___"]);
 
     function normalizeLineEndings(markdown) {
@@ -13,6 +15,20 @@
 
     function isColumnMarker(line) {
         return line.trim() === COLUMN_MARKER;
+    }
+
+    function isEndColumnsMarker(line) {
+        return line.trim() === END_COLUMNS_MARKER;
+    }
+
+    function isLayoutMarker(line) {
+        const trimmed = line.trim();
+
+        return (
+            trimmed === FOOTER_MARKER ||
+            trimmed === COLUMN_MARKER ||
+            trimmed === END_COLUMNS_MARKER
+        );
     }
 
     function isSlideSeparator(line) {
@@ -37,7 +53,11 @@
         }
 
         slides.push(current.join("\n"));
-        return { slides, separators };
+
+        return {
+            slides,
+            separators
+        };
     }
 
     function joinSlides(slides, separators) {
@@ -46,9 +66,11 @@
         }
 
         let result = slides[0];
+
         for (let i = 1; i < slides.length; i++) {
             result += `\n${separators[i - 1]}\n${slides[i]}`;
         }
+
         return result;
     }
 
@@ -73,11 +95,16 @@
             }
 
             i++;
+
             const footerContent = [];
 
             while (i < lines.length) {
                 const nextLine = lines[i];
-                if (isSlideSeparator(nextLine) || isColumnMarker(nextLine)) {
+
+                if (
+                    isSlideSeparator(nextLine) ||
+                    isLayoutMarker(nextLine)
+                ) {
                     break;
                 }
 
@@ -85,9 +112,12 @@
                 i++;
             }
 
-            if (footerContent.length > 0) {
-                const footerText = footerContent.join("\n").trim();
-                result.push(`<div class="slide-footer" data-markdown>\n\n${footerText}\n\n</div>`);
+            const footerText = footerContent.join("\n").trim();
+
+            if (footerText) {
+                result.push(
+                    `<div class="slide-footer" data-markdown>\n\n${footerText}\n\n</div>`
+                );
             }
         }
 
@@ -97,62 +127,93 @@
     function parseColumns(markdown) {
         const split = splitSlides(markdown);
         const processedSlides = split.slides.map(processSlide);
+
         return joinSlides(processedSlides, split.separators);
+    }
+
+    function finalizeColumn(columns, currentColumn) {
+        const content = currentColumn.join("\n").trim();
+
+        if (content) {
+            columns.push(content);
+        }
+    }
+
+    function buildColumnsHtml(columns) {
+        const colsClass = `cols-${columns.length}`;
+
+        let html = `<div class="columns-container ${colsClass}">\n`;
+
+        columns.forEach(colContent => {
+            html +=
+                `<div class="col" data-markdown>\n\n${colContent}\n\n</div>\n`;
+        });
+
+        html += "</div>";
+
+        return html;
     }
 
     function processSlide(slide) {
         const lines = slide.split("\n");
         const result = [];
+
         let i = 0;
 
         while (i < lines.length) {
             const line = lines[i];
+
+            // Ignore stray endcolumns markers
+            if (isEndColumnsMarker(line)) {
+                i++;
+                continue;
+            }
+
+            // Normal slide content
             if (!isColumnMarker(line)) {
                 result.push(line);
                 i++;
                 continue;
             }
 
-            i++;
             const columns = [];
-            let currentCol = [];
-            let inColumn = true;
+            let currentColumn = [];
 
-            while (i < lines.length && inColumn) {
-                const nextLine = lines[i];
+            while (i < lines.length) {
+                const currentLine = lines[i];
 
-                if (isColumnMarker(nextLine)) {
-                    if (currentCol.length > 0) {
-                        columns.push(currentCol.join("\n"));
-                    }
-                    currentCol = [];
+                if (isColumnMarker(currentLine)) {
+                    finalizeColumn(columns, currentColumn);
+                    currentColumn = [];
                     i++;
                     continue;
                 }
 
-                if (isFooterMarker(nextLine)) {
-                    inColumn = false;
+                if (
+                    isEndColumnsMarker(currentLine) ||
+                    isFooterMarker(currentLine)
+                ) {
                     break;
                 }
 
-                currentCol.push(nextLine);
+                currentColumn.push(currentLine);
                 i++;
             }
 
-            if (currentCol.length > 0) {
-                columns.push(currentCol.join("\n"));
-            }
+            finalizeColumn(columns, currentColumn);
 
             if (columns.length >= 2) {
-                const colsClass = `cols-${Math.min(columns.length, 4)}`;
-                let html = `<div class="columns-container ${colsClass}">\n`;
-                columns.forEach(colContent => {
-                    html += `<div class="col" data-markdown>\n\n${colContent}\n\n</div>\n`;
-                });
-                html += "</div>";
-                result.push(html);
-            } else if (columns.length === 1) {
+                result.push(buildColumnsHtml(columns));
+            }
+            else if (columns.length === 1) {
                 result.push(columns[0]);
+            }
+
+            if (
+                i < lines.length &&
+                isEndColumnsMarker(lines[i])
+            ) {
+                i++;
             }
         }
 
