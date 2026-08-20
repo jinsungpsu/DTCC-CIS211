@@ -1,143 +1,9 @@
-# Review
-
-- ArrayList class
-
----
-# Java Interfaces
-
----
-# ADT/Interface - no implementation details
-
-An interface in Java is an abstract type used to specify behavior.
-
-<!-- footer -->
-https://www.geeksforgeeks.org/interfaces-in-java/
-
----
-# Uses of Interfaces
-
-- Achieve abstraction
-- Support multiple inheritance of type
-- A class can implement multiple interfaces
-
----
-# Implementing an Interface
-
-```java
-class ArrayStack implements Stack {
-}
-```
-
----
-# From Previous Examples
-
-- List ADT and implementations
-
----
-# Example of a List Interface
-
-```java
-interface List {
-    public void add(int item);
-    public void remove(int item);
-    public int size();
-}
-```
-
----
-# Example of List Implementation
-
-```java
-class ArrayList implements List {
-    // must implement all interface methods
-}
-```
-
----
-# java.util.List
-
-- Interface
-- Implementations:
-  - ArrayList
-  - LinkedList
-
----
-# Polymorphism
-
-```java
-List<Integer> numList = new ArrayList<>();
-List<Integer> numList2 = new LinkedList<>();
-```
-
----
-# Java Generics
-
----
-# ArrayList<?>
-
-```java
-ArrayList<Integer> myNums;
-ArrayList<Character> myLetters;
-```
-
----
-# What is Generics?
-
-Generics are parameterized types.
-
-<!-- footer -->
-https://www.geeksforgeeks.org/generics-in-java/
-
----
-# Why Generics?
-
-1. Code reuse
-2. Type safety
-
----
-# More on Type Safety
-
-<!-- footer -->
-https://www.baeldung.com/cs/type-safety-programming
-
----
-# Future Type Constraints
-
-```java
-class ArrayStack<E extends Comparable> {
-}
-```
-
-<!-- footer -->
-https://docs.oracle.com/javase/8/docs/api/java/lang/Comparable.html
-
----
-# Array Implementation of List ADT
-
----
-# Generic List Interface
-
-```java
-interface List<T> {
-    public void add(T item);
-    public void remove(int index);
-    public int size();
-}
-```
-
----
-# Implementation of List Using Array
-
-```java
-class ArrayList<T> implements List<T> {
-}
-```
-
----
-# Stack ADT
+# Intro to Stack ADT and Array Implementation
 
 ---
 # Balanced Brackets Problem
+
+How would you program a solution to this problem?
 
 Determine if (), {}, [] are balanced.
 
@@ -151,22 +17,51 @@ Examples:
 => Not Balanced
 ```
 
----
-# Valid Example
+<!-- column -->
+Valid Example (balanced)
 
 ```text
 ((()))
 ```
 
----
-# Invalid Example
+<!-- column -->
+Invalid Example (unbalanced)
 
 ```text
 ((())
 ```
 
 ---
-# ADT - Abstract Data Type
+
+# How Do We Solve This Problem?
+
+To determine whether brackets are balanced, we need a way to:
+
+- Remember recently encountered opening brackets.
+- Match each closing bracket with the correct opening bracket.
+- Process the symbols in order.
+
+Before writing code, we should think about what operations are needed.
+
+---
+# Using an ADT to Solve Problems
+
+An **Abstract Data Type (ADT)** focuses on:
+
+- What data is stored.
+- What operations are available.
+- How the data is used.
+
+An ADT helps us think about the solution before worrying about implementation details.
+
+- Common ADTs include **Stacks**, **Queues**, **Lists**, and **Trees**.
+- As we become familiar with these ADTs, we can choose the one that best fits a problem.
+- The right ADT can simplify both program design and algorithm development.
+
+These requirements closely match the operations of a **Stack ADT**.
+
+---
+# Stack ADT
 
 Data:
 - Collection of items
@@ -176,10 +71,20 @@ Operations:
 - pop
 - peek
 
+> Not worried about ***implementation details*** just yet.
+
 ---
 # What is a Stack?
 
-[Diagram showing stack structure]
+<!-- column -->
+![Image of stack of books](images/stack-books.jpg)
+<!-- column -->
+![Image of stack of coins](images/stack-coins.jpg)
+<!-- column -->
+![Image of stack of boxes](images/stack-boxes.jpg)
+
+<!-- endcolumns -->
+> ***Natural*** way of interacting with these... on the top
 
 ---
 # Stack Operations

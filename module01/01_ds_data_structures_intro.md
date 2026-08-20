@@ -1,9 +1,7 @@
-# Welcome to CIS211
+# Course Introduction, Review, and Introduction to ADT's
 
-## Data Structures
-
-<!-- footer -->
-[ Google Link ](https://google.com)
+## CIS 211: Data Structures
+#### Delaware Technical Community College
 ---
 
 # Introductions
@@ -86,8 +84,6 @@
 - If something comes up, let me know as early as possible so we can work together on a solution.
 ---
 
-
-
 # Scenarios
 
 Common situations where communication matters:
@@ -98,7 +94,6 @@ Common situations where communication matters:
 - Need to step out briefly?
 - Expecting an important phone call?
 - Have a question about the topic we're discussing?
-
 
 ---
 
@@ -221,13 +216,13 @@ Welcome to CIS211
 
 ---
 
-# Textbooks
+# Textbook
 
 <!-- column -->
 
 - Data Structures & Algorithm Analysis
-- Clifford A. Shaffer
-- [Shaffer Textbook Website](https://people.cs.vt.edu/shaffer/Book/)
+    - Clifford A. Shaffer
+    - [Shaffer Textbook Website](https://people.cs.vt.edu/shaffer/Book/)
 
 <!-- column -->
 
@@ -246,7 +241,7 @@ Welcome to CIS211
 
 ---
 
-# The Three-Headed Monster
+# Three-Headed Monster
 
 <!-- column -->
 - Data Structures
@@ -271,7 +266,7 @@ Operations and procedures designed to:
 - Sort
 - Insert
 - Delete
-- Traverse
+- Traversal
 
 Later:
 
@@ -282,18 +277,15 @@ Later:
 
 # Efficiency
 
-Resource usage:
-
-- Time efficiency
+- Time
+    - How fast
 - Space efficiency
+    - How much resources are needed
 
 ---
 
 # Java Review
-
----
-
-# Review Topics
+## Review Topics
 
 - Arrays
 - CSV files
@@ -364,28 +356,28 @@ Create a class representing one row.
 
 # Example Dataset
 
+Fun, beginner-friendly datasets
+- https://www.kaggle.com/code/rtatman/fun-beginner-friendly-datasets
+
 UFO Sightings
-
-https://www.kaggle.com/code/rtatman/fun-beginner-friendly-datasets
-
-https://www.kaggle.com/datasets/NUFORC/ufo-sightings
+- https://www.kaggle.com/datasets/NUFORC/ufo-sightings
 
 ---
 
-# What Is Each Row?
+# UFO Sightings
+
+What Is Each Row?
 <pre>
 First 2 Rows:
 datetime,city,state,country,shape,duration (seconds),duration (hours/min),comments,date posted,latitude,longitude
 10/10/1949 20:30,san marcos,tx,us,cylinder,2700,45 minutes,"This event took place in early fall around 1949-50. It occurred after a Boy Scout meeting in the Baptist Church. The Baptist Church sit",4/27/2004,29.8830556,-97.9411111
 </pre>
 
+- 1st row: Header row
+- 2nd row: UFO sighting data 
 ---
 
-
-
-A UFO Sighting.
-
-Fields include:
+# Data Fields
 
 - datetime
 - city
@@ -399,16 +391,22 @@ Fields include:
 
 ---
 
-# UFO Sightings
-
 # UFO Sighting Class
 
+<!-- column -->
 - Data?
 - Methods?
 - Constructors?
 - toString()?
 - Other behaviors?
 
+<!-- column -->
+```java
+class UFOSighting {
+    private String city;
+    ...
+}
+```
 ---
 
 # First Row Example
@@ -426,7 +424,7 @@ Fields include:
 
 # Watch Out for Commas
 
-Problem:
+## Problem:
 
 What if commas occur inside quoted text?
 
@@ -443,16 +441,13 @@ String[] data =
     line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
 ```
 
-What is regex?
-
-https://en.wikipedia.org/wiki/Regular_expression
+<!-- footer -->
+What is regex? https://en.wikipedia.org/wiki/Regular_expression
 
 ---
 
 # Interact With the Data
-
-Questions:
-
+Try writing some code to answer...
 - How many sightings were in Delaware?
 - Most common month?
 - Most common year?
@@ -468,44 +463,65 @@ UFOSightings
 - Data?
 - Methods?
 
+Different than a single UFOSighting ...
+- This is a collection of all the sightings
+- Similar to the difference between `int` and `int[]`
+
+---
+# UFOSightings Class
+```java
+class UFOSightings {
+    private ArrayList<UFOSighting> sightings;
+
+    public String getStateWithMostSightings() {
+        ...
+    }
+
+    public int getNumSightingsByState(String state) {
+        ...
+    }
+}
+```
 ---
 
 # Introduction to ADTs
+## Abstract Data Types
 
----
-
-# Abstract Data Types
-
-You should already know:
+You should already know what these mean:
 
 - Abstract
 - Data Types
 
 ---
 
-# ADT vs Implementation
+# Abstract
 
+- Hiding unnecessary details
 ---
 
 # Data Types
+
+- A data type is a category of data that determines what values can be stored and what operations can be performed on those values.
+
+<!-- column -->
 
 Examples:
 
 - int
 - String
 
+<!-- column -->
 A data type combines:
 
 - Data
 - Operations
 
+<!-- endcolumns -->
 Examples:
 
 ```java
 1 + 2
-```
 
-```java
 "Hello".length()
 ```
 
@@ -519,9 +535,8 @@ Think:
 - What something does
 
 Includes:
-
-- Fields
-- Methods
+- Instance variables
+- public Methods
 
 ---
 

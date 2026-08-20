@@ -12,7 +12,7 @@
             "lectures": [
                 {
                     "file": "01_ds_data_structures_intro.md",
-                    "title": "Welcome to CIS211"
+                    "title": "Course Introduction, Review, and Introduction to ADT's"
                 }
             ]
         },
@@ -21,12 +21,12 @@
             "title": "Array Implementation of the Stack Abstract Data Type (ADT)",
             "lectures": [
                 {
-                    "file": "01_ds_data_structures_stack_array_interfaces.md",
-                    "title": "Review"
+                    "file": "01_ds_arraylist_interfaces_generics_.md",
+                    "title": "ArrayList Review, Interfaces, Generics"
                 },
                 {
-                    "file": "02_ds_same2.md",
-                    "title": "Review"
+                    "file": "02_ds_array_implementation_of_stack.md",
+                    "title": "Intro to Stack ADT and Array Implementation"
                 }
             ]
         },
