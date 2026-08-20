@@ -19,6 +19,41 @@ def first_heading(path, level):
     return None
 
 
+def get_course_message(path):
+    """Extract any content after the headings (level 4+) from module00."""
+    if not path or not path.exists():
+        return None
+    
+    with open(path, encoding="utf-8") as f:
+        lines = f.readlines()
+    
+    # Skip heading lines (levels 1-3) and find content after them
+    message_lines = []
+    found_content = False
+    
+    for line in lines:
+        stripped = line.strip()
+        
+        # Skip empty lines at the beginning
+        if not found_content and not stripped:
+            continue
+            
+        # If we find a level 4 heading or regular text, start collecting
+        if stripped and (re.match(r'^#{4}\s+', stripped) or not re.match(r'^#{1,3}\s+', stripped)):
+            found_content = True
+            # Remove heading markers if it's a level 4 heading
+            if re.match(r'^#{4}\s+', stripped):
+                message_lines.append(re.sub(r'^#{4}\s+', '', stripped))
+            else:
+                message_lines.append(stripped)
+        elif found_content:
+            # Keep collecting after we've started
+            if stripped:
+                message_lines.append(stripped)
+    
+    return ' '.join(message_lines) if message_lines else None
+
+
 #
 # Course root:
 # DTCC-CSC164/
@@ -41,7 +76,7 @@ course = {
     "code": "",
     "name": "",
     "institution": "",
-    "title": ""
+    "message": ""  # Added field for the extra message
 }
 
 module00 = ROOT / "module00"
@@ -67,8 +102,9 @@ if module00.exists():
             first_heading(info_file, 3) or ""
         )
 
-        course["title"] = (
-            first_heading(info_file, 4) or ""
+        # Get any additional message content (level 4+ or text after headings)
+        course["message"] = (
+            get_course_message(info_file) or ""
         )
 
 

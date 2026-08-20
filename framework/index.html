@@ -11,19 +11,26 @@
 </head>
 
 <body>
-    <div class="hero">
-        <h1 id="course-code">Course</h1>
-        <p id="course-name">Course Name</p>
-    </div>
+    <div class="container">
+        <div class="hero">
+            <h1 id="course-code">Course</h1>
+            <p id="course-name">Course Name</p>
+        </div>
 
-    <div id="modules-container">
-        <!-- dynamically generated -->
-    </div>
+        <!-- Callout/Alert box for course message -->
+        <div id="course-message-container" class="alert-callout" style="display: none;">
+            <div class="alert-content">
+                <p id="course-message"></p>
+            </div>
+        </div>
 
-    <div class="footer" id="course-footer">
-        Institution
-    </div>
+        <div id="modules-container">
+            <!-- dynamically generated -->
+        </div>
 
+        <div class="footer" id="course-footer">
+            Institution
+        </div>
     </div>
 
     <script>
@@ -85,6 +92,17 @@
                 "course-footer")
                 .textContent =
                 `${course.institution} • ${course.code}`;
+
+            // Show the message in a callout box if it exists
+            const messageContainer = document.getElementById("course-message-container");
+            const messageElement = document.getElementById("course-message");
+            
+            if (course.message) {
+                messageElement.textContent = course.message;
+                messageContainer.style.display = "block";
+            } else {
+                messageContainer.style.display = "none";
+            }
         }
 
         function renderModules(modules) {
