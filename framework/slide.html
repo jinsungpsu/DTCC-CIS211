@@ -3,47 +3,54 @@
 
 <head>
     <meta charset="utf-8">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/theme/dracula.css">
 
-
-
-    <!-- reveal plug ins styles -->
-    <!-- highlight for code highlighting -->
+    <!-- reveal plugins styles -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/plugin/highlight/monokai.css">
-
-    <!-- search for searching through slides -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/plugin/search/search.css">
 
-    <!-- 3rd party plug  ins -->
-    <link rel=" stylesheet" href="node_modules/reveal.js-menu/menu.css">
-
-    <!-- Font awesome is required for the chalkboard plugin -->
+    <!-- 3rd party plugins -->
+    <link rel="stylesheet" href="node_modules/reveal.js-menu/menu.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <!-- Custom controls plugin is used to for opening and closing annotation modes. -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js-plugins@latest/customcontrols/style.css">
-
-    <!-- Chalkboard plugin -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js-plugins@latest/chalkboard/style.css">
 
     <!-- custom styles -->
-    <link rel=" stylesheet" href="styles/slides.css">
+    <link rel="stylesheet" href="styles/slides.css">
 
 </head>
 
 <body>
+<div id="toolbar">
 
-    <div id="toolbar">
-        <button id="homeBtn" title="Return to Lectures">↩ All Lectures</button>
-        <button id="prevBtn">◀ Prev</button>
-        <button id="nextBtn">Next ▶</button>
-        <button id="printBtn">🖨 Print</button>
-        <button id="fullscreenBtn">⛶ Fullscreen</button>
-    </div>
-    <button id="searchBtn" title="Search Slides">🔍 Search</button>
+    <!-- Group 2: Lecture Navigation -->
+    <span class="toolbar-group">
+        <span class="toolbar-group-label">Lectures</span>
+        <button id="homeBtn" title="Return to Lectures">☰ All</button>
+        <button id="prevLectureBtn" title="Previous Lecture">◀ Prev</button>
+        <button id="nextLectureLectureBtn" title="Next Lecture">Next ▶</button>
+    </span>
+
+    <!-- Group 3: Slide Navigation -->
+    <span class="toolbar-group">
+        <span class="toolbar-group-label">Slides</span>
+        <button id="menuBtn" title="Table of Contents">☰ All</button>
+        <button id="prevBtn" title="Previous Slide">◀ Prev</button>
+        <button id="nextBtn" title="Next Slide">Next ▶</button>
+    </span>
+
+    <!-- Group 4: Tools -->
+    <span class="toolbar-group">
+        <span class="toolbar-group-label">Tools</span>
+        <button id="searchBtn" title="Search Slides">🔍</button>
+        <button id="notesBtn" title="Toggle Notes Canvas">✏️</button>
+        <button id="printBtn">🖨</button>
+        <button id="fullscreenBtn">⛶</button>
+    </span>
+</div>
 
     <div id="fixed-footer" aria-live="polite"></div>
 
@@ -53,7 +60,6 @@
         </div>
     </div>
 
-
     <!-- revealjs -->
     <script src="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.js"></script>
 
@@ -61,19 +67,18 @@
     <script src="https://cdn.jsdelivr.net/npm/reveal.js/plugin/markdown/markdown.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/reveal.js/plugin/notes/notes.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/reveal.js/plugin/search/search.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/reveal.js/plugin/highlight/highlight.js"> </script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js/plugin/highlight/highlight.js"></script>
 
     <!-- 3rd party plugins -->
     <script src="node_modules/reveal.js-menu/menu.js"></script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/reveal.js-plugins@latest/customcontrols/plugin.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/reveal.js-plugins@latest/chalkboard/plugin.js"></script>
 
     <!-- Custom scripts -->
     <script src="scripts/slide-parser.js"></script>
     <script src="scripts/slide-app.js"></script>
+    <script src="scripts/lecture-nav.js"></script>
 
 </body>
 

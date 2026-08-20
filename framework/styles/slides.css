@@ -2,7 +2,7 @@
 :root {
     /* ----- MASTER FONT SCALE ----- */
     --font-scale: 1.5;
-    
+
     /* ----- Headings ----- */
     --heading-h1-size: calc(1.5em * var(--font-scale));
     --heading-h2-size: calc(1.2em * var(--font-scale));
@@ -12,13 +12,13 @@
     --heading-h6-size: calc(0.4em * var(--font-scale));
     --heading-color: #fff;
     --heading-margin: 0.3em 0 0.2em 0;
-    
+
     /* ----- Body Text ----- */
     --body-font-size: calc(0.8em * var(--font-scale));
     --body-line-height: 1.0;
     --body-color: #ddd;
     --body-margin: 0.3em 0;
-    
+
     /* ----- Lists ----- */
     --list-font-size: calc(0.65em * var(--font-scale));
     --list-line-height: 1.0em;
@@ -27,18 +27,18 @@
     --list-margin: 0.15em 0;
     --list-item-margin: 0.05em 0;
     --list-item-padding: 0;
-    
+
     /* ----- Nested Lists ----- */
     --nested-list-padding-left: 1.5em;
     --nested-list-margin: 0.05em 0;
-    
+
     /* ----- Code Blocks ----- */
     --code-font-size: calc(0.9em * var(--font-scale));
     --code-background: rgba(255, 255, 255, 0.08);
     --code-color: #f8f8f2;
     --code-padding: 0.2em 0.4em;
     --code-border-radius: 3px;
-    
+
     /* ----- Pre (Code Blocks) ----- */
     --pre-font-size: calc(0.5em * var(--font-scale));
     --pre-background: rgba(255, 255, 255, 0.05);
@@ -46,12 +46,12 @@
     --pre-padding: 0.6em 0.8em;
     --pre-border-radius: 4px;
     --pre-margin: 0.3em 0;
-    
+
     /* ----- Images ----- */
     --image-max-width: 100%;
     --image-max-height: 100%;
     --image-margin: 0.3em auto;
-    
+
     /* ----- Blockquotes ----- */
     --blockquote-font-size: calc(1em * var(--font-scale));
     --blockquote-color: #aaa;
@@ -59,18 +59,18 @@
     --blockquote-border-width: 4px;
     --blockquote-padding: 0.3em 1em;
     --blockquote-margin: 0.3em 0;
-    
+
     /* ----- Tables ----- */
     --table-font-size: calc(0.85em * var(--font-scale));
     --table-border-color: #444;
     --table-cell-padding: 0.3em 0.6em;
-    
+
     /* ----- Columns ----- */
     --columns-gap: calc(2rem * var(--font-scale));
     --column-padding: 0 8px 0 4px;
     --column-scrollbar-width: 4px;
     --columns-margin: 0.3rem 0;
-    
+
     /* ----- Footer ----- */
     --footer-base-font-size: 2em;
     --footer-font-size: calc(var(--footer-base-font-size) * var(--font-scale));
@@ -84,60 +84,242 @@
     --footer-max-width: 45vw;
 }
 
-/* ===== TOOLBAR ===== */
+/* ===== TOOLBAR - FULL WIDTH, SINGLE ROW ===== */
 #toolbar {
     position: fixed;
-    top: 12px;
-    left: 12px;
+    top: 0;
+    left: 0;
+    right: 0;
     z-index: 10000;
     display: flex;
-    gap: 4px;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    padding: 6px 16px;
+    background: rgba(30, 30, 40, 0.95);
+    border-bottom: 1px solid #444;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    min-height: 44px;
+    width: 100%;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
 }
 
+/* ===== TOOLBAR GROUPS ===== */
+.toolbar-group {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0 12px;
+    border-right: 1px solid #3a3a4a;
+    min-height: 34px;
+    flex-shrink: 0;
+}
+
+.toolbar-group:last-child {
+    border-right: none;
+}
+
+/* ===== GROUP LABELS - WHITE, CONSISTENT ===== */
+.toolbar-group-label {
+    font-size: 11px;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-right: 6px;
+    font-weight: 600;
+    user-select: none;
+    opacity: 0.8;
+    white-space: nowrap;
+}
+
+/* ===== TOOLBAR BUTTONS - UNIFORM ===== */
 #toolbar button,
-#searchBtn {
-    height: 34px;
-    padding: 0 10px;
+#searchBtn,
+.toolbar-group .slide-menu-button a {
+    height: 30px;
+    padding: 0 12px;
     border: 1px solid #555;
     border-radius: 4px;
-    background: rgba(30,30,30,.85);
+    background: rgba(255, 255, 255, 0.05);
     color: #ddd;
-    font-size: 14px;
+    font-size: 13px;
+    font-family: inherit;
     cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 32px;
+    flex-shrink: 0;
 }
 
 #toolbar button:hover,
-#searchBtn:hover {
-    background: rgba(50,50,50,.95);
+#searchBtn:hover,
+.toolbar-group .slide-menu-button a:hover {
+    background: rgba(255, 255, 255, 0.12);
     border-color: #888;
-    color: white;
+    color: #ffffff;
 }
 
 #toolbar button:active,
-#searchBtn:active {
-    transform: scale(.96);
+#searchBtn:active,
+.toolbar-group .slide-menu-button a:active {
+    transform: scale(0.95);
+    background: rgba(255, 255, 255, 0.18);
 }
 
 #toolbar button:focus,
 #searchBtn:focus {
     outline: none;
+    border-color: #8af;
+    box-shadow: 0 0 0 2px rgba(136, 170, 255, 0.2);
 }
 
-#searchBtn {
-    position: fixed;
-    top: 12px;
-    right: 12px;
-    z-index: 10000;
+#toolbar button:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+    transform: none;
 }
 
-/* Keep Reveal search UI below the fixed search button */
+#toolbar button:disabled:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: #555;
+    transform: none;
+}
+
+/* ===== LECTURE NAV INFO ===== */
+#lecture-nav-info {
+    color: #8af;
+    font-weight: bold;
+    font-size: 13px;
+    padding: 0 6px;
+    min-width: 50px;
+    text-align: center;
+    font-family: 'Courier New', monospace;
+    flex-shrink: 0;
+}
+
+/* ===== TOOLBAR: CUSTOM CONTROLS ===== */
+#toolbar #customcontrols {
+    position: static;
+    display: flex !important;
+    align-items: center;
+    width: auto !important;
+}
+
+#toolbar #customcontrols ul {
+    position: static !important;
+    display: flex !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+}
+
+#toolbar #customcontrols li {
+    display: flex;
+}
+
+#toolbar #customcontrols button {
+    margin: 0;
+}
+
+/* ===== TOOLBAR: SLIDE MENU BUTTON ===== */
+#toolbar .slide-menu-button {
+    position: static !important;
+    display: flex !important;
+    align-items: center !important;
+    width: auto !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+}
+
+#toolbar .slide-menu-button a {
+    text-decoration: none;
+}
+
+#toolbar .slide-menu-button svg {
+    width: 16px;
+    height: 16px;
+    display: block;
+}
+
+/* ===== FULLSCREEN MODE - ONLY THE EXIT BUTTON VISIBLE ===== */
+.fullscreen-mode #toolbar {
+    opacity: 1;
+    background: transparent;
+    border-bottom: none;
+    box-shadow: none;
+    backdrop-filter: none;
+}
+
+.fullscreen-mode #toolbar .toolbar-group,
+.fullscreen-mode #toolbar .toolbar-group-label,
+.fullscreen-mode #toolbar #lecture-nav-info,
+.fullscreen-mode #toolbar #searchBtn,
+.fullscreen-mode #toolbar #menuBtn,
+.fullscreen-mode #toolbar #prevBtn,
+.fullscreen-mode #toolbar #nextBtn,
+.fullscreen-mode #toolbar #homeBtn,
+.fullscreen-mode #toolbar #prevLectureBtn,
+.fullscreen-mode #toolbar #nextLectureLectureBtn,
+.fullscreen-mode #toolbar #notesBtn,
+.fullscreen-mode #toolbar #printBtn {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    width: 0 !important;
+    height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    overflow: hidden !important;
+}
+
+.fullscreen-mode #toolbar #fullscreenBtn {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    width: auto !important;
+    height: 30px !important;
+    padding: 0 12px !important;
+    margin: 0 !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    background: rgba(0, 0, 0, 0.6) !important;
+    color: #fff !important;
+    font-size: 18px !important;
+    border-radius: 4px !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    flex-shrink: 0 !important;
+}
+
+.fullscreen-mode #toolbar #fullscreenBtn:hover {
+    background: rgba(255, 255, 255, 0.15) !important;
+    border-color: rgba(255, 255, 255, 0.6) !important;
+    transform: scale(1.05);
+}
+
+.fullscreen-mode #toolbar #fullscreenBtn:active {
+    transform: scale(0.95);
+}
+
+/* ===== SEARCH UI ===== */
 .reveal .searchbox {
-    top: 56px !important;
-    right: 12px !important;
-}
-
-.fullscreen-mode #toolbar button:not(#fullscreenBtn) {
-    display: none;
+    position: fixed !important;
+    top: 52px !important;
+    left: 75% !important;
+    transform: translateX(-50%) !important;
+    width: 400px;
+    max-width: 80vw;
+    z-index: 10001 !important;
 }
 
 /* ===== HEADINGS ===== */
@@ -427,7 +609,7 @@ img.large {
         gap: 1.5rem;
         margin: 0.3rem 0;
     }
-    
+
     .columns-container .col {
         flex: 1 1 auto;
         width: 100%;
@@ -436,7 +618,7 @@ img.large {
         display: block;
         padding: 0 8px;
     }
-    
+
     .columns-container .col img {
         max-height: 30vh;
     }
@@ -444,6 +626,139 @@ img.large {
 
 .columns-container .col:only-child {
     flex: 1;
+}
+
+/* ===== RESPONSIVE - TOOLBAR ===== */
+@media (max-width: 1024px) {
+    #toolbar {
+        padding: 4px 10px;
+        min-height: 38px;
+        justify-content: flex-start;
+    }
+
+    .toolbar-group {
+        padding: 0 8px;
+    }
+
+    #toolbar button,
+    #searchBtn,
+    .toolbar-group .slide-menu-button a {
+        font-size: 12px;
+        padding: 0 8px;
+        height: 26px;
+    }
+
+    .toolbar-group-label {
+        font-size: 10px;
+        margin-right: 4px;
+    }
+
+    #lecture-nav-info {
+        font-size: 12px;
+        min-width: 40px;
+    }
+}
+
+@media (max-width: 768px) {
+    #toolbar {
+        padding: 3px 6px;
+        min-height: 34px;
+        gap: 0;
+    }
+
+    .toolbar-group {
+        padding: 0 4px;
+        gap: 2px;
+    }
+
+    .toolbar-group-label {
+        display: none;
+    }
+
+    #toolbar button,
+    #searchBtn,
+    .toolbar-group .slide-menu-button a {
+        font-size: 10px;
+        padding: 0 5px;
+        height: 22px;
+        min-width: 24px;
+    }
+
+    #lecture-nav-info {
+        font-size: 10px;
+        min-width: 30px;
+        padding: 0 3px;
+    }
+
+    .toolbar-group {
+        border-right: 1px solid #2a2a3a;
+    }
+
+    .toolbar-group:last-child {
+        border-right: none;
+    }
+}
+
+@media (max-width: 500px) {
+    #toolbar {
+        padding: 2px 4px;
+        min-height: 30px;
+        gap: 0;
+        overflow-x: auto;
+        overflow-y: hidden;
+        flex-wrap: nowrap;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+
+    #toolbar::-webkit-scrollbar {
+        display: none;
+    }
+
+    .toolbar-group {
+        padding: 0 3px;
+        gap: 1px;
+        border-right: 1px solid #2a2a3a;
+        min-height: 26px;
+        flex-shrink: 0;
+    }
+
+    .toolbar-group:last-child {
+        border-right: none;
+    }
+
+    #toolbar button,
+    #searchBtn,
+    .toolbar-group .slide-menu-button a {
+        font-size: 9px;
+        padding: 0 4px;
+        height: 20px;
+        min-width: 20px;
+        border-width: 1px;
+    }
+
+    #lecture-nav-info {
+        font-size: 9px;
+        min-width: 24px;
+        padding: 0 2px;
+    }
+}
+
+/* ===== FULLSCREEN MODE RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .fullscreen-mode #toolbar #fullscreenBtn {
+        height: 26px !important;
+        padding: 0 10px !important;
+        font-size: 16px !important;
+    }
+}
+
+@media (max-width: 500px) {
+    .fullscreen-mode #toolbar #fullscreenBtn {
+        height: 22px !important;
+        padding: 0 8px !important;
+        font-size: 14px !important;
+    }
 }
 
 /* ===== FOOTER - FIXED TO VIEWPORT BOTTOM LEFT ===== */
@@ -534,6 +849,41 @@ body.printing #fixed-footer {
     .print-slide-footer a {
         color: inherit;
         text-decoration: underline;
+    }
+
+    /* === HIDE TOOLBAR AND CHALKBOARD ELEMENTS IN PRINT === */
+    #toolbar,
+    #searchBtn,
+    #menuBtn,
+    .slide-menu-button,
+    #customcontrols,
+    #chalkboard,
+    #notescanvas,
+    .slide-menu-wrapper,
+    .slide-menu-overlay,
+    .controls,
+    .progress {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        height: 0 !important;
+        width: 0 !important;
+        overflow: hidden !important;
+        pointer-events: none !important;
+    }
+
+    .reveal .overlay {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+    }
+
+    #toolbar button,
+    #toolbar div,
+    #toolbar * {
+        display: none !important;
+        visibility: hidden !important;
     }
 }
 
