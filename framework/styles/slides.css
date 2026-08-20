@@ -53,7 +53,7 @@
     --image-margin: 0.3em auto;
 
     /* ----- Blockquotes ----- */
-    --blockquote-font-size: calc(1em * var(--font-scale));
+    --blockquote-font-size: calc(.7em * var(--font-scale));
     --blockquote-color: #aaa;
     --blockquote-border-color: #555;
     --blockquote-border-width: 4px;
