@@ -22,10 +22,14 @@
                     allLectures.push({
                         module: module,
                         lecture: lecture,
-                        url: `../framework/slide.html?deck=../${module.folder}/${lecture.file}`
+                        // IMPORTANT: Include content/ in the path
+                        url: `./slide.html?deck=../content/${module.folder}/${lecture.file}`
                     });
                 });
             });
+
+            console.log('All lectures loaded:', allLectures);
+            console.log('First lecture URL:', allLectures[0]?.url);
 
             // Find current lecture
             findCurrentLecture();
@@ -47,33 +51,35 @@
         const params = new URLSearchParams(window.location.search);
         const deckPath = params.get('deck');
         
+        console.log('Looking for lecture with deck path:', deckPath);
+        
         if (!deckPath) {
-            // Try to find from path
-            const path = window.location.pathname;
-            const match = path.match(/module(\d{2})\/([^\/]+\.md)/);
-            if (match) {
-                const folder = `module${match[1]}`;
-                const file = match[2];
-                findLectureByPath(`../${folder}/${file}`);
-            }
+            console.log('No deck parameter found');
             return;
         }
 
-        findLectureByPath(deckPath);
-    }
-
-    /**
-     * Find lecture by path
-     */
-    function findLectureByPath(path) {
+        // Extract just the filename from the deck path
+        const pathFile = deckPath.split('/').pop();
+        console.log('Looking for filename:', pathFile);
+        
+        // Try to find by filename match
+        let found = false;
         allLectures.forEach((item, idx) => {
-            // Compare just the filename to be safe
             const itemFile = item.lecture.file;
-            const pathFile = path.split('/').pop();
+            
             if (itemFile === pathFile) {
                 currentIndex = idx;
+                found = true;
+                console.log(`Found match at index ${idx}:`, item);
+                console.log(`URL for this lecture: ${item.url}`);
             }
         });
+
+        if (!found) {
+            console.log('No matching lecture found');
+            // Log all available lecture filenames for debugging
+            console.log('Available lectures:', allLectures.map(l => l.lecture.file));
+        }
     }
 
     /**
@@ -88,30 +94,55 @@
         const nextSlideBtn = document.getElementById('nextBtn');
         const menuBtn = document.getElementById('menuBtn');
 
+        console.log('Navigation buttons found:', {
+            homeBtn: !!homeBtn,
+            prevLectureBtn: !!prevLectureBtn,
+            nextLectureBtn: !!nextLectureBtn,
+            prevSlideBtn: !!prevSlideBtn,
+            nextSlideBtn: !!nextSlideBtn
+        });
+
         // Update lecture navigation buttons
         updateLectureButtons(prevLectureBtn, nextLectureBtn);
 
         // Lecture navigation click handlers
         if (prevLectureBtn) {
             prevLectureBtn.onclick = () => {
+                console.log('Prev lecture clicked, current index:', currentIndex);
                 if (currentIndex > 0) {
-                    window.location.href = allLectures[currentIndex - 1].url;
+                    const url = allLectures[currentIndex - 1].url;
+                    console.log('Navigating to:', url);
+                    window.location.href = url;
+                } else {
+                    console.log('No previous lecture available');
                 }
             };
         }
 
         if (nextLectureBtn) {
             nextLectureBtn.onclick = () => {
-                if (currentIndex < allLectures.length - 1) {
-                    window.location.href = allLectures[currentIndex + 1].url;
+                console.log('Next lecture clicked, current index:', currentIndex);
+                
+                // If we haven't found the current lecture, try to find it
+                if (currentIndex === -1) {
+                    console.log('Current lecture not found, attempting to find it...');
+                    findCurrentLecture();
+                }
+                
+                if (currentIndex < allLectures.length - 1 && currentIndex >= 0) {
+                    const url = allLectures[currentIndex + 1].url;
+                    console.log('Navigating to:', url);
+                    window.location.href = url;
+                } else {
+                    console.log('No next lecture available');
                 }
             };
         }
 
-        // Home button - go to course home
+        // Home button - go to course home (framework index.html)
         if (homeBtn) {
             homeBtn.onclick = () => {
-                window.location.href = '../index.html';
+                window.location.href = 'index.html';
             };
         }
 
@@ -147,13 +178,17 @@
             if ((e.ctrlKey || e.metaKey) && e.key === 'ArrowLeft') {
                 e.preventDefault();
                 if (currentIndex > 0) {
-                    window.location.href = allLectures[currentIndex - 1].url;
+                    const url = allLectures[currentIndex - 1].url;
+                    console.log('Keyboard: Navigating to:', url);
+                    window.location.href = url;
                 }
             }
             if ((e.ctrlKey || e.metaKey) && e.key === 'ArrowRight') {
                 e.preventDefault();
-                if (currentIndex < allLectures.length - 1) {
-                    window.location.href = allLectures[currentIndex + 1].url;
+                if (currentIndex < allLectures.length - 1 && currentIndex >= 0) {
+                    const url = allLectures[currentIndex + 1].url;
+                    console.log('Keyboard: Navigating to:', url);
+                    window.location.href = url;
                 }
             }
         });
@@ -163,8 +198,12 @@
      * Update lecture button states
      */
     function updateLectureButtons(prevBtn, nextBtn) {
+        const hasPrev = currentIndex > 0;
+        const hasNext = currentIndex < allLectures.length - 1 && currentIndex >= 0;
+
+        console.log('Updating buttons:', { hasPrev, hasNext, currentIndex, total: allLectures.length });
+
         if (prevBtn) {
-            const hasPrev = currentIndex > 0;
             prevBtn.disabled = !hasPrev;
             prevBtn.style.opacity = hasPrev ? '1' : '0.4';
             prevBtn.style.cursor = hasPrev ? 'pointer' : 'default';
@@ -176,7 +215,6 @@
         }
 
         if (nextBtn) {
-            const hasNext = currentIndex < allLectures.length - 1;
             nextBtn.disabled = !hasNext;
             nextBtn.style.opacity = hasNext ? '1' : '0.4';
             nextBtn.style.cursor = hasNext ? 'pointer' : 'default';
@@ -202,15 +240,16 @@
     global.LectureNav = {
         loadManifest,
         reinit,
-        allLectures,
-        currentIndex,
+        allLectures: () => allLectures,
+        currentIndex: () => currentIndex,
         getCurrent: () => currentIndex >= 0 ? allLectures[currentIndex] : null,
-        getNext: () => currentIndex < allLectures.length - 1 ? allLectures[currentIndex + 1] : null,
+        getNext: () => currentIndex < allLectures.length - 1 && currentIndex >= 0 ? allLectures[currentIndex + 1] : null,
         getPrev: () => currentIndex > 0 ? allLectures[currentIndex - 1] : null
     };
 
     // Auto-initialize
     document.addEventListener('DOMContentLoaded', () => {
+        console.log('DOM loaded, initializing lecture nav...');
         loadManifest();
     });
 
@@ -218,6 +257,7 @@
     if (typeof Reveal !== 'undefined') {
         Reveal.on('ready', () => {
             if (!manifestData) {
+                console.log('Reveal ready, loading manifest...');
                 loadManifest();
             }
         });

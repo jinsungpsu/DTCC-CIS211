@@ -12,11 +12,10 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/plugin/highlight/monokai.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/plugin/search/search.css">
 
-    <!-- 3rd party plugins -->
+    <!-- 3rd party plugins - LOCAL -->
     <link rel="stylesheet" href="node_modules/reveal.js-menu/menu.css">
+    <link rel="stylesheet" href="node_modules/reveal.js-plugins/chalkboard/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js-plugins@latest/customcontrols/style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js-plugins@latest/chalkboard/style.css">
 
     <!-- custom styles -->
     <link rel="stylesheet" href="styles/slides.css">
@@ -33,6 +32,18 @@
         <button id="prevLectureBtn" title="Previous Lecture">◀ Prev</button>
         <button id="nextLectureLectureBtn" title="Next Lecture">Next ▶</button>
     </span>
+
+    <!-- Group 1: Course/Lecture Info (Breadcrumb) -->
+    <span class="toolbar-group" id="breadcrumb-group">
+        <span id="lecture-info">
+            <span id="course-short"></span>
+            <span class="separator">›</span>
+            <span id="module-name"></span>
+            <span class="separator">›</span>
+            <span id="lecture-title"></span>
+        </span>
+    </span>
+
 
     <!-- Group 3: Slide Navigation -->
     <span class="toolbar-group">
@@ -69,11 +80,10 @@
     <script src="https://cdn.jsdelivr.net/npm/reveal.js/plugin/search/search.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/reveal.js/plugin/highlight/highlight.js"></script>
 
-    <!-- 3rd party plugins -->
+    <!-- 3rd party plugins - LOCAL -->
     <script src="node_modules/reveal.js-menu/menu.js"></script>
+    <script src="node_modules/reveal.js-plugins/chalkboard/plugin.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/reveal.js-plugins@latest/customcontrols/plugin.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/reveal.js-plugins@latest/chalkboard/plugin.js"></script>
 
     <!-- Custom scripts -->
     <script src="scripts/slide-parser.js"></script>

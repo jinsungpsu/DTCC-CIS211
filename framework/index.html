@@ -143,8 +143,9 @@
                             lectureLink.className =
                                 "lecture-link";
 
+                            // Build path: slide.html?deck=../content/moduleXX/file.md
                             lectureLink.href =
-                                `./slide.html?deck=../${module.folder}/${lecture.file}`;
+                                `./slide.html?deck=../content/${module.folder}/${lecture.file}`;
 
                             lectureLink.innerHTML = `
                                 <div class="lecture-title">
