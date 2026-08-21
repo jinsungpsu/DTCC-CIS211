@@ -1,7 +1,7 @@
 /* ===== GLOBAL VARIABLES ===== */
 :root {
     /* ----- MASTER FONT SCALE ----- */
-    --font-scale: 1.2;
+    --font-scale: 1.5;
 
     /* ----- SLIDE PADDING (fluid — scales smoothly instead of jumping at breakpoints) -----
        Replaces the old fixed 2rem/3rem + three separate @media overrides below.
