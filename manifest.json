@@ -36,8 +36,8 @@
             "title": "Linked Node Implementation of the Stack ADT",
             "lectures": [
                 {
-                    "file": "01_ds_.md",
-                    "title": "Reference Variables vs. Objects Review"
+                    "file": "01_ds_singly_linked_list.md",
+                    "title": "Linked Node Implementation of Stack ADT"
                 }
             ]
         },

@@ -37,13 +37,20 @@ Invalid Example (unbalanced)
 
 To determine whether brackets are balanced, we need a way to:
 
-- Remember recently encountered opening brackets.
-- Match each closing bracket with the correct opening bracket.
-- Process the symbols in order.
+- Remember opening brackets that have not yet been matched.
+- Match each closing bracket with the **most recently unmatched** opening bracket.
+- Process the symbols from left to right.
 
 Before writing code, we should think about what operations are needed.
 
+## Example
+
+{ [ ( ) ] }
+
+The ')' must match the most recent unmatched '(' before we can match the remaining brackets.
+
 ---
+
 # Using an ADT to Solve Problems
 
 An **Abstract Data Type (ADT)** focuses on:
@@ -59,6 +66,13 @@ An ADT helps us think about the solution before worrying about implementation de
 - The right ADT can simplify both program design and algorithm development.
 
 These requirements closely match the operations of a **Stack ADT**.
+
+---
+
+# Full Solution Later
+## For now... introducing our first ADT
+Technically, arrays and lists are ADT's also
+... so kind of the third ADT, but first formal/new ADT
 
 ---
 
@@ -92,13 +106,15 @@ Operations:
 
 # Stack Operations
 
+<!-- column -->
 - push(item)
     - add to top
 - pop()
     - remove from top
 - peek()
     - inspect top
-
+<!-- column -->
+![Stack operations summary visualization pushing 2,3,4,5,6 then popping 6,5,4,3,2.](images/stack-ops-summary.png)
 ---
 # Order of Operations
 
@@ -108,7 +124,32 @@ Operations:
     - last in, first out
 
 > Same thing, different perspective
+---
+## Balanced Brackets Algorithm
 
+```text
+Create an empty stack
+
+For each symbol in the expression
+
+    If symbol is an opening bracket
+        Push it onto the stack
+
+    Else if symbol is a closing bracket
+
+        If the stack is empty
+            Return "Not Balanced"
+
+        top = Pop from the stack
+
+        If top does not match symbol
+            Return "Not Balanced"
+
+If the stack is empty
+    Return "Balanced"
+Else
+    Return "Not Balanced"
+```
 ---
 # Interview Questions Using Stack
 > Data structures and algorithms are common topics in technical interviews. Understanding ADTs, data structures, and problem
@@ -124,6 +165,19 @@ All types of problems:
 java.util.Stack documentation
 - https://docs.oracle.com/javase/8/docs/api/java/util/Stack.html
 
+---
+# java.util.Stack
+
+```java
+Stack<String> stack = new Stack<>();
+
+stack.push("CS1");
+stack.push("CS2");
+
+System.out.println(stack.peek()); // CS2
+System.out.println(stack.pop());  // CS2
+System.out.println(stack.isEmpty()); // false
+```
 ---
 # Array List and Array Stack
 - Shaffer 4.1 General List
@@ -144,8 +198,46 @@ java.util.Stack documentation
 - Contiguous memory
 - Random access
 
+> ***Some of the most important concepts for the whole semester!***
+
+![Array Visualization showing memory locations and indices](images/arrays.png)
+---
+# Fixed Size
+- The size of an array is determined when it is created.
+- You cannot add or remove elements later.
+- Example: `int[] scores = new int[5];`
+- This array will always store exactly 5 integers.
+
+---
+
+# Contiguous Memory
+
+- Array elements are stored next to each other in memory.
+- Because the elements are consecutive, the computer can quickly locate any element.
+
+---
+
+# Random Access
+
+- Any element can be accessed directly using its index.
+- The time required is the same whether the element is at the beginning, middle, or end of the array.
+- Example:
+
+```java
+int[] scores = {85, 90, 78, 92, 88};
+
+System.out.println(scores[3]); // 92
+```
+
+- The computer can jump directly to index `3` without checking the previous elements.
+
 ---
 # Making the connection
+- Stack is ADT
+- Array will be *one possible implementation*
+
+---
+# Implementing a Stack Using an Array
 <!-- column -->
 
 | Array | Stack |
@@ -430,6 +522,27 @@ Possible choices:
 
 Different designs may make different choices.
 
+---
+---
+# Following the Interface Contract
+
+The interface, documentation, and comments often specify how a method must behave.
+
+For example, the documentation may state:
+
+- Throw an exception when an operation is invalid.
+- Return a special value in certain situations.
+- Handle errors in a specific way.
+
+As programmers, we must follow those requirements.
+
+---
+# Assignment Requirements
+In future labs and assignments, you may be required to throw specific exceptions.
+
+- If the specification says to throw an exception and your code does not, the program is not behaving as required and **points may be deducted.**
+
+- Always read the interface and documentation carefully before implementing a class.
 ---
 
 # Design Decisions

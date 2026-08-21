@@ -33,7 +33,7 @@ Another way of thinking about it:
 - Use the `implements` keyword
 
 ```java
-class ArrayStack implements Stack {
+class ArrayList implements List {
     ...
 }
 ```
