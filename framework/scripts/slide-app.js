@@ -2,8 +2,9 @@
     // ============================================================
     //  CONFIGURATION - Edit these values to customize your slides
     // ============================================================
-    
+
     const REVEAL_CONFIG = {
+
         hash: true,
         controls: true,
         progress: true,
@@ -11,6 +12,16 @@
         transition: "none",
         backgroundTransition: 'none',
         autoAnimate: false,
+
+        // Fill the container instead of scaling a fixed 960x700 canvas —
+        // this is what removes the left/right margins. Padding/spacing is
+        // then handled entirely by reveal-theme.css.
+        width: '90%',
+        height: '100%',
+        margin: 0,
+        minScale: 1,
+        maxScale: 1,
+
         // Add any additional Reveal.js options here
         // See: https://revealjs.com/config/
     };
@@ -24,9 +35,9 @@
         readOnly: undefined,
         transition: 800,
         theme: "chalkboard",
-        background: [ 'rgba(127,127,127,.1)' ],
-        grid: { color: 'rgb(50,50,10,0.5)', distance: 80, width: 2},
-        eraser: { radius: 20}
+        background: ['rgba(127,127,127,.1)'],
+        grid: { color: 'rgb(50,50,10,0.5)', distance: 80, width: 2 },
+        eraser: { radius: 20 }
     };
 
     const MENU_CONFIG = {
@@ -41,13 +52,13 @@
     // ============================================================
     //  DOM ELEMENT IDs - Change these if you rename elements
     // ============================================================
-    
+
     const MARKDOWN_HOST_ID = "markdown-slide";
     const FOOTER_HOST_ID = "fixed-footer";
     const FULLSCREEN_BUTTON_ID = "fullscreenBtn";
     const NOTES_BUTTON_ID = "notesBtn";
     const MENU_BUTTON_ID = "menuBtn";
-    
+
     const BUTTON_IDS = {
         search: "searchBtn",
         home: "homeBtn",
@@ -62,7 +73,7 @@
     // ============================================================
     //  MANIFEST PATHS - Order of paths to try when loading manifest
     // ============================================================
-    
+
     const MANIFEST_PATHS = [
         "../manifest.json",
         "../../manifest.json",
@@ -72,7 +83,7 @@
     // ============================================================
     //  INITIALIZATION - Start the slide app
     // ============================================================
-    
+
     const file = new URLSearchParams(window.location.search).get("deck");
 
     if (!file) {
@@ -86,7 +97,7 @@
     // ============================================================
     //  LECTURE INFO - Breadcrumb data
     // ============================================================
-    
+
     let courseShort = "";
     let moduleTitle = "";
     let lectureTitle = "";
@@ -96,11 +107,11 @@
         const moduleSpan = document.getElementById("module-name");
         const lectureSpan = document.getElementById("lecture-title");
         const breadcrumbGroup = document.getElementById("breadcrumb-group");
-        
+
         if (courseSpan) courseSpan.textContent = courseShort;
         if (moduleSpan) moduleSpan.textContent = moduleTitle;
         if (lectureSpan) lectureSpan.textContent = lectureTitle;
-        
+
         if (breadcrumbGroup && !courseShort && !moduleTitle && !lectureTitle) {
             breadcrumbGroup.style.display = "none";
         } else if (breadcrumbGroup) {
@@ -115,9 +126,9 @@
             updateLectureInfo();
             return;
         }
-        
+
         const path = MANIFEST_PATHS[index];
-        
+
         fetch(path)
             .then(response => {
                 if (!response.ok) throw new Error(`HTTP ${response.status}`);
@@ -127,7 +138,7 @@
                 if (manifest.course && manifest.course.code) {
                     courseShort = manifest.course.code;
                 }
-                
+
                 for (const module of manifest.modules || []) {
                     for (const lecture of module.lectures || []) {
                         if (lecture.file === deckFileName) {
@@ -150,12 +161,41 @@
     // ============================================================
     //  MARKDOWN PROCESSING
     // ============================================================
-    
+
     function rewriteRelativeUrls(markdown) {
-        return markdown.replace(
-            /\]\((?!https?:\/\/|\/|#|mailto:)(.*?)\)/g,
-            (match, url) => `](${basePath}${url})`
-        );
+        const lines = markdown.split('\n');
+        let inCodeBlock = false;
+        let result = [];
+
+        for (let line of lines) {
+            const trimmed = line.trim();
+
+            // Check for code block boundaries
+            if (trimmed.startsWith('```') && (trimmed.length === 3 || trimmed.startsWith('```'))) {
+                inCodeBlock = !inCodeBlock;
+                result.push(line);
+                continue;
+            }
+
+            // Only process non-code lines
+            if (!inCodeBlock) {
+                // Match markdown links with proper text content
+                line = line.replace(
+                    /\[([^\]]+)\]\((?!https?:\/\/|\/|#|mailto:)([^)]+?)\)/g,
+                    (match, text, url) => {
+                        // Skip if the link text is just empty or brackets
+                        if (!text || text.trim() === '' || text === '()' || text === '[]') {
+                            return match;
+                        }
+                        return `[${text}](${basePath}${url})`;
+                    }
+                );
+            }
+
+            result.push(line);
+        }
+
+        return result.join('\n');
     }
 
     function renderMarkdown(markdown) {
@@ -171,7 +211,7 @@ ${markdown}
     // ============================================================
     //  FOOTER SYNC
     // ============================================================
-    
+
     function syncFixedFooter() {
         const footerHost = document.getElementById(FOOTER_HOST_ID);
         const currentSlide = Reveal.getCurrentSlide();
@@ -193,7 +233,7 @@ ${markdown}
     // ============================================================
     //  TOOLBAR BUTTON HANDLERS
     // ============================================================
-    
+
     function toggleFullscreen() {
         if (!document.fullscreenElement) {
             document.documentElement.requestFullscreen();
@@ -224,20 +264,20 @@ ${markdown}
         }
 
         let menuPlugin = Reveal.getPlugin('menu');
-        
+
         if (!menuPlugin) {
             const plugins = Reveal.getPlugins();
             for (const [name, plugin] of Object.entries(plugins)) {
-                if (plugin && (typeof plugin.toggleMenu === 'function' || 
-                              typeof plugin.toggle === 'function' ||
-                              typeof plugin.openMenu === 'function')) {
+                if (plugin && (typeof plugin.toggleMenu === 'function' ||
+                    typeof plugin.toggle === 'function' ||
+                    typeof plugin.openMenu === 'function')) {
                     menuPlugin = plugin;
                     console.log('Found menu plugin as:', name);
                     break;
                 }
             }
         }
-        
+
         if (menuPlugin) {
             if (typeof menuPlugin.toggleMenu === 'function') {
                 menuPlugin.toggleMenu();
@@ -273,13 +313,13 @@ ${markdown}
 
     function toggleNotes() {
         if (typeof Reveal === 'undefined') return;
-        
+
         let chalkboard = Reveal.getPlugin('chalkboard');
-        
+
         if (!chalkboard) {
             const plugins = Reveal.getPlugins();
             for (const [name, plugin] of Object.entries(plugins)) {
-                if (name.toLowerCase().includes('chalkboard') || 
+                if (name.toLowerCase().includes('chalkboard') ||
                     (plugin && typeof plugin.toggleNotesCanvas === 'function')) {
                     chalkboard = plugin;
                     console.log('Found chalkboard plugin as:', name);
@@ -287,10 +327,10 @@ ${markdown}
                 }
             }
         }
-        
+
         if (chalkboard && typeof chalkboard.toggleNotesCanvas === 'function') {
             chalkboard.toggleNotesCanvas();
-            
+
             const notesBtn = document.getElementById(NOTES_BUTTON_ID);
             if (notesBtn) {
                 notesBtn.classList.toggle('active');
@@ -378,7 +418,7 @@ ${markdown}
     // ============================================================
     //  BIND TOOLBAR
     // ============================================================
-    
+
     function bindToolbar() {
         document.getElementById(BUTTON_IDS.search).addEventListener("click", openSearch);
         document.getElementById(BUTTON_IDS.home).addEventListener("click", () => {
@@ -388,12 +428,12 @@ ${markdown}
         document.getElementById(BUTTON_IDS.next).addEventListener("click", () => Reveal.next());
         document.getElementById(BUTTON_IDS.print).addEventListener("click", printSlides);
         document.getElementById(BUTTON_IDS.fullscreen).addEventListener("click", toggleFullscreen);
-        
+
         const menuBtn = document.getElementById(BUTTON_IDS.menu);
         if (menuBtn) {
             menuBtn.addEventListener("click", toggleMenu);
         }
-        
+
         const notesBtn = document.getElementById(BUTTON_IDS.notes);
         if (notesBtn) {
             notesBtn.addEventListener("click", toggleNotes);
@@ -412,7 +452,7 @@ ${markdown}
     // ============================================================
     //  REVEAL EVENTS
     // ============================================================
-    
+
     function wireRevealEvents() {
         Reveal.on("slidechanged", () => {
             localStorage.setItem(storageKey, JSON.stringify(Reveal.getIndices()));
@@ -439,7 +479,7 @@ ${markdown}
                 console.log('Notes plugin available:', !!notes);
                 const menu = Reveal.getPlugin('menu');
                 console.log('Menu plugin available:', !!menu);
-                
+
                 const plugins = Reveal.getPlugins();
                 console.log('All available plugins:', Object.keys(plugins));
             }
@@ -449,7 +489,7 @@ ${markdown}
     // ============================================================
     //  MAIN - Load and initialize
     // ============================================================
-    
+
     fetch(file)
         .then(response => response.text())
         .then(markdown => {
@@ -467,7 +507,7 @@ ${markdown}
                 RevealHighlight,
                 RevealSearch
             ];
-            
+
             // Add menu if available
             if (typeof RevealMenu !== 'undefined') {
                 plugins.push(RevealMenu);
@@ -478,7 +518,7 @@ ${markdown}
             } else {
                 console.log('Menu plugin not found');
             }
-            
+
             // Add chalkboard if available
             if (typeof RevealChalkboard !== 'undefined') {
                 plugins.push(RevealChalkboard);
@@ -506,7 +546,7 @@ ${markdown}
             document.addEventListener("fullscreenchange", updateFullscreenButton);
             window.addEventListener("beforeprint", enterPrintMode);
             window.addEventListener("afterprint", exitPrintMode);
-            
+
             Reveal.on('ready', () => {
                 checkPlugins();
             });

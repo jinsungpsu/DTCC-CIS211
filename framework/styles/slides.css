@@ -3,6 +3,13 @@
     /* ----- MASTER FONT SCALE ----- */
     --font-scale: 1.2;
 
+    /* ----- SLIDE PADDING (fluid — scales smoothly instead of jumping at breakpoints) -----
+       Replaces the old fixed 2rem/3rem + three separate @media overrides below.
+       clamp(min, preferred, max): shrinks on small screens, grows slightly on large ones,
+       but always leaves a consistent, reasonable margin regardless of slide content. */
+    --slide-padding-x: clamp(1rem, 3vw, 3rem);
+    --slide-padding-y: clamp(0.75rem, 2.5vh, 2rem);
+
     /* ----- Headings ----- */
     --heading-h1-size: calc(1.5em * var(--font-scale));
     --heading-h2-size: calc(1.2em * var(--font-scale));
@@ -70,6 +77,9 @@
     --column-padding: 0 8px 0 4px;
     --column-scrollbar-width: 4px;
     --columns-margin: 0.3rem 0;
+    /* Vertical space reserved above a columns row (toolbar + any heading) when
+       capping column height. Single source of truth — see COLUMNS section. */
+    --columns-vertical-reserve: 60px;
 
     /* ----- Footer ----- */
     --footer-base-font-size: 2em;
@@ -82,6 +92,75 @@
     --footer-left: 16px;
     --footer-bottom: 10px;
     --footer-max-width: 45vw;
+}
+
+/* ===== FULL WIDTH SLIDES ===== */
+.reveal {
+    height: 100vh !important;
+    width: 100vw !important;
+}
+
+.reveal .slides {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.reveal .slide-background {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.reveal .slides > section {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    /* Fluid padding via --slide-padding-x/y — same reasonable margin at any
+       viewport size, regardless of what's on the slide. */
+    padding: var(--slide-padding-y) var(--slide-padding-x) !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    align-items: stretch !important;
+}
+
+.reveal .slides > section > * {
+    flex-shrink: 0;
+}
+
+.reveal .slides > section > .columns-container {
+    flex: 1 1 auto;
+    min-height: 0;
+    height: 100%;
+}
+
+/* Center content vertically on title slides or when using .center class */
+.reveal .slides > section.center,
+.reveal .slides > section.title-slide {
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center !important;
+}
+
+.reveal .slides > section.center > *,
+.reveal .slides > section.title-slide > * {
+    text-align: center !important;
+}
+
+/* Make slide content fill available space */
+.reveal .slides > section > :not(.columns-container):not(.slide-footer) {
+    width: 100%;
+}
+
+/* Fix for columns in full-width mode */
+.reveal .slides > section .columns-container {
+    width: 100% !important;
+    flex: 1 1 auto;
 }
 
 /* ===== TOOLBAR - FULL WIDTH, SINGLE ROW ===== */
@@ -490,7 +569,11 @@ img.large {
     overflow-wrap: break-word;
     text-align: left;
     padding: var(--column-padding);
-    max-height: 65vh;
+    /* Single, consistent cap for column height — was previously set three
+       different ways (65vh, 100vh-200px, 100vh-180px) depending on selector
+       specificity. Now derived from the same padding vars driving the slide
+       itself, so it always matches the actual available space. */
+    max-height: calc(100vh - (var(--slide-padding-y) * 2) - var(--columns-vertical-reserve));
     overflow-y: auto;
 }
 
@@ -815,16 +898,26 @@ body.printing #fixed-footer {
     color: #b0d0ff;
 }
 
+/* ===== PRINT STYLES ===== */
 @media print {
     #fixed-footer {
         display: none !important;
         visibility: hidden !important;
     }
 
-    .reveal .slides section {
+    .reveal .slides > section {
         position: relative !important;
-        padding-bottom: 2.4em !important;
+        padding: 2rem 3rem !important;
+        height: 100vh !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        page-break-after: always;
         box-sizing: border-box;
+    }
+
+    .reveal .slides > section .columns-container .col {
+        max-height: none !important;
+        overflow-y: visible !important;
     }
 
     .slide-footer {
@@ -851,7 +944,9 @@ body.printing #fixed-footer {
         text-decoration: underline;
     }
 
-    /* === HIDE TOOLBAR AND CHALKBOARD ELEMENTS IN PRINT === */
+    /* === HIDE TOOLBAR AND CHALKBOARD ELEMENTS IN PRINT ===
+       (single rule covers every #toolbar descendant — the old per-id list
+       above it was redundant with #toolbar * and has been removed) */
     #toolbar,
     #searchBtn,
     #menuBtn,
@@ -877,13 +972,6 @@ body.printing #fixed-footer {
         visibility: hidden !important;
         opacity: 0 !important;
         pointer-events: none !important;
-    }
-
-    #toolbar button,
-    #toolbar div,
-    #toolbar * {
-        display: none !important;
-        visibility: hidden !important;
     }
 }
 
