@@ -4,7 +4,6 @@
     // ============================================================
 
     const REVEAL_CONFIG = {
-
         hash: true,
         controls: true,
         progress: true,
@@ -13,17 +12,17 @@
         backgroundTransition: 'none',
         autoAnimate: false,
 
-        // Fill the container instead of scaling a fixed 960x700 canvas —
-        // this is what removes the left/right margins. Padding/spacing is
-        // then handled entirely by reveal-theme.css.
-        width: '90%',
-        height: '100%',
+        // Let Reveal handle sizing with these defaults
+        // These control the internal render size
+        width: "90%",
+        height: "90%",
         margin: 0,
-        minScale: 1,
-        maxScale: 1,
-
-        // Add any additional Reveal.js options here
-        // See: https://revealjs.com/config/
+        
+        // Allow scaling to fit any screen
+        // minScale: 0.2 allows shrinking to 20% on tiny screens
+        // maxScale: 1.0 prevents scaling up beyond natural size
+        minScale: 0.2,
+        maxScale: 1.0,
     };
 
     const CHALKBOARD_CONFIG = {
