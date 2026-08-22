@@ -523,7 +523,6 @@ Possible choices:
 Different designs may make different choices.
 
 ---
----
 # Following the Interface Contract
 
 The interface, documentation, and comments often specify how a method must behave.
