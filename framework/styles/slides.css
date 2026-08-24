@@ -90,21 +90,17 @@
 }
 
 /* ===== REVEAL OVERRIDES - Let Reveal handle sizing ===== */
-
-/* Only control the container, let Reveal handle slides */
 .reveal {
     height: 100vh !important;
     width: 100vw !important;
 }
 
-/* Remove aggressive overrides - let Reveal size slides */
+/* Reset reveal's default slide styles for better control */
 .reveal .slides {
-    /* Remove width/height overrides */
     max-width: none !important;
     max-height: none !important;
 }
 
-/* Style slides but don't force dimensions */
 .reveal .slides > section {
     padding: var(--slide-padding-y) var(--slide-padding-x) !important;
     box-sizing: border-box !important;
@@ -112,42 +108,21 @@
     flex-direction: column !important;
     justify-content: flex-start !important;
     align-items: stretch !important;
-    /* Remove width/height overrides */
+    min-height: 100vh !important;
+    height: auto !important;
 }
 
 .reveal .slides > section > * {
     flex-shrink: 0;
+    max-width: 100% !important;
 }
 
-.reveal .slides > section > .columns-container {
-    flex: 0 1 auto;
-    min-height: 0;
-    height: auto;
-}
-
-/* Center content vertically on title slides or when using .center class */
+/* Center content vertically on title slides */
 .reveal .slides > section.center,
 .reveal .slides > section.title-slide {
     justify-content: center !important;
     align-items: center !important;
     text-align: center !important;
-}
-
-.reveal .slides > section.center > *,
-.reveal .slides > section.title-slide > * {
-    text-align: center !important;
-}
-
-/* Make slide content fill available space */
-.reveal .slides > section > :not(.columns-container):not(.slide-footer) {
-    width: 100%;
-}
-
-/* Fix for columns in full-width mode */
-.reveal .slides > section .columns-container {
-    width: 100% !important;
-    flex: 0 1 auto;
-    height: auto;
 }
 
 /* ===== PREVENT HORIZONTAL OVERFLOW ===== */
@@ -191,7 +166,6 @@ html, body {
     overflow-y: hidden;
 }
 
-/* ===== TOOLBAR GROUPS ===== */
 .toolbar-group {
     display: inline-flex;
     align-items: center;
@@ -206,7 +180,6 @@ html, body {
     border-right: none;
 }
 
-/* ===== GROUP LABELS - WHITE, CONSISTENT ===== */
 .toolbar-group-label {
     font-size: 11px;
     color: #ffffff;
@@ -219,10 +192,7 @@ html, body {
     white-space: nowrap;
 }
 
-/* ===== TOOLBAR BUTTONS - UNIFORM ===== */
-#toolbar button,
-#searchBtn,
-.toolbar-group .slide-menu-button a {
+#toolbar button {
     height: 30px;
     padding: 0 12px;
     border: 1px solid #555;
@@ -241,26 +211,15 @@ html, body {
     flex-shrink: 0;
 }
 
-#toolbar button:hover,
-#searchBtn:hover,
-.toolbar-group .slide-menu-button a:hover {
+#toolbar button:hover {
     background: rgba(255, 255, 255, 0.12);
     border-color: #888;
     color: #ffffff;
 }
 
-#toolbar button:active,
-#searchBtn:active,
-.toolbar-group .slide-menu-button a:active {
+#toolbar button:active {
     transform: scale(0.95);
     background: rgba(255, 255, 255, 0.18);
-}
-
-#toolbar button:focus,
-#searchBtn:focus {
-    outline: none;
-    border-color: #8af;
-    box-shadow: 0 0 0 2px rgba(136, 170, 255, 0.2);
 }
 
 #toolbar button:disabled {
@@ -269,150 +228,13 @@ html, body {
     transform: none;
 }
 
-#toolbar button:disabled:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: #555;
-    transform: none;
-}
-
-/* ===== LECTURE NAV INFO ===== */
-#lecture-nav-info {
-    color: #8af;
-    font-weight: bold;
-    font-size: 13px;
-    padding: 0 6px;
-    min-width: 50px;
-    text-align: center;
-    font-family: 'Courier New', monospace;
-    flex-shrink: 0;
-}
-
-/* ===== TOOLBAR: CUSTOM CONTROLS ===== */
-#toolbar #customcontrols {
-    position: static;
-    display: flex !important;
-    align-items: center;
-    width: auto !important;
-}
-
-#toolbar #customcontrols ul {
-    position: static !important;
-    display: flex !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    list-style: none !important;
-}
-
-#toolbar #customcontrols li {
-    display: flex;
-}
-
-#toolbar #customcontrols button {
-    margin: 0;
-}
-
-/* ===== TOOLBAR: SLIDE MENU BUTTON ===== */
-#toolbar .slide-menu-button {
-    position: static !important;
-    display: flex !important;
-    align-items: center !important;
-    width: auto !important;
-    height: auto !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    background: none !important;
-    box-shadow: none !important;
-    border-radius: 0 !important;
-}
-
-#toolbar .slide-menu-button a {
-    text-decoration: none;
-}
-
-#toolbar .slide-menu-button svg {
-    width: 16px;
-    height: 16px;
-    display: block;
-}
-
-/* ===== FULLSCREEN MODE - ONLY THE EXIT BUTTON VISIBLE ===== */
-.fullscreen-mode #toolbar {
-    opacity: 1;
-    background: transparent;
-    border-bottom: none;
-    box-shadow: none;
-    backdrop-filter: none;
-}
-
-.fullscreen-mode #toolbar .toolbar-group,
-.fullscreen-mode #toolbar .toolbar-group-label,
-.fullscreen-mode #toolbar #lecture-nav-info,
-.fullscreen-mode #toolbar #searchBtn,
-.fullscreen-mode #toolbar #menuBtn,
-.fullscreen-mode #toolbar #prevBtn,
-.fullscreen-mode #toolbar #nextBtn,
-.fullscreen-mode #toolbar #homeBtn,
-.fullscreen-mode #toolbar #prevLectureBtn,
-.fullscreen-mode #toolbar #nextLectureLectureBtn,
-.fullscreen-mode #toolbar #notesBtn,
-.fullscreen-mode #toolbar #printBtn {
-    display: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
-    width: 0 !important;
-    height: 0 !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    border: none !important;
-    overflow: hidden !important;
-}
-
-.fullscreen-mode #toolbar #fullscreenBtn {
-    display: flex !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-    width: auto !important;
-    height: 30px !important;
-    padding: 0 12px !important;
-    margin: 0 !important;
-    border: 1px solid rgba(255, 255, 255, 0.3) !important;
-    background: rgba(0, 0, 0, 0.6) !important;
-    color: #fff !important;
-    font-size: 18px !important;
-    border-radius: 4px !important;
-    cursor: pointer !important;
-    transition: all 0.3s ease !important;
-    flex-shrink: 0 !important;
-}
-
-.fullscreen-mode #toolbar #fullscreenBtn:hover {
-    background: rgba(255, 255, 255, 0.15) !important;
-    border-color: rgba(255, 255, 255, 0.6) !important;
-    transform: scale(1.05);
-}
-
-.fullscreen-mode #toolbar #fullscreenBtn:active {
-    transform: scale(0.95);
-}
-
-/* ===== SEARCH UI ===== */
-.reveal .searchbox {
-    position: fixed !important;
-    top: 52px !important;
-    left: 75% !important;
-    transform: translateX(-50%) !important;
-    width: 400px;
-    max-width: 80vw;
-    z-index: 10001 !important;
-}
-
 /* ===== HEADINGS ===== */
 .reveal .slides section {
     text-align: left;
 }
 
 .reveal h1 {
-    font-size: var(--heading-h1-size);
+    font-size: var(--heading-h1-size) !important;
     color: var(--heading-color);
     margin: var(--heading-margin);
     text-align: left;
@@ -421,7 +243,7 @@ html, body {
 }
 
 .reveal h2 {
-    font-size: var(--heading-h2-size);
+    font-size: var(--heading-h2-size) !important;
     color: var(--heading-color);
     margin: var(--heading-margin);
     text-align: left;
@@ -430,7 +252,7 @@ html, body {
 }
 
 .reveal h3 {
-    font-size: var(--heading-h3-size);
+    font-size: var(--heading-h3-size) !important;
     color: var(--heading-color);
     margin: var(--heading-margin);
     text-align: left;
@@ -439,7 +261,7 @@ html, body {
 }
 
 .reveal h4 {
-    font-size: var(--heading-h4-size);
+    font-size: var(--heading-h4-size) !important;
     color: var(--heading-color);
     margin: var(--heading-margin);
     text-align: left;
@@ -448,7 +270,7 @@ html, body {
 }
 
 .reveal h5 {
-    font-size: var(--heading-h5-size);
+    font-size: var(--heading-h5-size) !important;
     color: var(--heading-color);
     margin: var(--heading-margin);
     text-align: left;
@@ -457,7 +279,7 @@ html, body {
 }
 
 .reveal h6 {
-    font-size: var(--heading-h6-size);
+    font-size: var(--heading-h6-size) !important;
     color: var(--heading-color);
     margin: var(--heading-margin);
     text-align: left;
@@ -467,7 +289,7 @@ html, body {
 
 /* ===== BODY TEXT ===== */
 .reveal p {
-    font-size: var(--body-font-size);
+    font-size: var(--body-font-size) !important;
     line-height: var(--body-line-height);
     color: var(--body-color);
     margin: var(--body-margin);
@@ -478,7 +300,7 @@ html, body {
 /* ===== LISTS ===== */
 .reveal ul,
 .reveal ol {
-    font-size: var(--list-font-size);
+    font-size: var(--list-font-size) !important;
     line-height: var(--list-line-height);
     color: var(--list-color);
     padding-left: var(--list-padding-left);
@@ -505,7 +327,7 @@ html, body {
 
 /* ===== CODE ===== */
 .reveal code {
-    font-size: calc(1.75rem * var(--font-scale));
+    font-size: calc(0.9 * var(--body-font-size)) !important;
     background: var(--code-background);
     color: var(--code-color);
     padding: var(--code-padding);
@@ -517,7 +339,7 @@ html, body {
 
 /* ===== PRE (Code Blocks) ===== */
 .reveal pre {
-    font-size: var(--pre-font-size);
+    font-size: var(--pre-font-size) !important;
     background: var(--pre-background);
     color: var(--pre-color);
     padding: var(--pre-padding);
@@ -530,7 +352,7 @@ html, body {
 }
 
 .reveal pre code {
-    font-size: inherit;
+    font-size: inherit !important;
     background: transparent;
     padding: 0;
     white-space: pre-wrap !important;
@@ -568,7 +390,7 @@ img.large {
 
 /* ===== BLOCKQUOTES ===== */
 .reveal blockquote {
-    font-size: var(--blockquote-font-size);
+    font-size: var(--blockquote-font-size) !important;
     color: var(--blockquote-color);
     padding: var(--blockquote-padding);
     margin: var(--blockquote-margin);
@@ -579,7 +401,7 @@ img.large {
 
 /* ===== TABLES ===== */
 .reveal table {
-    font-size: var(--table-font-size);
+    font-size: var(--table-font-size) !important;
     border-collapse: collapse;
     display: block !important;
     max-width: 100% !important;
@@ -614,7 +436,7 @@ img.large {
     overflow-wrap: break-word;
     text-align: left;
     padding: var(--column-padding);
-    max-height: calc(100vh - (var(--slide-padding-y) * 2) - var(--columns-vertical-reserve));
+    max-height: calc(100vh - (var(--slide-padding-y) * 2) - var(--columns-vertical-reserve) - 60px);
     overflow-y: auto;
     height: auto;
     overflow-x: hidden !important;
@@ -696,39 +518,6 @@ img.large {
     max-width: 100% !important;
 }
 
-.columns-container .col table {
-    display: block !important;
-    max-width: 100% !important;
-    overflow-x: auto !important;
-    white-space: nowrap !important;
-}
-
-.columns-container .col blockquote {
-    margin: var(--blockquote-margin);
-    padding: var(--blockquote-padding);
-    border-left: var(--blockquote-border-width) solid var(--blockquote-border-color);
-    max-width: 100% !important;
-    word-wrap: break-word !important;
-}
-
-.columns-container .col h1,
-.columns-container .col h2,
-.columns-container .col h3,
-.columns-container .col h4,
-.columns-container .col h5,
-.columns-container .col h6 {
-    margin: 0.2em 0 0.1em 0 !important;
-    max-width: 100% !important;
-    word-wrap: break-word !important;
-}
-
-.columns-container .col p {
-    margin: 0.15em 0 !important;
-    line-height: 1.3;
-    max-width: 100% !important;
-    word-wrap: break-word !important;
-}
-
 .columns-container.cols-3 {
     gap: calc(var(--columns-gap) * 0.75);
 }
@@ -737,23 +526,31 @@ img.large {
     gap: calc(var(--columns-gap) * 0.5);
 }
 
-.columns-container.cols-5,
-.columns-container.cols-6 {
-    gap: calc(var(--columns-gap) * 0.375);
+/* ===== FOOTER ===== */
+.slide-footer {
+    display: none;
 }
 
-.columns-container .col:only-child {
-    flex: 1;
+#fixed-footer {
+    display: none;
+    text-align: center;
+    font-size: var(--footer-font-size);
+    opacity: var(--footer-opacity);
+    color: var(--footer-color);
+    padding: var(--footer-padding);
+    border-top: var(--footer-border-width) solid var(--footer-border-color);
+    width: auto;
+    max-width: var(--footer-max-width);
+    pointer-events: auto;
+    position: fixed;
+    left: var(--footer-left);
+    bottom: var(--footer-bottom);
+    z-index: 10010;
+    background: transparent;
 }
 
-/* Fix for columns container in slides - don't force full height */
-.reveal .slides > section > .columns-container {
-    width: 100% !important;
-    flex: 0 1 auto;
-    height: auto;
-    min-height: 0;
-    max-width: 100% !important;
-    overflow: hidden !important;
+#fixed-footer p {
+    margin: 0;
 }
 
 /* ===== RESPONSIVE - COLUMNS ===== */
@@ -825,9 +622,7 @@ img.large {
         padding: 0 8px;
     }
 
-    #toolbar button,
-    #searchBtn,
-    .toolbar-group .slide-menu-button a {
+    #toolbar button {
         font-size: 12px;
         padding: 0 8px;
         height: 26px;
@@ -836,11 +631,6 @@ img.large {
     .toolbar-group-label {
         font-size: 10px;
         margin-right: 4px;
-    }
-
-    #lecture-nav-info {
-        font-size: 12px;
-        min-width: 40px;
     }
 }
 
@@ -865,19 +655,11 @@ img.large {
         display: none;
     }
 
-    #toolbar button,
-    #searchBtn,
-    .toolbar-group .slide-menu-button a {
+    #toolbar button {
         font-size: 10px;
         padding: 0 5px;
         height: 22px;
         min-width: 24px;
-    }
-
-    #lecture-nav-info {
-        font-size: 10px;
-        min-width: 30px;
-        padding: 0 3px;
     }
 
     .toolbar-group {
@@ -890,44 +672,44 @@ img.large {
 
     /* ===== MUCH SMALLER HEADINGS ON MOBILE ===== */
     .reveal h1 {
-        font-size: calc(0.85em * var(--font-scale));
+        font-size: calc(0.85em * var(--font-scale)) !important;
         margin: 0.2em 0 0.1em 0;
         max-width: 100% !important;
     }
     .reveal h2 {
-        font-size: calc(0.7em * var(--font-scale));
+        font-size: calc(0.7em * var(--font-scale)) !important;
         margin: 0.15em 0 0.1em 0;
         max-width: 100% !important;
     }
     .reveal h3 {
-        font-size: calc(0.6em * var(--font-scale));
+        font-size: calc(0.6em * var(--font-scale)) !important;
         margin: 0.15em 0 0.1em 0;
         max-width: 100% !important;
     }
     .reveal h4 {
-        font-size: calc(0.5em * var(--font-scale));
+        font-size: calc(0.5em * var(--font-scale)) !important;
         margin: 0.1em 0 0.05em 0;
         max-width: 100% !important;
     }
     .reveal h5 {
-        font-size: calc(0.45em * var(--font-scale));
+        font-size: calc(0.45em * var(--font-scale)) !important;
         margin: 0.1em 0 0.05em 0;
         max-width: 100% !important;
     }
     .reveal h6 {
-        font-size: calc(0.4em * var(--font-scale));
+        font-size: calc(0.4em * var(--font-scale)) !important;
         margin: 0.1em 0 0.05em 0;
         max-width: 100% !important;
     }
     
     .reveal p {
-        font-size: calc(0.6em * var(--font-scale));
+        font-size: calc(0.6em * var(--font-scale)) !important;
         margin: 0.15em 0;
         max-width: 100% !important;
     }
     .reveal ul,
     .reveal ol {
-        font-size: calc(0.5em * var(--font-scale));
+        font-size: calc(0.5em * var(--font-scale)) !important;
         margin: 0.1em 0;
         max-width: 100% !important;
     }
@@ -936,215 +718,29 @@ img.large {
         max-width: 100% !important;
     }
     .reveal pre {
-        font-size: calc(0.4em * var(--font-scale));
+        font-size: calc(0.4em * var(--font-scale)) !important;
         padding: 0.4em 0.6em;
         margin: 0.2em 0;
         max-width: 100% !important;
     }
     .reveal blockquote {
-        font-size: calc(0.5em * var(--font-scale));
+        font-size: calc(0.5em * var(--font-scale)) !important;
         padding: 0.2em 0.8em;
         margin: 0.2em 0;
         max-width: 100% !important;
     }
     .reveal code {
-        font-size: calc(0.6em * var(--font-scale));
+        font-size: calc(0.6em * var(--body-font-size)) !important;
         max-width: 100% !important;
     }
     .reveal table {
-        font-size: calc(0.5em * var(--font-scale));
+        font-size: calc(0.5em * var(--font-scale)) !important;
         max-width: 100% !important;
     }
     .reveal table th,
     .reveal table td {
         padding: 0.15em 0.3em;
     }
-}
-
-@media (max-width: 500px) {
-    #toolbar {
-        padding: 2px 4px;
-        min-height: 30px;
-        gap: 0;
-        overflow-x: auto;
-        overflow-y: hidden;
-        flex-wrap: nowrap;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-    }
-
-    #toolbar::-webkit-scrollbar {
-        display: none;
-    }
-
-    .toolbar-group {
-        padding: 0 3px;
-        gap: 1px;
-        border-right: 1px solid #2a2a3a;
-        min-height: 26px;
-        flex-shrink: 0;
-    }
-
-    .toolbar-group:last-child {
-        border-right: none;
-    }
-
-    #toolbar button,
-    #searchBtn,
-    .toolbar-group .slide-menu-button a {
-        font-size: 9px;
-        padding: 0 4px;
-        height: 20px;
-        min-width: 20px;
-        border-width: 1px;
-    }
-
-    #lecture-nav-info {
-        font-size: 9px;
-        min-width: 24px;
-        padding: 0 2px;
-    }
-
-    /* ===== EVEN SMALLER HEADINGS ON VERY SMALL SCREENS ===== */
-    .reveal h1 {
-        font-size: calc(0.7em * var(--font-scale));
-        margin: 0.15em 0 0.08em 0;
-        max-width: 100% !important;
-    }
-    .reveal h2 {
-        font-size: calc(0.6em * var(--font-scale));
-        margin: 0.1em 0 0.08em 0;
-        max-width: 100% !important;
-    }
-    .reveal h3 {
-        font-size: calc(0.5em * var(--font-scale));
-        margin: 0.1em 0 0.05em 0;
-        max-width: 100% !important;
-    }
-    .reveal h4 {
-        font-size: calc(0.45em * var(--font-scale));
-        margin: 0.08em 0 0.05em 0;
-        max-width: 100% !important;
-    }
-    .reveal h5 {
-        font-size: calc(0.4em * var(--font-scale));
-        margin: 0.08em 0 0.05em 0;
-        max-width: 100% !important;
-    }
-    .reveal h6 {
-        font-size: calc(0.35em * var(--font-scale));
-        margin: 0.08em 0 0.05em 0;
-        max-width: 100% !important;
-    }
-    
-    .reveal p {
-        font-size: calc(0.5em * var(--font-scale));
-        margin: 0.1em 0;
-        max-width: 100% !important;
-    }
-    .reveal ul,
-    .reveal ol {
-        font-size: calc(0.45em * var(--font-scale));
-        margin: 0.08em 0;
-        max-width: 100% !important;
-    }
-    .reveal li {
-        margin: 0.02em 0;
-        max-width: 100% !important;
-    }
-    .reveal pre {
-        font-size: calc(0.35em * var(--font-scale));
-        padding: 0.3em 0.5em;
-        max-width: 100% !important;
-    }
-    .reveal blockquote {
-        font-size: calc(0.45em * var(--font-scale));
-        padding: 0.15em 0.6em;
-        max-width: 100% !important;
-    }
-    .reveal code {
-        font-size: calc(0.5em * var(--font-scale));
-        max-width: 100% !important;
-    }
-    .reveal table {
-        font-size: calc(0.4em * var(--font-scale));
-        max-width: 100% !important;
-    }
-    .reveal table th,
-    .reveal table td {
-        padding: 0.1em 0.2em;
-    }
-}
-
-/* ===== FULLSCREEN MODE RESPONSIVE ===== */
-@media (max-width: 768px) {
-    .fullscreen-mode #toolbar #fullscreenBtn {
-        height: 26px !important;
-        padding: 0 10px !important;
-        font-size: 16px !important;
-    }
-}
-
-@media (max-width: 500px) {
-    .fullscreen-mode #toolbar #fullscreenBtn {
-        height: 22px !important;
-        padding: 0 8px !important;
-        font-size: 14px !important;
-    }
-}
-
-/* ===== FOOTER - FIXED TO VIEWPORT BOTTOM LEFT ===== */
-.slide-footer {
-    display: none;
-}
-
-.print-slide-footer {
-    display: none;
-}
-
-body.printing .slide-footer {
-    display: none !important;
-}
-
-body.printing .print-slide-footer {
-    display: block !important;
-}
-
-#fixed-footer {
-    display: none;
-    text-align: center;
-    font-size: var(--footer-font-size);
-    opacity: var(--footer-opacity);
-    color: var(--footer-color);
-    padding: var(--footer-padding);
-    border-top: var(--footer-border-width) solid var(--footer-border-color);
-    width: auto;
-    max-width: var(--footer-max-width);
-    pointer-events: auto;
-    position: fixed;
-    left: var(--footer-left);
-    bottom: var(--footer-bottom);
-    z-index: 10010;
-    background: transparent;
-}
-
-body.printing #fixed-footer {
-    display: none !important;
-}
-
-#fixed-footer p {
-    margin: 0;
-}
-
-#fixed-footer a {
-    color: #8bb9ff;
-    text-decoration: underline;
-    pointer-events: auto;
-    cursor: pointer;
-}
-
-#fixed-footer a:hover {
-    color: #b0d0ff;
 }
 
 /* ===== PRINT STYLES ===== */
@@ -1169,41 +765,7 @@ body.printing #fixed-footer {
         overflow-y: visible !important;
     }
 
-    .slide-footer {
-        display: none !important;
-    }
-
-    .print-slide-footer {
-        display: block !important;
-        text-align: center;
-        font-size: var(--footer-font-size);
-        opacity: 1;
-        color: inherit;
-        padding: var(--footer-padding);
-        border-top: var(--footer-border-width) solid var(--footer-border-color);
-        margin-top: 0;
-        position: absolute !important;
-        left: 0 !important;
-        right: 0 !important;
-        bottom: 0 !important;
-    }
-
-    .print-slide-footer a {
-        color: inherit;
-        text-decoration: underline;
-    }
-
-    #toolbar,
-    #searchBtn,
-    #menuBtn,
-    .slide-menu-button,
-    #customcontrols,
-    #chalkboard,
-    #notescanvas,
-    .slide-menu-wrapper,
-    .slide-menu-overlay,
-    .controls,
-    .progress {
+    #toolbar {
         display: none !important;
         visibility: hidden !important;
         opacity: 0 !important;
@@ -1213,68 +775,10 @@ body.printing #fixed-footer {
         pointer-events: none !important;
     }
 
-    .reveal .overlay {
+    .controls,
+    .progress {
         display: none !important;
-        visibility: hidden !important;
-        opacity: 0 !important;
-        pointer-events: none !important;
     }
-}
-
-/* ===== ADDITIONAL HELPER CLASSES ===== */
-.columns-container.align-center {
-    align-items: center;
-}
-
-.columns-container.align-bottom {
-    align-items: flex-end;
-}
-
-.columns-container.align-stretch {
-    align-items: stretch;
-}
-
-.columns-container .col-40 {
-    flex: 0 0 40%;
-}
-
-.columns-container .col-60 {
-    flex: 0 0 60%;
-}
-
-.columns-container .col-30 {
-    flex: 0 0 30%;
-}
-
-.columns-container .col-70 {
-    flex: 0 0 70%;
-}
-
-.columns-container .col-25 {
-    flex: 0 0 25%;
-}
-
-.columns-container .col-75 {
-    flex: 0 0 75%;
-}
-
-.image-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 100%;
-    flex: 1 1 auto;
-    min-height: 0;
-}
-
-.image-container img {
-    max-width: 100%;
-    max-height: 100%;
-    width: auto;
-    height: auto;
-    object-fit: contain;
 }
 
 /* ===== LECTURE INFO BREADCRUMB ===== */
@@ -1356,7 +860,63 @@ body.printing #fixed-footer {
     }
 }
 
-/* Hide breadcrumb in fullscreen mode */
+/* Fullscreen mode hide breadcrumb */
 .fullscreen-mode #breadcrumb-group {
     display: none !important;
+}
+
+/* ===== FULLSCREEN MODE ===== */
+.fullscreen-mode #toolbar {
+    opacity: 1;
+    background: transparent;
+    border-bottom: none;
+    box-shadow: none;
+    backdrop-filter: none;
+}
+
+.fullscreen-mode #toolbar .toolbar-group,
+.fullscreen-mode #toolbar .toolbar-group-label,
+.fullscreen-mode #toolbar #lecture-nav-info,
+.fullscreen-mode #toolbar #searchBtn,
+.fullscreen-mode #toolbar #menuBtn,
+.fullscreen-mode #toolbar #prevBtn,
+.fullscreen-mode #toolbar #nextBtn,
+.fullscreen-mode #toolbar #homeBtn,
+.fullscreen-mode #toolbar #prevLectureBtn,
+.fullscreen-mode #toolbar #nextLectureLectureBtn,
+.fullscreen-mode #toolbar #notesBtn,
+.fullscreen-mode #toolbar #printBtn {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    width: 0 !important;
+    height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    overflow: hidden !important;
+}
+
+.fullscreen-mode #toolbar #fullscreenBtn {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    width: auto !important;
+    height: 30px !important;
+    padding: 0 12px !important;
+    margin: 0 !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    background: rgba(0, 0, 0, 0.6) !important;
+    color: #fff !important;
+    font-size: 18px !important;
+    border-radius: 4px !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    flex-shrink: 0 !important;
+}
+
+.fullscreen-mode #toolbar #fullscreenBtn:hover {
+    background: rgba(255, 255, 255, 0.15) !important;
+    border-color: rgba(255, 255, 255, 0.6) !important;
+    transform: scale(1.05);
 }

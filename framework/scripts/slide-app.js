@@ -12,15 +12,10 @@
         backgroundTransition: 'none',
         autoAnimate: false,
 
-        // Let Reveal handle sizing with these defaults
-        // These control the internal render size
         width: "90%",
         height: "90%",
         margin: 0,
         
-        // Allow scaling to fit any screen
-        // minScale: 0.2 allows shrinking to 20% on tiny screens
-        // maxScale: 1.0 prevents scaling up beyond natural size
         minScale: 0.2,
         maxScale: 1.0,
     };
@@ -48,10 +43,6 @@
         openButton: false
     };
 
-    // ============================================================
-    //  DOM ELEMENT IDs - Change these if you rename elements
-    // ============================================================
-
     const MARKDOWN_HOST_ID = "markdown-slide";
     const FOOTER_HOST_ID = "fixed-footer";
     const FULLSCREEN_BUTTON_ID = "fullscreenBtn";
@@ -69,19 +60,11 @@
         menu: "menuBtn"
     };
 
-    // ============================================================
-    //  MANIFEST PATHS - Order of paths to try when loading manifest
-    // ============================================================
-
     const MANIFEST_PATHS = [
         "../manifest.json",
         "../../manifest.json",
         "manifest.json"
     ];
-
-    // ============================================================
-    //  INITIALIZATION - Start the slide app
-    // ============================================================
 
     const file = new URLSearchParams(window.location.search).get("deck");
 
@@ -92,10 +75,6 @@
 
     const basePath = file.substring(0, file.lastIndexOf("/") + 1);
     const storageKey = `reveal-pos-${file}`;
-
-    // ============================================================
-    //  LECTURE INFO - Breadcrumb data
-    // ============================================================
 
     let courseShort = "";
     let moduleTitle = "";
@@ -157,10 +136,6 @@
 
     tryLoadManifest(0);
 
-    // ============================================================
-    //  MARKDOWN PROCESSING
-    // ============================================================
-
     function rewriteRelativeUrls(markdown) {
         const lines = markdown.split('\n');
         let inCodeBlock = false;
@@ -169,20 +144,16 @@
         for (let line of lines) {
             const trimmed = line.trim();
 
-            // Check for code block boundaries
             if (trimmed.startsWith('```') && (trimmed.length === 3 || trimmed.startsWith('```'))) {
                 inCodeBlock = !inCodeBlock;
                 result.push(line);
                 continue;
             }
 
-            // Only process non-code lines
             if (!inCodeBlock) {
-                // Match markdown links with proper text content
                 line = line.replace(
                     /\[([^\]]+)\]\((?!https?:\/\/|\/|#|mailto:)([^)]+?)\)/g,
                     (match, text, url) => {
-                        // Skip if the link text is just empty or brackets
                         if (!text || text.trim() === '' || text === '()' || text === '[]') {
                             return match;
                         }
@@ -207,10 +178,6 @@ ${markdown}
         host.setAttribute("data-markdown", "");
     }
 
-    // ============================================================
-    //  FOOTER SYNC
-    // ============================================================
-
     function syncFixedFooter() {
         const footerHost = document.getElementById(FOOTER_HOST_ID);
         const currentSlide = Reveal.getCurrentSlide();
@@ -228,10 +195,6 @@ ${markdown}
         footerHost.innerHTML = footer.innerHTML;
         footerHost.style.display = "block";
     }
-
-    // ============================================================
-    //  TOOLBAR BUTTON HANDLERS
-    // ============================================================
 
     function toggleFullscreen() {
         if (!document.fullscreenElement) {
@@ -414,10 +377,6 @@ ${markdown}
         });
     }
 
-    // ============================================================
-    //  BIND TOOLBAR
-    // ============================================================
-
     function bindToolbar() {
         document.getElementById(BUTTON_IDS.search).addEventListener("click", openSearch);
         document.getElementById(BUTTON_IDS.home).addEventListener("click", () => {
@@ -447,10 +406,6 @@ ${markdown}
             });
         }
     }
-
-    // ============================================================
-    //  REVEAL EVENTS
-    // ============================================================
 
     function wireRevealEvents() {
         Reveal.on("slidechanged", () => {
@@ -507,29 +462,52 @@ ${markdown}
                 RevealSearch
             ];
 
-            // Add menu if available
+            // Check for Menu plugin (CDN version)
+            // The CDN version might be available as window.RevealMenu
             if (typeof RevealMenu !== 'undefined') {
                 plugins.push(RevealMenu);
-                console.log('Menu plugin found and added');
+                console.log('Menu plugin found and added (RevealMenu)');
             } else if (typeof window.RevealMenu !== 'undefined') {
                 plugins.push(window.RevealMenu);
-                console.log('Menu plugin found and added (window)');
+                console.log('Menu plugin found and added (window.RevealMenu)');
             } else {
-                console.log('Menu plugin not found');
+                // Search for any plugin with menu-like methods
+                const allGlobalKeys = Object.keys(window);
+                const menuKey = allGlobalKeys.find(key => 
+                    key.toLowerCase().includes('menu') && 
+                    typeof window[key] === 'function'
+                );
+                if (menuKey) {
+                    plugins.push(window[menuKey]);
+                    console.log(`Menu plugin found as: ${menuKey}`);
+                } else {
+                    console.log('Menu plugin not found');
+                }
             }
 
-            // Add chalkboard if available
+            // Check for Chalkboard plugin (CDN version)
+            // The CDN version might be available as window.RevealChalkboard
             if (typeof RevealChalkboard !== 'undefined') {
                 plugins.push(RevealChalkboard);
-                console.log('Chalkboard plugin found and added');
+                console.log('Chalkboard plugin found and added (RevealChalkboard)');
             } else if (typeof window.RevealChalkboard !== 'undefined') {
                 plugins.push(window.RevealChalkboard);
-                console.log('Chalkboard plugin found and added (window)');
+                console.log('Chalkboard plugin found and added (window.RevealChalkboard)');
             } else {
-                console.log('Chalkboard plugin not found');
+                // Search for any plugin with chalkboard-like methods
+                const allGlobalKeys = Object.keys(window);
+                const chalkboardKey = allGlobalKeys.find(key => 
+                    key.toLowerCase().includes('chalkboard') && 
+                    typeof window[key] === 'function'
+                );
+                if (chalkboardKey) {
+                    plugins.push(window[chalkboardKey]);
+                    console.log(`Chalkboard plugin found as: ${chalkboardKey}`);
+                } else {
+                    console.log('Chalkboard plugin not found - check CDN URL');
+                }
             }
 
-            // Combine all configs
             const fullConfig = {
                 ...REVEAL_CONFIG,
                 plugins: plugins,
@@ -538,6 +516,8 @@ ${markdown}
             };
 
             console.log('Reveal config:', fullConfig);
+            console.log('Registered plugins:', plugins.length);
+            
             Reveal.initialize(fullConfig);
 
             bindToolbar();
@@ -548,6 +528,9 @@ ${markdown}
 
             Reveal.on('ready', () => {
                 checkPlugins();
+                setTimeout(() => {
+                    Reveal.layout();
+                }, 100);
             });
         })
         .catch(error => {
@@ -555,4 +538,4 @@ ${markdown}
             document.getElementById(MARKDOWN_HOST_ID).innerHTML =
                 `<h2>Error loading slide</h2><p>${error.message}</p>`;
         });
-}());
+})();

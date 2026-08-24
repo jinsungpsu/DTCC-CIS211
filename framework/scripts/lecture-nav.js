@@ -164,25 +164,6 @@
         }
 
         // FIXED: Menu button - toggle menu (CDN version uses toggle())
-        if (menuBtn) {
-            menuBtn.onclick = () => {
-                if (typeof Reveal !== 'undefined') {
-                    const menuPlugin = Reveal.getPlugin('menu');
-                    if (menuPlugin) {
-                        // CDN version uses toggle() instead of toggleMenu()
-                        if (typeof menuPlugin.toggle === 'function') {
-                            menuPlugin.toggle();
-                        } else if (typeof menuPlugin.toggleMenu === 'function') {
-                            menuPlugin.toggleMenu();
-                        } else {
-                            console.warn('Menu plugin loaded but no toggle method found');
-                        }
-                    } else {
-                        console.warn('Menu plugin not available');
-                    }
-                }
-            };
-        }
 
         // Keyboard shortcuts
         document.addEventListener('keydown', (e) => {
