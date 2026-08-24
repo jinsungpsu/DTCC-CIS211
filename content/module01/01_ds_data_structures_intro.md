@@ -318,6 +318,11 @@ Later:
 
 ---
 
+# Lab time
+- Work on lab 1.
+
+---
+
 # Java Review
 ## Review Topics
 
