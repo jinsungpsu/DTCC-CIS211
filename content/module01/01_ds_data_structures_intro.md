@@ -318,11 +318,6 @@ Later:
 
 ---
 
-# Lab time
-- Work on lab 1.
-
----
-
 # Java Review
 ## Review Topics
 
@@ -370,6 +365,11 @@ Resources:
 - Dot notation
 - Private data
 - Setters/Getters
+
+---
+
+# Lab time
+- Work on lab 1.
 
 ---
 
