@@ -1,0 +1,3 @@
+exclude:
+  - framework/node_modules/
+  - node_modules/
