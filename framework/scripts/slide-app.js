@@ -66,10 +66,49 @@
         "manifest.json"
     ];
 
+    // ============================================================
+    //  VERIFY DOM ELEMENTS EXIST
+    // ============================================================
+
+    function ensureElementExists(elementId) {
+        const element = document.getElementById(elementId);
+        if (!element) {
+            console.error(`Element with ID "${elementId}" not found!`);
+            const slidesContainer = document.querySelector('.reveal .slides');
+            if (slidesContainer) {
+                const newElement = document.createElement('section');
+                newElement.id = elementId;
+                slidesContainer.appendChild(newElement);
+                console.warn(`Created fallback element with ID "${elementId}"`);
+                return newElement;
+            }
+            return null;
+        }
+        return element;
+    }
+
+    // Ensure the markdown host exists
+    const markdownHost = ensureElementExists(MARKDOWN_HOST_ID);
+    if (!markdownHost) {
+        const fallbackDiv = document.createElement('div');
+        fallbackDiv.id = MARKDOWN_HOST_ID;
+        fallbackDiv.style.display = 'block';
+        fallbackDiv.style.padding = '20px';
+        document.body.appendChild(fallbackDiv);
+        console.warn('Created emergency fallback element');
+    }
+
+    // ============================================================
+    //  INITIALIZATION - Start the slide app
+    // ============================================================
+
     const file = new URLSearchParams(window.location.search).get("deck");
 
     if (!file) {
-        document.getElementById(MARKDOWN_HOST_ID).innerHTML = "<h2>No deck specified.</h2>";
+        const host = document.getElementById(MARKDOWN_HOST_ID);
+        if (host) {
+            host.innerHTML = "<h2>No deck specified.</h2>";
+        }
         throw new Error("Missing deck parameter");
     }
 
@@ -136,6 +175,10 @@
 
     tryLoadManifest(0);
 
+    // ============================================================
+    //  MARKDOWN PROCESSING
+    // ============================================================
+
     function rewriteRelativeUrls(markdown) {
         const lines = markdown.split('\n');
         let inCodeBlock = false;
@@ -170,6 +213,10 @@
 
     function renderMarkdown(markdown) {
         const host = document.getElementById(MARKDOWN_HOST_ID);
+        if (!host) {
+            console.error(`Cannot render markdown: Element "${MARKDOWN_HOST_ID}" not found`);
+            return;
+        }
         host.innerHTML = `
                 <textarea data-template>
 ${markdown}
@@ -178,10 +225,16 @@ ${markdown}
         host.setAttribute("data-markdown", "");
     }
 
+    // ============================================================
+    //  FOOTER SYNC
+    // ============================================================
+
     function syncFixedFooter() {
         const footerHost = document.getElementById(FOOTER_HOST_ID);
+        if (typeof Reveal === 'undefined' || !footerHost) return;
+        
         const currentSlide = Reveal.getCurrentSlide();
-        if (!footerHost || !currentSlide) {
+        if (!currentSlide) {
             return;
         }
 
@@ -195,6 +248,10 @@ ${markdown}
         footerHost.innerHTML = footer.innerHTML;
         footerHost.style.display = "block";
     }
+
+    // ============================================================
+    //  TOOLBAR BUTTON HANDLERS
+    // ============================================================
 
     function toggleFullscreen() {
         if (!document.fullscreenElement) {
@@ -335,10 +392,9 @@ ${markdown}
         );
     }
 
-    function printSlides() {
-        enterPrintMode();
-        window.print();
-    }
+    // ============================================================
+    //  PRINT FUNCTIONS - FIXED
+    // ============================================================
 
     function enterPrintMode() {
         document.body.classList.add("printing");
@@ -348,6 +404,13 @@ ${markdown}
             footerHost.innerHTML = "";
             footerHost.style.display = "none";
             footerHost.style.visibility = "hidden";
+        }
+        
+        // Force reveal to layout for print
+        if (typeof Reveal !== 'undefined') {
+            setTimeout(() => {
+                Reveal.layout();
+            }, 100);
         }
     }
 
@@ -359,6 +422,13 @@ ${markdown}
             footerHost.style.visibility = "visible";
         }
         syncFixedFooter();
+        
+        // Re-layout after print
+        if (typeof Reveal !== 'undefined') {
+            setTimeout(() => {
+                Reveal.layout();
+            }, 100);
+        }
     }
 
     function clearPrintFooters() {
@@ -377,15 +447,55 @@ ${markdown}
         });
     }
 
+    function printSlides() {
+        // First ensure all slides are rendered and fragments visible
+        if (typeof Reveal !== 'undefined') {
+            // Force all fragments to be visible for print
+            document.querySelectorAll('.fragment').forEach(el => {
+                el.style.opacity = '1';
+                el.style.visibility = 'visible';
+                el.style.display = 'block';
+            });
+        }
+        
+        enterPrintMode();
+        
+        // Delay print to allow layout to complete
+        setTimeout(() => {
+            window.print();
+        }, 300);
+    }
+
+    // ============================================================
+    //  BIND TOOLBAR
+    // ============================================================
+
     function bindToolbar() {
-        document.getElementById(BUTTON_IDS.search).addEventListener("click", openSearch);
-        document.getElementById(BUTTON_IDS.home).addEventListener("click", () => {
-            window.location.href = "index.html";
-        });
-        document.getElementById(BUTTON_IDS.prev).addEventListener("click", () => Reveal.prev());
-        document.getElementById(BUTTON_IDS.next).addEventListener("click", () => Reveal.next());
-        document.getElementById(BUTTON_IDS.print).addEventListener("click", printSlides);
-        document.getElementById(BUTTON_IDS.fullscreen).addEventListener("click", toggleFullscreen);
+        const searchBtn = document.getElementById(BUTTON_IDS.search);
+        if (searchBtn) searchBtn.addEventListener("click", openSearch);
+        
+        const homeBtn = document.getElementById(BUTTON_IDS.home);
+        if (homeBtn) {
+            homeBtn.addEventListener("click", () => {
+                window.location.href = "index.html";
+            });
+        }
+        
+        const prevBtn = document.getElementById(BUTTON_IDS.prev);
+        if (prevBtn && typeof Reveal !== 'undefined') {
+            prevBtn.addEventListener("click", () => Reveal.prev());
+        }
+        
+        const nextBtn = document.getElementById(BUTTON_IDS.next);
+        if (nextBtn && typeof Reveal !== 'undefined') {
+            nextBtn.addEventListener("click", () => Reveal.next());
+        }
+        
+        const printBtn = document.getElementById(BUTTON_IDS.print);
+        if (printBtn) printBtn.addEventListener("click", printSlides);
+        
+        const fullscreenBtn = document.getElementById(BUTTON_IDS.fullscreen);
+        if (fullscreenBtn) fullscreenBtn.addEventListener("click", toggleFullscreen);
 
         const menuBtn = document.getElementById(BUTTON_IDS.menu);
         if (menuBtn) {
@@ -407,7 +517,13 @@ ${markdown}
         }
     }
 
+    // ============================================================
+    //  REVEAL EVENTS
+    // ============================================================
+
     function wireRevealEvents() {
+        if (typeof Reveal === 'undefined') return;
+        
         Reveal.on("slidechanged", () => {
             localStorage.setItem(storageKey, JSON.stringify(Reveal.getIndices()));
             syncFixedFooter();
@@ -463,7 +579,6 @@ ${markdown}
             ];
 
             // Check for Menu plugin (CDN version)
-            // The CDN version might be available as window.RevealMenu
             if (typeof RevealMenu !== 'undefined') {
                 plugins.push(RevealMenu);
                 console.log('Menu plugin found and added (RevealMenu)');
@@ -471,7 +586,6 @@ ${markdown}
                 plugins.push(window.RevealMenu);
                 console.log('Menu plugin found and added (window.RevealMenu)');
             } else {
-                // Search for any plugin with menu-like methods
                 const allGlobalKeys = Object.keys(window);
                 const menuKey = allGlobalKeys.find(key => 
                     key.toLowerCase().includes('menu') && 
@@ -486,7 +600,6 @@ ${markdown}
             }
 
             // Check for Chalkboard plugin (CDN version)
-            // The CDN version might be available as window.RevealChalkboard
             if (typeof RevealChalkboard !== 'undefined') {
                 plugins.push(RevealChalkboard);
                 console.log('Chalkboard plugin found and added (RevealChalkboard)');
@@ -494,7 +607,6 @@ ${markdown}
                 plugins.push(window.RevealChalkboard);
                 console.log('Chalkboard plugin found and added (window.RevealChalkboard)');
             } else {
-                // Search for any plugin with chalkboard-like methods
                 const allGlobalKeys = Object.keys(window);
                 const chalkboardKey = allGlobalKeys.find(key => 
                     key.toLowerCase().includes('chalkboard') && 
@@ -504,7 +616,7 @@ ${markdown}
                     plugins.push(window[chalkboardKey]);
                     console.log(`Chalkboard plugin found as: ${chalkboardKey}`);
                 } else {
-                    console.log('Chalkboard plugin not found - check CDN URL');
+                    console.log('Chalkboard plugin not found');
                 }
             }
 
@@ -535,7 +647,9 @@ ${markdown}
         })
         .catch(error => {
             console.error("Error loading markdown:", error);
-            document.getElementById(MARKDOWN_HOST_ID).innerHTML =
-                `<h2>Error loading slide</h2><p>${error.message}</p>`;
+            const host = document.getElementById(MARKDOWN_HOST_ID);
+            if (host) {
+                host.innerHTML = `<h2>Error loading slide</h2><p>${error.message}</p>`;
+            }
         });
 })();
