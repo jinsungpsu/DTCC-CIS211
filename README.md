@@ -44,19 +44,17 @@ S                Presenter View (Speaker Notes)
 The toolbar appears at the top of the presentation.
 
 ```text
-↩  Return to lecture list
-
-◀  Previous slide
-
-▶  Next slide
-
-🔍 Search slides
-
-⛶ Enter Fullscreen
-
-✕ Exit Fullscreen
-
-🖨 Print / Save as PDF
+☰ All           Return to lecture list
+◀ Prev          Previous lecture
+Next ▶          Next lecture
+☰ All           Table of Contents (slides)
+◀ Prev          Previous slide
+Next ▶          Next slide
+🔍              Search slides
+✏️              Toggle Notes Canvas
+🖨              Open Print Version (2 slides per page with notes)
+⛶              Enter Fullscreen
+✕               Exit Fullscreen
 ```
 
 ---
@@ -69,9 +67,11 @@ Examples:
 
 ```text
 ArrayList
-constructor
-recursion
-ADT
+LinkedList
+Stack
+Queue
+Recursion
+BinaryTree
 ```
 
 Search is useful when reviewing material before quizzes, exams, and programming assignments.
@@ -120,11 +120,14 @@ Code blocks include syntax highlighting to make examples easier to read and unde
 Example:
 
 ```java
-int[] nums = new int[10];
+public class Node {
+    private int data;
+    private Node next;
 
-for(int i = 0; i < nums.length; i++)
-{
-    System.out.println(i);
+    public Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
 }
 ```
 
@@ -142,9 +145,25 @@ Navigation options:
 
 ---
 
-## Printing
+## Printing / Saving as PDF
 
-Certain lectures may be printed or saved as PDF using the toolbar print button.
+To print or save a lecture as PDF:
+
+1. Open the lecture you want to print
+2. Click the print button in the toolbar:
+
+```text
+🖨
+```
+
+3. This opens the print version in a new tab with:
+   - 2 slides per page
+   - Notes section below each slide
+   - Ruled paper background for notes
+
+4. Use your browser's print dialog to:
+   - Print the handout
+   - Save as PDF (select "Save as PDF" in the print dialog)
 
 Printing is intended primarily for note-taking and offline review.
 
@@ -202,15 +221,15 @@ Speaker notes are stored inside lecture Markdown files.
 Example:
 
 ```markdown
-# Arrays
+# Linked Lists
 
-Arrays have fixed size.
+Linked lists store elements in nodes.
 
 Note:
 Remind students:
-- Compare ArrayList
-- Explain contiguous memory
-- Discuss O(1) access
+- Discuss linked lists vs arrays
+- Explain node structure
+- Show insertion and deletion
 ```
 
 Anything following:
@@ -232,6 +251,7 @@ The site is built using:
 - Markdown
 - Reveal.js
 - GitHub Pages
+- Centralized Lecture Framework
 
 Lecture content is maintained in Markdown and rendered as interactive presentations.
 
@@ -245,7 +265,7 @@ This section covers how to create and format lecture slides using Markdown.
 
 Each slide is separated by:
 
-```markdown
+```text
 ---
 ```
 
@@ -302,13 +322,30 @@ Column two content.
 Column three content.
 ```
 
+### Returning to Full Width
+
+Use `<!-- endcolumns -->` to return to full-width content after a column layout:
+
+```markdown
+<!-- column -->
+Left column content.
+
+<!-- column -->
+Right column content.
+
+<!-- endcolumns -->
+
+This text will span the full width of the slide.
+```
+
 ### Features
 
 - **Auto-detects** number of columns (2, 3, 4+)
 - **Columns scroll** if content is too long
 - **Images** automatically scale to fit columns
 - **Lists** and **code blocks** work inside columns
-- **Responsive** - stacks vertically on mobile
+- **Responsive** and stacks vertically on mobile
+- **Endcolumns** allows return to full-width layout
 
 ### Images in Columns
 
@@ -319,6 +356,9 @@ Column three content.
 <!-- column -->
 - List item 1
 - List item 2
+
+<!-- endcolumns -->
+Full-width conclusion or summary text.
 ```
 
 ---
@@ -350,7 +390,7 @@ Content here.
 - **Centered** at bottom of slide
 - **Supports Markdown** (links, bold, italic)
 - **Scales** with font settings
-- **Auto-spacing** - content won't overlap footer
+- **Auto-spacing** to prevent overlap
 
 ---
 
@@ -365,18 +405,16 @@ images/
 Example:
 
 ```text
-images/stacks/push-pop.png
+images/linkedlists/node-diagram.png
 ```
 
 Reference in Markdown:
 
 ```markdown
-![Push Pop Example](images/stacks/push-pop.png)
+![Node Diagram](images/linkedlists/node-diagram.png)
 ```
 
 ### Image Size Helpers
-
-You can control image size using CSS classes:
 
 ```markdown
 ![Small Image](images/small.png){.small}
@@ -385,7 +423,7 @@ You can control image size using CSS classes:
 ```
 
 | Class | Size |
-|-------|------|
+| ------- | ------ |
 | `.small` | 30% width |
 | `.medium` | 60% width |
 | `.large` | 90% width |
@@ -399,9 +437,20 @@ Code blocks include syntax highlighting.
 ### Java Example
 
 ```java
-public class Example {
-    public static void main(String[] args) {
-        System.out.println("Hello");
+public class LinkedList {
+    private Node head;
+
+    public void add(int data) {
+        Node newNode = new Node(data);
+        if (head == null) {
+            head = newNode;
+        } else {
+            Node current = head;
+            while (current.next != null) {
+                current = current.next;
+            }
+            current.next = newNode;
+        }
     }
 }
 ```
@@ -423,68 +472,60 @@ The entire presentation can be scaled using the `--font-scale` variable in `styl
 
 ```css
 :root {
-    --font-scale: 1.0;  /* 1.0 = normal */
+    --font-scale: 1.0;
 }
 ```
 
 ### Common Values
 
 ```text
---font-scale: 0.8   → 20% smaller (compact)
+--font-scale: 0.8   → 20% smaller
 --font-scale: 0.9   → 10% smaller
---font-scale: 1.0   → Normal (default)
+--font-scale: 1.0   → Normal
 --font-scale: 1.1   → 10% larger
 --font-scale: 1.2   → 20% larger
---font-scale: 1.3   → 30% larger (presentation mode)
+--font-scale: 1.3   → 30% larger
 ```
-
-This scales all text sizes proportionally:
-
-- Headings (H1-H6)
-- Body text
-- Lists
-- Code blocks
-- Footer
-- Column gaps
-- Slide padding
 
 ---
 
 ## Complete Slide Example
 
-Here's a complete example combining all features:
-
 ```markdown
 # Data Structures
 
-## Arrays vs ArrayLists
+## Arrays vs Linked Lists
 
 <!-- column -->
 **Arrays**
 - Fixed size
 - Contiguous memory
 - O(1) access
-- Primitives supported
+- Poor insertion/deletion
 
 ![Array Diagram](images/array.png)
 
 <!-- column -->
-**ArrayLists**
+**Linked Lists**
 - Dynamic size
-- Resizes automatically
-- O(1) access
-- Objects only
+- Non-contiguous memory
+- O(n) access
+- Fast insertion/deletion
 
-![ArrayList Diagram](images/arraylist.png)
+![Linked List Diagram](images/linkedlist.png)
+
+<!-- endcolumns -->
+
+**Key Takeaway:** Choose arrays for fixed-size, index-based access. Choose linked lists for dynamic size with frequent insertions/deletions.
 
 <!-- footer -->
-[Lecture 2](slides/02_arraylists.md) | CIS211 | Spring 2026
+slides/02_linked_lists.md | CIS211 | Spring 2026
 
 ---
 
 ## Next Topic
 
-This is the next slide.
+Stacks and Queues
 ```
 
 ---
@@ -496,45 +537,48 @@ The information below is primarily for instructors and future maintainers.
 ## Repository Structure
 
 ```text
-DTCC-CIS211-Slides/
-│
-├── index.html
-├── slide.html
-├── README.md
-│
-├── styles/
-│   └── slides.css
-│
-├── module01/
-│   ├── 01_data_structures_intro.md
-│   └── images/
-│
-├── module02/
-│   ├── 01_arraylists.md
-│   └── images/
-│
-├── module03/
-│   ├── 01_linked_lists.md
-│   └── images/
-│
-├── module04/
-│   ├── 01_stacks.md
-│   └── images/
-│
-├── module05/
-│   ├── 01_queues.md
-│   └── images/
-│
-├── module06/
-│   ├── 01_recursion.md
-│   └── images/
-│
-├── module07/
-│   ├── 01_trees.md
-│   └── images/
-│
-└── images/
-    └── (shared images)
+DTCC-CIS211/
+├── index.html              # Redirects to framework catalog
+├── manifest.json           # Generated course metadata
+└── content/
+    ├── module00/           # Course info (not displayed as a module)
+    │   └── 00_course_info.md
+    ├── module01/
+    │   ├── 00_module_overview.md
+    │   ├── 01_data_structures_intro.md
+    │   └── images/
+    ├── module02/
+    │   ├── 00_module_overview.md
+    │   ├── 01_arraylists.md
+    │   └── images/
+    ├── module03/
+    │   ├── 00_module_overview.md
+    │   ├── 01_linked_lists.md
+    │   └── images/
+    ├── module04/
+    │   ├── 00_module_overview.md
+    │   ├── 01_stacks.md
+    │   └── images/
+    ├── module05/
+    │   ├── 00_module_overview.md
+    │   ├── 01_queues.md
+    │   └── images/
+    ├── module06/
+    │   ├── 00_module_overview.md
+    │   ├── 01_recursion.md
+    │   └── images/
+    ├── module07/
+    │   ├── 00_module_overview.md
+    │   ├── 01_trees.md
+    │   └── images/
+    ├── module08/
+    │   ├── 00_module_overview.md
+    │   ├── 01_sorting.md
+    │   └── images/
+    └── module09/
+        ├── 00_module_overview.md
+        ├── 01_hashing.md
+        └── images/
 ```
 
 ---
@@ -543,206 +587,91 @@ DTCC-CIS211-Slides/
 
 ### Step 1
 
-Create a Markdown file:
+Create a Markdown file in the appropriate module folder:
 
 ```text
-module03/01_stacks.md
+content/module03/01_linked_lists.md
 ```
 
 ### Step 2
 
 Add slides separated by:
 
-```markdown
+```text
 ---
 ```
 
 Example:
 
-```markdown
-# Stacks
+```text
+# Linked Lists
 
 ---
 
-# Stack Operations
+## Node Structure
 
-- Push
-- Pop
-- Peek
+- Data
+- Next pointer
 
 <!-- footer -->
 Module 3 | CIS211
 
 ---
 
-# Stack Example
+## Linked List Operations
 
-```java
-Stack<Integer> stack = new Stack<>();
-stack.push(1);
-stack.push(2);
-System.out.println(stack.pop()); // 2
-```
+- Add to front
+- Add to end
+- Remove
+- Search
 ```
 
 ### Step 3
 
-Add a link to `index.html`:
+Regenerate the manifest:
 
-```html
-<a href="./slide.html?deck=module03/01_stacks.md" class="lecture-card">
-    <span class="lec-num">M3</span>
-    <span class="lec-title">Stacks</span>
-</a>
+```bash
+python generate_manifest.py
+```
+
+### Step 4
+
+Commit and push changes:
+
+```bash
+git add .
+git commit -m "Add linked lists lecture"
+git push origin main
 ```
 
 ---
 
-## Adding Images
+## Module Organization
 
-### Option 1: Module-Specific Images
-
-Store images in the module's `images/` folder:
-
-```text
-module03/images/push-pop.png
-```
-
-Reference in Markdown:
-
-```markdown
-![Push Pop](images/push-pop.png)
-```
-
-### Option 2: Shared Images
-
-Store shared images in the root `images/` folder:
-
-```text
-images/common/logo.png
-```
-
-Reference in Markdown:
-
-```markdown
-![Logo](../images/common/logo.png)
-```
+| Module | Topic |
+|--------|-------|
+| module00 | Course Information (not displayed) |
+| module01 | Introduction to Data Structures |
+| module02 | ArrayLists |
+| module03 | Linked Lists |
+| module04 | Stacks |
+| module05 | Queues |
+| module06 | Recursion |
+| module07 | Trees |
+| module08 | Sorting Algorithms |
+| module09 | Hashing |
 
 ---
 
-## Naming Convention
+## License
 
-Recommended:
-
-```text
-01_data_structures_intro.md
-02_arraylists.md
-03_linked_lists.md
-04_stacks.md
-05_queues.md
-06_recursion.md
-07_trees.md
-08_sorting.md
-```
-
-This helps keep lectures organized and sorted correctly.
+MIT License
 
 ---
 
-## Source of Truth
+## Acknowledgments
 
-Lecture content lives in Markdown files.
-
-```text
-Markdown
-    ↓
-Reveal.js
-    ↓
-GitHub Pages
-```
-
-Markdown files should always be treated as the authoritative source for lecture content.
-
----
-
-## Custom CSS Variables
-
-The following CSS variables can be adjusted in `styles/slides.css` to customize the presentation:
-
-### Font Sizes
-
-```css
-:root {
-    --font-scale: 1.0;          /* Master scale */
-    --heading-h1-size: 2.5em;   /* H1 size */
-    --heading-h2-size: 1.8em;   /* H2 size */
-    --body-font-size: 1em;      /* Body text */
-    --list-font-size: 1em;      /* Lists */
-    --footer-font-size: 0.5em;  /* Footer */
-}
-```
-
-### Spacing
-
-```css
-:root {
-    --heading-margin: 0.3em 0 0.2em 0;
-    --body-margin: 0.3em 0;
-    --columns-gap: 2rem;
-    --footer-padding: 4px 0 4px 0;
-    --slide-padding: 20px 40px 50px 40px;
-}
-```
-
-### Colors
-
-```css
-:root {
-    --heading-color: #fff;
-    --body-color: #ddd;
-    --list-color: #ddd;
-    --footer-color: #999;
-}
-```
-
----
-
-## Quick Reference
-
-| Feature | Syntax | Example |
-|---------|--------|---------|
-| Slide separator | `---` | Between slides |
-| Column | `<!-- column -->` | Between columns |
-| Footer | `<!-- footer -->` | At end of slide |
-| Speaker notes | `Note:` | After content |
-| Image small | `{ .small }` | `![alt](img){.small}` |
-| Image medium | `{ .medium }` | `![alt](img){.medium}` |
-| Image large | `{ .large }` | `![alt](img){.large}` |
-
----
-
-## Troubleshooting
-
-### Images Not Showing
-
-1. Check the file path is correct
-2. Ensure the image exists in the correct folder
-3. Use relative paths: `images/filename.jpg`
-
-### Columns Not Working
-
-1. Use `<!-- column -->` between each column
-2. Leave a blank line after `<!-- column -->`
-3. Make sure there are at least 2 columns
-
-### Footer Not Showing
-
-1. Use `<!-- footer -->` on its own line
-2. Add content after the marker
-3. Place at the end of the slide content
-
-### Font Scaling Not Working
-
-1. Check `styles/slides.css` exists
-2. Verify `--font-scale` is in the `:root` section
-3. Refresh the page after changes
+- [Reveal.js](https://revealjs.com/) - Presentation framework
+- [marked.js](https://marked.js.org/) - Markdown parser
+- [GitHub Pages](https://pages.github.com/) - Hosting
+- [DTCC Lectures RevealJS Framework](https://github.com/jinsungpsu/DTCC-Lectures-RevealJS-Framework) - Centralized framework
