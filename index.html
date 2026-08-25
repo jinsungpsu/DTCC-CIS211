@@ -1,10 +1,355 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="refresh"
-          content="0; url=framework/index.html">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Course Lectures</title>
+    
+    <!-- Use the framework's home.css -->
+    <link rel="stylesheet" href="https://jinsungpsu.github.io/DTCC-Lectures-RevealJS-Framework/styles/home.css">
+    
+    <!-- Fallback styles in case framework is not available -->
+    <style>
+        /* Fallback styles if framework CSS doesn't load */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: #e0e0e0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            margin: 0;
+        }
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: #1a1a1a;
+            border-radius: 16px;
+            padding: 30px 40px 12px 40px;
+            border: 1px solid #2a2a2a;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+        }
+        .header-minimal {
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #2a2a2a;
+        }
+        .page-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #e0e0e0;
+            margin: 0;
+        }
+        .alert-callout {
+            background: #1a1a2e;
+            border-left: 4px solid #fdcb6e;
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin: 16px 0 24px 0;
+            color: #fdcb6e;
+        }
+        .alert-callout .alert-content p {
+            margin: 0;
+            font-size: 0.95rem;
+        }
+        .module-card {
+            background: #121212;
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin-bottom: 12px;
+            border: 1px solid #2a2a2a;
+            transition: border-color 0.2s ease;
+        }
+        .module-card:hover {
+            border-color: #3a3a4a;
+        }
+        .module-card h2 {
+            color: #8be9fd;
+            font-size: 1rem;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        .lecture-link {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 14px;
+            background: #0d0d0d;
+            border-radius: 6px;
+            text-decoration: none;
+            color: #e0e0e0;
+            margin-bottom: 4px;
+            border: 1px solid transparent;
+            transition: all 0.2s ease;
+        }
+        .lecture-link:hover {
+            background: #1a1a2e;
+            border-color: #8bb9ff;
+            transform: translateX(4px);
+        }
+        .lecture-link:last-child {
+            margin-bottom: 0;
+        }
+        .lecture-title {
+            font-weight: 400;
+            font-size: 0.95rem;
+        }
+        .lecture-desc {
+            font-size: 0.7rem;
+            color: #666;
+        }
+        .footer-minimal {
+            margin-top: 20px;
+            padding-top: 12px;
+            border-top: 1px solid #222;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .footer-toggle {
+            background: none;
+            border: none;
+            color: #555;
+            font-size: 0.75rem;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .footer-toggle:hover {
+            color: #888;
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .footer-content {
+            width: 100%;
+            margin-top: 8px;
+            padding: 8px 12px;
+            background: #0d0d0d;
+            border-radius: 6px;
+            border: 1px solid #222;
+        }
+        .footer-inner {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            font-size: 0.75rem;
+            color: #666;
+        }
+        .footer-inner .brand {
+            font-weight: 500;
+            color: #888;
+        }
+        .footer-inner .link {
+            color: #8bb9ff;
+            text-decoration: none;
+        }
+        .footer-inner .link:hover {
+            text-decoration: underline;
+        }
+        .footer-inner .badge {
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #2a2a2a;
+            font-weight: 500;
+            color: #fdcb6e;
+        }
+        .footer-inner .redirect-note {
+            color: #555;
+            font-size: 0.7rem;
+        }
+        .footer-inner .redirect-note a {
+            color: #8bb9ff;
+            text-decoration: none;
+        }
+        .footer-inner .redirect-note a:hover {
+            text-decoration: underline;
+        }
+        @media (max-width: 600px) {
+            .container { padding: 20px 20px 10px 20px; }
+            .page-title { font-size: 1.2rem; }
+            .lecture-link { padding: 6px 10px; }
+            .lecture-title { font-size: 0.85rem; }
+            .footer-inner { font-size: 0.7rem; gap: 8px; }
+        }
+    </style>
 </head>
 <body>
+    <div class="container">
+        <!-- Minimal header -->
+        <div class="header-minimal">
+            <h1 class="page-title">📚 Lecture Catalog</h1>
+        </div>
+
+        <!-- Callout/Alert box for course message -->
+        <div id="course-message-container" class="alert-callout" style="display: none;">
+            <div class="alert-content">
+                <p id="course-message"></p>
+            </div>
+        </div>
+
+        <div id="modules-container">
+            <!-- dynamically generated -->
+            <div style="text-align:center;padding:40px;color:#666;">
+                <span style="font-size:2rem;display:block;margin-bottom:12px;">📚</span>
+                Loading lectures...
+            </div>
+        </div>
+
+        <!-- Minimal collapsible footer -->
+        <div class="footer-minimal">
+            <button class="footer-toggle" onclick="toggleFooter()" title="Toggle framework info">
+                <span id="footer-toggle-icon">▶</span> <span class="footer-toggle-label">About</span>
+            </button>
+            <div id="footer-content" class="footer-content" style="display:none;">
+                <div class="footer-inner">
+                    <span class="brand">📚 DTCC Lecture Framework</span>
+                    <span class="badge" id="env-badge">LOCAL</span>
+                    <span class="redirect-note">
+                        ⚡ Powered by <a href="https://jinsungpsu.github.io/DTCC-Lectures-RevealJS-Framework/" target="_blank">centralized framework</a>
+                    </span>
+                    <a href="https://github.com/jinsungpsu/DTCC-Lectures-RevealJS-Framework" target="_blank" class="link">GitHub</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle footer visibility
+        function toggleFooter() {
+            const content = document.getElementById('footer-content');
+            const icon = document.getElementById('footer-toggle-icon');
+            if (content.style.display === 'none') {
+                content.style.display = 'block';
+                icon.textContent = '▼';
+            } else {
+                content.style.display = 'none';
+                icon.textContent = '▶';
+            }
+        }
+
+        // ============================================================
+        // DETECT ENVIRONMENT
+        // ============================================================
+        const isLocal = window.location.hostname === '127.0.0.1' || 
+                       window.location.hostname === 'localhost';
+        
+        const FRAMEWORK_BASE = isLocal 
+            ? 'http://127.0.0.1:5500/DTCC-Lectures-RevealJS-Framework/'
+            : 'https://jinsungpsu.github.io/DTCC-Lectures-RevealJS-Framework/';
+        
+        const COURSE_URL = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
+
+        // Update environment badge
+        setTimeout(() => {
+            const badge = document.getElementById('env-badge');
+            if (badge) {
+                badge.textContent = isLocal ? '🔧 LOCAL' : '🌐 PRODUCTION';
+                badge.style.color = isLocal ? '#fdcb6e' : '#00b894';
+            }
+        }, 100);
+
+        // ============================================================
+        // LOAD MANIFEST FROM COURSE ROOT
+        // ============================================================
+        
+        async function loadManifest() {
+            try {
+                const response = await fetch('manifest.json');
+                if (!response.ok) {
+                    throw new Error('Could not load manifest.json');
+                }
+                const manifest = await response.json();
+                initializeCourse(manifest.course);
+                renderModules(manifest.modules);
+            } catch (error) {
+                console.error('Error loading manifest:', error);
+                
+                // Try to load from the framework (legacy mode)
+                try {
+                    const frameworkResponse = await fetch(FRAMEWORK_BASE + 'manifest.json');
+                    if (frameworkResponse.ok) {
+                        const manifest = await frameworkResponse.json();
+                        initializeCourse(manifest.course);
+                        renderModules(manifest.modules);
+                        return;
+                    }
+                } catch (e) {
+                    // Framework manifest also failed
+                }
+                
+                document.getElementById('modules-container').innerHTML = `
+                    <div class="module-card" style="border-color:#e17055;">
+                        <h2 style="color:#e17055;">⚠️ Error</h2>
+                        <p>Unable to load lecture catalog.</p>
+                        <p style="font-size:0.8rem;color:#666;margin-top:8px;">
+                            Make sure manifest.json exists in the course root.
+                        </p>
+                    </div>
+                `;
+            }
+        }
+
+        function initializeCourse(course) {
+            document.title = course.homeTitle || `${course.institution}, ${course.code}`;
+            
+            // Show message if it exists
+            const messageContainer = document.getElementById('course-message-container');
+            const messageElement = document.getElementById('course-message');
+            
+            if (course.message) {
+                messageElement.textContent = course.message;
+                messageContainer.style.display = 'block';
+            } else {
+                messageContainer.style.display = 'none';
+            }
+        }
+
+        function renderModules(modules) {
+            const container = document.getElementById('modules-container');
+            container.innerHTML = '';
+
+            modules.forEach((module, index) => {
+                const moduleCard = document.createElement('div');
+                moduleCard.className = 'module-card';
+
+                const moduleTitle = document.createElement('h2');
+                moduleTitle.textContent = `Module ${index + 1}: ${module.title}`;
+                moduleCard.appendChild(moduleTitle);
+
+                module.lectures.forEach(lecture => {
+                    const lectureLink = document.createElement('a');
+                    lectureLink.className = 'lecture-link';
+                    
+                    const filePath = `content/${module.folder}/${lecture.file}`;
+                    lectureLink.href = `${FRAMEWORK_BASE}slide.html?course=${encodeURIComponent(COURSE_URL)}&deck=${filePath}`;
+                    
+                    lectureLink.innerHTML = `
+                        <span class="lecture-title">📄 ${lecture.title}</span>
+                        <span class="lecture-desc">→</span>
+                    `;
+                    
+                    moduleCard.appendChild(lectureLink);
+                });
+
+                container.appendChild(moduleCard);
+            });
+        }
+
+        // ============================================================
+        // START
+        // ============================================================
+        
+        loadManifest();
+    </script>
 </body>
 </html>
