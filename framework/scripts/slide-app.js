@@ -73,13 +73,11 @@
     function ensureElementExists(elementId) {
         const element = document.getElementById(elementId);
         if (!element) {
-            console.error(`Element with ID "${elementId}" not found!`);
             const slidesContainer = document.querySelector('.reveal .slides');
             if (slidesContainer) {
                 const newElement = document.createElement('section');
                 newElement.id = elementId;
                 slidesContainer.appendChild(newElement);
-                console.warn(`Created fallback element with ID "${elementId}"`);
                 return newElement;
             }
             return null;
@@ -95,7 +93,6 @@
         fallbackDiv.style.display = 'block';
         fallbackDiv.style.padding = '20px';
         document.body.appendChild(fallbackDiv);
-        console.warn('Created emergency fallback element');
     }
 
     // ============================================================
@@ -112,6 +109,7 @@
         throw new Error("Missing deck parameter");
     }
 
+    // Get the base path - this should be the directory of the markdown file
     const basePath = file.substring(0, file.lastIndexOf("/") + 1);
     const storageKey = `reveal-pos-${file}`;
 
@@ -176,7 +174,7 @@
     tryLoadManifest(0);
 
     // ============================================================
-    //  MARKDOWN PROCESSING
+    //  MARKDOWN PROCESSING - FIXED
     // ============================================================
 
     function rewriteRelativeUrls(markdown) {
@@ -194,10 +192,63 @@
             }
 
             if (!inCodeBlock) {
+                // Fix image paths - handle all cases properly
+                line = line.replace(
+                    /!\[([^\]]*)\]\(([^)]+)\)/g,
+                    (match, alt, url) => {
+                        // Skip if URL is absolute or external
+                        if (url.match(/^https?:\/\//) || url.startsWith('/') || url.startsWith('#')) {
+                            return match;
+                        }
+                        
+                        // Skip data URIs
+                        if (url.startsWith('data:')) {
+                            return match;
+                        }
+
+                        // Clean up the URL
+                        let cleanUrl = url.replace(/^\.\//, '');
+                        
+                        // If URL already contains content/ or starts with ../content/
+                        if (cleanUrl.includes('content/') || cleanUrl.startsWith('../content/')) {
+                            // Keep it as-is - it's already correct
+                            return match;
+                        }
+                        
+                        // If URL contains ../framework/images/, extract just the filename
+                        if (cleanUrl.includes('framework/images/')) {
+                            const filename = cleanUrl.split('/').pop();
+                            return `![${alt}](${basePath}images/${filename})`;
+                        }
+                        
+                        // If URL starts with images/, it's relative to markdown file
+                        if (cleanUrl.startsWith('images/')) {
+                            return `![${alt}](${basePath}${cleanUrl})`;
+                        }
+                        
+                        // If URL starts with ../, keep it as-is
+                        if (cleanUrl.startsWith('../')) {
+                            return match;
+                        }
+                        
+                        // Default: prepend base path
+                        return `![${alt}](${basePath}${cleanUrl})`;
+                    }
+                );
+
+                // Fix link paths
                 line = line.replace(
                     /\[([^\]]+)\]\((?!https?:\/\/|\/|#|mailto:)([^)]+?)\)/g,
                     (match, text, url) => {
                         if (!text || text.trim() === '' || text === '()' || text === '[]') {
+                            return match;
+                        }
+                        // Skip if URL already has a protocol or is absolute
+                        if (url.match(/^https?:\/\//) || url.startsWith('/') || url.startsWith('#')) {
+                            return match;
+                        }
+                        // If URL already contains content/ or starts with ../content/
+                        if (url.includes('content/') || url.startsWith('../content/')) {
                             return match;
                         }
                         return `[${text}](${basePath}${url})`;
@@ -214,7 +265,6 @@
     function renderMarkdown(markdown) {
         const host = document.getElementById(MARKDOWN_HOST_ID);
         if (!host) {
-            console.error(`Cannot render markdown: Element "${MARKDOWN_HOST_ID}" not found`);
             return;
         }
         host.innerHTML = `
@@ -278,7 +328,6 @@ ${markdown}
 
     function toggleMenu() {
         if (typeof Reveal === 'undefined') {
-            console.log('Reveal not available');
             return;
         }
 
@@ -291,7 +340,6 @@ ${markdown}
                     typeof plugin.toggle === 'function' ||
                     typeof plugin.openMenu === 'function')) {
                     menuPlugin = plugin;
-                    console.log('Found menu plugin as:', name);
                     break;
                 }
             }
@@ -341,7 +389,6 @@ ${markdown}
                 if (name.toLowerCase().includes('chalkboard') ||
                     (plugin && typeof plugin.toggleNotesCanvas === 'function')) {
                     chalkboard = plugin;
-                    console.log('Found chalkboard plugin as:', name);
                     break;
                 }
             }
@@ -366,7 +413,6 @@ ${markdown}
                 }
             }
         } else {
-            console.log('Chalkboard plugin not available');
             const notes = Reveal.getPlugin('notes');
             if (notes) {
                 const currentSlide = Reveal.getCurrentSlide();
@@ -393,8 +439,43 @@ ${markdown}
     }
 
     // ============================================================
-    //  PRINT FUNCTIONS - FIXED
+    //  PRINT FUNCTIONS
     // ============================================================
+
+    function openPrintVersion() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const deckPath = urlParams.get('deck');
+        
+        if (!deckPath) {
+            alert('No deck loaded. Cannot open print version.');
+            return;
+        }
+        
+        let slideIndex = 0;
+        if (typeof Reveal !== 'undefined') {
+            const indices = Reveal.getIndices();
+            slideIndex = indices.h || 0;
+        }
+        
+        const printUrl = `print.html?deck=${deckPath}#/markdown-slide/${slideIndex}`;
+        window.open(printUrl, '_blank');
+    }
+
+    function printSlides() {
+        if (typeof Reveal !== 'undefined') {
+            document.querySelectorAll('.fragment').forEach(el => {
+                el.style.opacity = '1';
+                el.style.visibility = 'visible';
+                el.style.display = 'block';
+            });
+        }
+        
+        enterPrintMode();
+        
+        setTimeout(() => {
+            window.print();
+        }, 300);
+    }
 
     function enterPrintMode() {
         document.body.classList.add("printing");
@@ -406,7 +487,6 @@ ${markdown}
             footerHost.style.visibility = "hidden";
         }
         
-        // Force reveal to layout for print
         if (typeof Reveal !== 'undefined') {
             setTimeout(() => {
                 Reveal.layout();
@@ -423,7 +503,6 @@ ${markdown}
         }
         syncFixedFooter();
         
-        // Re-layout after print
         if (typeof Reveal !== 'undefined') {
             setTimeout(() => {
                 Reveal.layout();
@@ -445,25 +524,6 @@ ${markdown}
             printFooter.classList.add("print-slide-footer");
             section.appendChild(printFooter);
         });
-    }
-
-    function printSlides() {
-        // First ensure all slides are rendered and fragments visible
-        if (typeof Reveal !== 'undefined') {
-            // Force all fragments to be visible for print
-            document.querySelectorAll('.fragment').forEach(el => {
-                el.style.opacity = '1';
-                el.style.visibility = 'visible';
-                el.style.display = 'block';
-            });
-        }
-        
-        enterPrintMode();
-        
-        // Delay print to allow layout to complete
-        setTimeout(() => {
-            window.print();
-        }, 300);
     }
 
     // ============================================================
@@ -492,7 +552,10 @@ ${markdown}
         }
         
         const printBtn = document.getElementById(BUTTON_IDS.print);
-        if (printBtn) printBtn.addEventListener("click", printSlides);
+        if (printBtn) {
+            printBtn.addEventListener("click", openPrintVersion);
+            printBtn.title = "Open Print Version (2 slides per page with notes)";
+        }
         
         const fullscreenBtn = document.getElementById(BUTTON_IDS.fullscreen);
         if (fullscreenBtn) fullscreenBtn.addEventListener("click", toggleFullscreen);
@@ -540,22 +603,6 @@ ${markdown}
         });
     }
 
-    function checkPlugins() {
-        setTimeout(() => {
-            if (typeof Reveal !== 'undefined') {
-                const chalkboard = Reveal.getPlugin('chalkboard');
-                console.log('Chalkboard plugin available:', !!chalkboard);
-                const notes = Reveal.getPlugin('notes');
-                console.log('Notes plugin available:', !!notes);
-                const menu = Reveal.getPlugin('menu');
-                console.log('Menu plugin available:', !!menu);
-
-                const plugins = Reveal.getPlugins();
-                console.log('All available plugins:', Object.keys(plugins));
-            }
-        }, 1500);
-    }
-
     // ============================================================
     //  MAIN - Load and initialize
     // ============================================================
@@ -570,7 +617,6 @@ ${markdown}
             renderMarkdown(parsedMarkdown);
             wireRevealEvents();
 
-            // Build plugins array
             const plugins = [
                 RevealMarkdown,
                 RevealNotes,
@@ -578,13 +624,10 @@ ${markdown}
                 RevealSearch
             ];
 
-            // Check for Menu plugin (CDN version)
             if (typeof RevealMenu !== 'undefined') {
                 plugins.push(RevealMenu);
-                console.log('Menu plugin found and added (RevealMenu)');
             } else if (typeof window.RevealMenu !== 'undefined') {
                 plugins.push(window.RevealMenu);
-                console.log('Menu plugin found and added (window.RevealMenu)');
             } else {
                 const allGlobalKeys = Object.keys(window);
                 const menuKey = allGlobalKeys.find(key => 
@@ -593,19 +636,13 @@ ${markdown}
                 );
                 if (menuKey) {
                     plugins.push(window[menuKey]);
-                    console.log(`Menu plugin found as: ${menuKey}`);
-                } else {
-                    console.log('Menu plugin not found');
                 }
             }
 
-            // Check for Chalkboard plugin (CDN version)
             if (typeof RevealChalkboard !== 'undefined') {
                 plugins.push(RevealChalkboard);
-                console.log('Chalkboard plugin found and added (RevealChalkboard)');
             } else if (typeof window.RevealChalkboard !== 'undefined') {
                 plugins.push(window.RevealChalkboard);
-                console.log('Chalkboard plugin found and added (window.RevealChalkboard)');
             } else {
                 const allGlobalKeys = Object.keys(window);
                 const chalkboardKey = allGlobalKeys.find(key => 
@@ -614,9 +651,6 @@ ${markdown}
                 );
                 if (chalkboardKey) {
                     plugins.push(window[chalkboardKey]);
-                    console.log(`Chalkboard plugin found as: ${chalkboardKey}`);
-                } else {
-                    console.log('Chalkboard plugin not found');
                 }
             }
 
@@ -626,9 +660,6 @@ ${markdown}
                 chalkboard: CHALKBOARD_CONFIG,
                 menu: MENU_CONFIG
             };
-
-            console.log('Reveal config:', fullConfig);
-            console.log('Registered plugins:', plugins.length);
             
             Reveal.initialize(fullConfig);
 
@@ -639,14 +670,12 @@ ${markdown}
             window.addEventListener("afterprint", exitPrintMode);
 
             Reveal.on('ready', () => {
-                checkPlugins();
                 setTimeout(() => {
                     Reveal.layout();
                 }, 100);
             });
         })
         .catch(error => {
-            console.error("Error loading markdown:", error);
             const host = document.getElementById(MARKDOWN_HOST_ID);
             if (host) {
                 host.innerHTML = `<h2>Error loading slide</h2><p>${error.message}</p>`;

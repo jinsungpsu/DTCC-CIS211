@@ -1136,3 +1136,25 @@ img.large {
         word-break: break-word !important;
     }
 }
+
+#printBtn {
+    /* Match other toolbar buttons */
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid #555;
+    border-radius: 4px;
+    color: #ddd;
+    cursor: pointer;
+    padding: 4px 8px;
+    font-size: 16px;
+    transition: all 0.2s ease;
+}
+
+#printBtn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: #8bb9ff;
+    color: #8bb9ff;
+}
+
+#printBtn:active {
+    transform: scale(0.95);
+}
