@@ -399,7 +399,7 @@ Fun, beginner-friendly datasets
 - https://www.kaggle.com/code/rtatman/fun-beginner-friendly-datasets
 
 UFO Sightings
-- https://www.kaggle.com/datasets/NUFORC/ufo-sightings
+- [https://www.kaggle.com/datasets/NUFORC/ufo-sightings](https://www.kaggle.com/datasets/joebeachcapital/ufo-sightings)
 
 ---
 
@@ -408,8 +408,8 @@ UFO Sightings
 What Is Each Row?
 <pre>
 First 2 Rows:
-datetime,city,state,country,shape,duration (seconds),duration (hours/min),comments,date posted,latitude,longitude
-10/10/1949 20:30,san marcos,tx,us,cylinder,2700,45 minutes,"This event took place in early fall around 1949-50. It occurred after a Boy Scout meeting in the Baptist Church. The Baptist Church sit",4/27/2004,29.8830556,-97.9411111
+posted,date,time,city,state,shape,duration,summary,images,img_link,lat,lng,population
+03/06/23,03/05/23,20:47:00,Villas,NJ,Diamond,Few minutes long,Low flying aircraft,Yes,https://nuforc.org/webreports/reports/174/S174894.html,39.0157,-74.935,9866
 </pre>
 
 - 1st row: Header row
@@ -418,15 +418,8 @@ datetime,city,state,country,shape,duration (seconds),duration (hours/min),commen
 
 # Data Fields
 
-- datetime
-- city
-- state
-- country
-- shape
-- duration
-- comments
-- latitude
-- longitude
+- From first row!
+    - posted,date,time,city,state,shape,duration,summary,images,img_link,lat,lng,population
 
 ---
 
@@ -446,19 +439,6 @@ class UFOSighting {
     ...
 }
 ```
----
-
-# First Row Example
-
-- datetime: 10/10/1949 20:30
-- city: san marcos
-- state: tx
-- country: us
-- shape: cylinder
-- duration: 2700
-- latitude: 29.8830556
-- longitude: -97.9411111
-
 ---
 
 # Watch Out for Commas
