@@ -204,3 +204,108 @@ class ArrayList<T> implements List<T> {
 
 # Demo
 > In class demonstration working through examples and code live in class.
+
+---
+
+# java.util.ArrayList
+
+> [java.util.ArrayList Source Code](https://github.com/openjdk/jdk/blob/master/src/java.base/share/classes/java/util/ArrayList.java)
+
+---
+
+# ArrayList Example
+
+Suppose the internal array looks like this:
+
+```text
+Index:  0   1   2
+Value: [A] [B] [C]
+```
+
+The array is full.
+
+---
+
+# Adding to a Full ArrayList
+
+What happens when we execute:
+
+```java
+list.add("D");
+```
+
+The existing array cannot store another element because it has reached its capacity.
+
+---
+
+## The ArrayList Must:
+
+<!-- column -->
+
+1. Create a larger array
+2. Copy all existing elements
+3. Add the new element
+4. Replace the old array
+
+<!-- column -->
+
+```text
+Old Array
+[A] [B] [C]
+
+↓
+
+New Array
+[A] [B] [C] [D] [ ] [ ]
+```
+<!-- endcolumns -->
+
+> To the programmer, it looks like the ArrayList grew. Internally, a completely new array was created.
+
+---
+
+# Why Are Arrays Still Fixed Size?
+
+<!-- column -->
+The internal storage of an `ArrayList` is still an array.
+
+```java
+int[] numbers = new int[3];
+```
+
+<!-- column -->
+This array has space for exactly 3 elements.
+
+```text
+Index:  0   1   2
+Value: [ ] [ ] [ ]
+```
+<!-- endcolumns -->
+We cannot change its size later:
+
+```java
+// Not legal Java
+numbers.resize(10);
+```
+---
+# Important Distinction
+<!-- column -->
+```text
+Array
+    Fixed Size
+
+ArrayList
+    Uses an Array
+    +
+    Creates Larger Arrays When Needed
+    +
+    Copies Existing Data
+```
+<!-- column -->
+- Arrays remain fixed-size data structures.
+- The JVM allocates a fixed block of contiguous memory when the array is created.
+- An `ArrayList` provides the illusion of resizing by allocating new arrays behind the scenes.
+
+<!-- endcolumns -->
+
+> Arrays never grow. ArrayLists grow by replacing one array with another larger array.
