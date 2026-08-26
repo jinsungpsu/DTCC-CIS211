@@ -634,5 +634,9 @@ ArrayList<Integer> nums;
 Each design has consequences.
 
 ---
+# Lab time
+- Work on lab 1 and assignment 1
+
+---
 
 # Questions?
