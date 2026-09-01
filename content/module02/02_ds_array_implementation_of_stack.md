@@ -474,55 +474,6 @@ class ArrayStack<T> implements Stack<T> {
 
 ---
 
-# Exceptions
-
-You have already encountered exceptions such as:
-
-```java
-IllegalArgumentException
-IllegalStateException
-IndexOutOfBoundsException
-```
-
-- An exception is simply an object that represents an error condition.
-- Java provides many built-in exception classes.
-- We can create and throw exception objects when a problem occurs.
-
----
-
-# Creating an Exception Object
-
-The `throw` statement creates an exception object and stops normal execution.
-
-```java
-throw new IllegalStateException("Array is full!");
-```
-
-- `new` calls the exception's constructor.
-- The constructor receives the error message.
-- The exception object is then thrown.
-
----
-
-# Why Throw an Exception?
-
-Suppose a programmer tries to add an item to a full stack:
-
-```java
-stack.push(item);
-```
-
-As the designers of the class, we must decide what should happen.
-
-Possible choices:
-
-- Throw an exception
-- Return an error value
-- Ignore the operation
-
-Different designs may make different choices.
-
----
 # Following the Interface Contract
 
 The interface, documentation, and comments often specify how a method must behave.
