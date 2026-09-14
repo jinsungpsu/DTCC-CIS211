@@ -68,7 +68,7 @@ This assessment MUST be completed using D2L on a lab computer during the schedul
 
 ```java
 public void push(T item) throws IllegalStateException {
-   if (count == stack.length) {
+   if ( /* missing code */ ) {
        throw new IllegalStateException("Can't add...");
    }
    stack[count++] = item;
@@ -99,7 +99,7 @@ public String toString() {
        return "[ ]";
    } else {
        String o = "";
-       for (int i = 0; i < count; i++) {
+       /* missing code */ {
            o += stack[i] + " ";
        } return o;
    }
