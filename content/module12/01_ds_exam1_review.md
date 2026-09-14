@@ -25,12 +25,36 @@ This assessment MUST be completed using D2L on a lab computer during the schedul
 
 # Topics
 
+- OOP
 - Arrays - characteristics
 - Stack, operations
 - Array implementation of a Stack
 - Exceptions
 - Interfaces
-- Generic class parameters
+- Generics
+
+---
+# OOP
+
+- Classes & objects
+- Data fields
+   - Why keep them private?
+   - How to access them?
+
+---
+
+# Interfaces
+- Why are they commonly used?
+
+---
+
+# Generics
+- Why are they useful?
+
+---
+
+# Exceptions
+- Mechanics on how to use them (throw/catch)
 
 ---
 
@@ -45,10 +69,19 @@ This assessment MUST be completed using D2L on a lab computer during the schedul
 
 ---
 
+# Manipulating arrays
+
+- How to iterate through contents of an array?
+- How to manipulate contents of an array
+
+---
+
 # Stack ADT
 
 - push, pop, peek
 - FILO
+
+> Questions in exam will use count instead of top variable (used in Shaffer textbook)
 
 ---
 
