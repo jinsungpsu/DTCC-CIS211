@@ -374,6 +374,31 @@ https://docs.oracle.com/javase/tutorial/java/javaOO/nested.html
 
 ---
 
+# Iterating through a Linked List
+
+- Different than an array based structure, where we can just use a for loop and index/offset.
+- Think of it like a scavenger hunt: you don't know the location of the next item until you find the current one.
+> Remember, this is a collection of items that is NOT in contiguous memory
+
+---
+
+# Iterating Through a Linked List
+
+When working with a linked list, we move from node to node by following references.
+
+```text
+head
+ ↓
+[A] → [B] → [C] → [D] → null
+```
+
+Unlike an array, we cannot jump directly to an element using an index.
+
+To move through the list, we follow each node's `next` reference.
+
+
+---
+
 # Null value
 
 - Uninitialized reference variables are null.
@@ -381,6 +406,251 @@ https://docs.oracle.com/javase/tutorial/java/javaOO/nested.html
 > ***`next == null` identifies the tail.***
 
 ---
+# Traversal Variable
+
+We typically create a temporary reference for traversing the list.
+
+```java
+Node<T> itr = head;
+```
+
+```text
+head, itr
+   ↓
+[A] → [B] → [C] → [D]
+```
+
+- `head` remains unchanged.
+- `itr` moves through the list.
+- This allows us to examine nodes without losing the start of the list.
+
+---
+# Moving to the Next Node
+
+To advance through the list:
+
+```java
+itr = itr.next;
+```
+<!-- column -->
+Before:
+
+```text
+itr
+ ↓
+[A] → [B] → [C]
+```
+
+<!-- column -->
+After:
+
+```text
+      itr
+       ↓
+[A] → [B] → [C]
+```
+<!-- endcolumns -->
+Each assignment moves the traversal variable one node forward.
+
+---
+# Traversing a Known Number of Nodes
+
+If we know how many positions to move:
+
+```java
+Node<T> itr = head;
+
+for (int i = 0; i < count; i++) {
+    itr = itr.next;
+}
+```
+
+Pseudocode:
+
+```text
+Start at the head
+
+Repeat count times
+    Move to the next node
+```
+
+After the loop, `itr` points to the node that is `count` links away from the head.
+
+---
+# Finding the Last Node
+
+Sometimes we need to continue until we reach the end.
+
+```java
+Node<T> itr = head;
+
+while (itr.next != null) {
+    itr = itr.next;
+}
+```
+
+Pseudocode:
+
+```text
+Start at the head
+
+While another node exists
+    Move to the next node
+```
+
+This stops when `itr` references the last node in the list.
+
+---
+# Example
+
+<!-- column -->
+Initial list:
+
+```text
+head
+ ↓
+[A] → [B] → [C] → null
+```
+<!-- column -->
+After one iteration:
+
+```text
+[A] → [B] → [C] → null
+       ↑
+      itr
+```
+<!-- column -->
+After two iterations:
+
+```text
+[A] → [B] → [C] → null
+              ↑
+             itr
+```
+<!-- endcolumns -->
+Now:
+
+```java
+itr.next == null
+```
+
+so `itr` is at the last node.
+
+---
+# A Common Traversal Pattern
+
+Traversing a linked list is one of the most important operations we will use this semester.
+<!-- column -->
+```java
+Node<T> itr = head;
+
+while (itr != null) {
+    // Process the data
+    System.out.println(itr.data);
+
+    itr = itr.next;
+}
+```
+<!-- column -->
+Pseudocode:
+
+```text
+Start at the head
+
+While not past the end of the list
+    Process the current node
+    Move to the next node
+```
+<!-- endcolumns -->
+
+This pattern appears in many linked-list algorithms.
+
+---
+# toString()
+
+Most `toString()` methods follow this general structure:
+
+```java
+@Override
+public String toString() {
+    StringBuilder output = new StringBuilder();
+
+    // Build the string here
+
+    return output.toString();
+}
+```
+
+The challenge is determining how to visit every node in the list and add its data to `output`.
+
+---
+# Pseudocode
+
+```text
+Create an empty StringBuilder
+
+Create a traversal variable starting at the head
+
+While the traversal variable is not null
+
+    Add the current node's data to the output
+
+    Move to the next node
+
+Return the completed string
+```
+
+---
+# Hints
+
+Think about:
+
+- How do we start at the first node?
+- How do we move from one node to the next?
+- What loop condition allows us to visit every node?
+- How can we access the data stored in the current node?
+- How should multiple values be separated?
+
+<!-- column -->
+Example output:
+
+```text
+[A, B, C]
+```
+<!-- column -->
+or
+
+```text
+A -> B -> C
+```
+<!-- endcolumns -->
+depending on the desired format.
+
+---
+# Common Mistakes
+
+⚠️ Forgetting to move to the next node
+
+```java
+itr = itr.next;
+```
+
+Without this statement, the loop never ends.
+
+⚠️ Modifying `head` instead of using a traversal variable
+
+```java
+Node<T> itr = head;
+```
+
+Use a temporary reference so the list structure remains unchanged.
+
+⚠️ Stopping too early
+
+Make sure every node is processed before the loop terminates.
+
+---
+
 # java.util.LinkedList
 
 Java already provides a linked list implementation:
@@ -639,265 +909,6 @@ https://visualgo.net/en/list
 
 <!-- footer -->
 https://visualgo.net/en/list
-
----
-# Iterating Through a Linked List
-
-When working with a linked list, we move from node to node by following references.
-
-```text
-head
- ↓
-[A] → [B] → [C] → [D] → null
-```
-
-Unlike an array, we cannot jump directly to an element using an index.
-
-To move through the list, we follow each node's `next` reference.
-
----
-# Traversal Variable
-
-We typically create a temporary reference for traversing the list.
-
-```java
-Node<T> itr = head;
-```
-
-```text
-head, itr
-   ↓
-[A] → [B] → [C] → [D]
-```
-
-- `head` remains unchanged.
-- `itr` moves through the list.
-- This allows us to examine nodes without losing the start of the list.
-
----
-# Moving to the Next Node
-
-To advance through the list:
-
-```java
-itr = itr.next;
-```
-<!-- column -->
-Before:
-
-```text
-itr
- ↓
-[A] → [B] → [C]
-```
-
-<!-- column -->
-After:
-
-```text
-      itr
-       ↓
-[A] → [B] → [C]
-```
-<!-- endcolumns -->
-Each assignment moves the traversal variable one node forward.
-
----
-# Traversing a Known Number of Nodes
-
-If we know how many positions to move:
-
-```java
-Node<T> itr = head;
-
-for (int i = 0; i < count; i++) {
-    itr = itr.next;
-}
-```
-
-Pseudocode:
-
-```text
-Start at the head
-
-Repeat count times
-    Move to the next node
-```
-
-After the loop, `itr` points to the node that is `count` links away from the head.
-
----
-# Finding the Last Node
-
-Sometimes we need to continue until we reach the end.
-
-```java
-Node<T> itr = head;
-
-while (itr.next != null) {
-    itr = itr.next;
-}
-```
-
-Pseudocode:
-
-```text
-Start at the head
-
-While another node exists
-    Move to the next node
-```
-
-This stops when `itr` references the last node in the list.
-
----
-# Example
-
-<!-- column -->
-Initial list:
-
-```text
-head
- ↓
-[A] → [B] → [C] → null
-```
-<!-- column -->
-After one iteration:
-
-```text
-[A] → [B] → [C] → null
-       ↑
-      itr
-```
-<!-- column -->
-After two iterations:
-
-```text
-[A] → [B] → [C] → null
-              ↑
-             itr
-```
-<!-- endcolumns -->
-Now:
-
-```java
-itr.next == null
-```
-
-so `itr` is at the last node.
-
----
-# A Common Traversal Pattern
-
-Traversing a linked list is one of the most important operations we will use this semester.
-<!-- column -->
-```java
-Node<T> itr = head;
-
-while (itr != null) {
-    // Process the data
-    System.out.println(itr.data);
-
-    itr = itr.next;
-}
-```
-<!-- column -->
-Pseudocode:
-
-```text
-Start at the head
-
-While not past the end of the list
-    Process the current node
-    Move to the next node
-```
-<!-- endcolumns -->
-
-This pattern appears in many linked-list algorithms.
-
----
-# toString()
-
-Most `toString()` methods follow this general structure:
-
-```java
-@Override
-public String toString() {
-    StringBuilder output = new StringBuilder();
-
-    // Build the string here
-
-    return output.toString();
-}
-```
-
-The challenge is determining how to visit every node in the list and add its data to `output`.
-
----
-# Pseudocode
-
-```text
-Create an empty StringBuilder
-
-Create a traversal variable starting at the head
-
-While the traversal variable is not null
-
-    Add the current node's data to the output
-
-    Move to the next node
-
-Return the completed string
-```
-
----
-# Hints
-
-Think about:
-
-- How do we start at the first node?
-- How do we move from one node to the next?
-- What loop condition allows us to visit every node?
-- How can we access the data stored in the current node?
-- How should multiple values be separated?
-
-<!-- column -->
-Example output:
-
-```text
-[A, B, C]
-```
-<!-- column -->
-or
-
-```text
-A -> B -> C
-```
-<!-- endcolumns -->
-depending on the desired format.
-
----
-# Common Mistakes
-
-⚠️ Forgetting to move to the next node
-
-```java
-itr = itr.next;
-```
-
-Without this statement, the loop never ends.
-
-⚠️ Modifying `head` instead of using a traversal variable
-
-```java
-Node<T> itr = head;
-```
-
-Use a temporary reference so the list structure remains unchanged.
-
-⚠️ Stopping too early
-
-Make sure every node is processed before the loop terminates.
 
 ---
 
