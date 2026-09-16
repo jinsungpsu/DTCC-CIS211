@@ -374,6 +374,88 @@ https://docs.oracle.com/javase/tutorial/java/javaOO/nested.html
 
 ---
 
+# Adding an Item to a Linked List
+
+- To add a new item, we first create a new node.
+- The new node stores the data and a reference to the next node.
+- The insertion location determines which references need to be updated.
+
+```java
+Node<T> newNode = new Node<>();
+newNode.data = value;
+```
+
+> The key to insertion is updating the `next` references in the correct order.
+
+---
+
+# Adding to the Front (Head)
+
+<!-- column -->
+
+- Adding to the front is one of the fastest operations in a linked list.
+- The new node points to the current head.
+- The head reference is updated to the new node.
+
+
+<!-- column -->
+
+```java
+newNode.next = head;
+head = newNode;
+```
+
+Before:
+
+```text
+head
+ ↓
+[A] -> [B] -> [C]
+```
+
+After:
+
+```text
+head
+ ↓
+[X] -> [A] -> [B] -> [C]
+```
+
+<!-- endcolumns -->
+
+> Only two references need to be updated.
+
+---
+
+# Step-by-Step: addFirst()
+
+1. Create a new node.
+2. Store the data.
+3. Point the new node to the current head.
+4. Update `head` to reference the new node.
+
+```java
+public void addFirst(T value) {
+    Node<T> newNode = new Node<>();
+    newNode.data = value;
+
+    newNode.next = head;
+    head = newNode;
+}
+```
+
+---
+
+# Adding to the End (Tail)
+
+- To insert at the end, we must first find the last node.
+- Start at the head and follow each link until `next == null`.
+- Connect the last node to the new node.
+
+> How do we find the last node?  We must ***iterate*** through the linked list!
+
+---
+
 # Iterating through a Linked List
 
 - Different than an array based structure, where we can just use a for loop and index/offset.
@@ -399,13 +481,6 @@ To move through the list, we follow each node's `next` reference.
 
 ---
 
-# Null value
-
-- Uninitialized reference variables are null.
-- The last node's next reference is null.
-> ***`next == null` identifies the tail.***
-
----
 # Traversal Variable
 
 We typically create a temporary reference for traversing the list.
@@ -569,6 +644,163 @@ While not past the end of the list
 <!-- endcolumns -->
 
 This pattern appears in many linked-list algorithms.
+
+---
+
+# Back to Insertion (at tail)
+
+```text
+head
+ ↓
+[A] -> [B] -> [C] -> null
+                    ↑
+               Insert Here
+```
+
+> Since nodes are not stored contiguously, we must traverse the list to find the end.
+
+---
+
+# Step-by-Step: addLast()
+
+1. Create a new node.
+2. If the list is empty, make it the head.
+3. Traverse until reaching the last node.
+4. Update the last node's `next` reference.
+
+```java
+public void addLast(T value) {
+    Node<T> newNode = new Node<>();
+    newNode.data = value;
+
+    if (head == null) {
+        head = newNode;
+        return;
+    }
+
+    Node<T> current = head;
+
+    while (current.next != null) {
+        current = current.next;
+    }
+
+    current.next = newNode;
+}
+```
+
+---
+
+# Visualizing addLast()
+
+Before:
+
+```text
+head
+ ↓
+[A] -> [B] -> [C] -> null
+```
+
+After inserting `X`:
+
+```text
+head
+ ↓
+[A] -> [B] -> [C] -> [X] -> null
+```
+
+- No existing nodes are moved.
+- Only the final reference changes.
+- The new node becomes the last node in the list.
+
+---
+
+# Common Insertion Mistake
+
+Incorrect:
+
+```java
+head = newNode;
+newNode.next = head;
+```
+
+Result:
+
+```text
+[X]
+ ↓
+[X]
+```
+
+Correct:
+
+```java
+newNode.next = head;
+head = newNode;
+```
+
+> Always connect the new node before changing the head reference; otherwise, you may lose access to the rest of the list.
+
+---
+
+
+# Exercise: Implementing get(index)
+
+Given the linked list:
+
+```text
+Index:  0      1      2      3
+
+head
+ ↓
+[A] -> [B] -> [C] -> [D] -> null
+```
+
+To retrieve an item:
+
+1. Start at the `head`.
+2. Follow the `next` references.
+3. Move forward `index` times.
+4. Return the data at the node where you stop.
+
+For example:
+
+```java
+get(2)
+```
+
+Starts at `A`, moves to `B`, then `C`.
+
+The returned value would be:
+
+```text
+C
+```
+
+---
+
+# Exercise: Complete get()
+
+Use a loop to move from the head node to the requested index.
+
+```java
+public T get(int index) {
+
+    Node<T> current = head;
+
+    for (int i = 0; i < index; i++) {
+        // Move to the next node
+    }
+
+    return current.data;
+}
+```
+
+**Task:**
+
+- What statement belongs inside the loop?
+- Why does the loop run `index` times instead of `index + 1` times?
+
+> Hint: `current` already starts at index 0 (`head`).
 
 ---
 # toString()
