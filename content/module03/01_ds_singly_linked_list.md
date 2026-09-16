@@ -452,6 +452,11 @@ After:
 <!-- endcolumns -->
 Each assignment moves the traversal variable one node forward.
 
+> Common mistake: 
+```java
+head = head.next; // this reassigns head
+```
+
 ---
 # Traversing a Known Number of Nodes
 
