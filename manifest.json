@@ -38,6 +38,10 @@
                 {
                     "file": "01_ds_singly_linked_list.md",
                     "title": "Linked Node Implementation of Stack ADT"
+                },
+                {
+                    "file": "02_ds_linked_implementation_of_stack.md",
+                    "title": "Linked Node Implementation of Stack ADT"
                 }
             ]
         },
