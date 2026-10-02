@@ -76,6 +76,20 @@ This assessment MUST be completed using D2L on a lab computer during the schedul
 
 ---
 
+# What's Missing?
+
+Complete the loop so it displays every element in
+the array.
+
+```java
+int[] arr = {3, 6, 9, 12};
+
+for (int i = 0; /* missing */; i++) {
+    System.out.print(arr[i] + " ");
+}
+
+---
+
 # Stack ADT
 
 - push, pop, peek
