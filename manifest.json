@@ -50,7 +50,7 @@
             "title": "Time and Space Complexity - Big O Notation",
             "lectures": [
                 {
-                    "file": "01_ds_.md",
+                    "file": "01_ds_efficiency.md",
                     "title": "Efficiency"
                 }
             ]
@@ -60,7 +60,7 @@
             "title": "Circular Array implementation of the Queue ADT",
             "lectures": [
                 {
-                    "file": "01_ds_.md",
+                    "file": "01_ds_circular_array_queue.md",
                     "title": "Queue ADT"
                 }
             ]
@@ -70,7 +70,7 @@
             "title": "Doubly-Linked Node Implementation of the Deque ADT",
             "lectures": [
                 {
-                    "file": "01_ds_.md",
+                    "file": "01_ds_dll_deque.md",
                     "title": "Deque ADT"
                 }
             ]
