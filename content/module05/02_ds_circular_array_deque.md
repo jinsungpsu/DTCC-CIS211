@@ -42,7 +42,7 @@ https://www.geeksforgeeks.org/applications-advantages-and-disadvantages-of-deque
 
 ---
 
-# Let's just use an array instead
+# Let's just use an array
 
 - A circular array, since those are cool
 
@@ -76,6 +76,19 @@ because:
 ```
 
 However, moving backward introduces an issue with Java's modulo operator.
+
+---
+
+# Possible Solution
+
+As before, we could use a simple if statement
+
+```java
+front--;
+if (front == -1) front = deque.length - 1;
+```
+
+> Can we do it mathematically?
 
 ---
 
