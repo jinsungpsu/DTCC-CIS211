@@ -374,11 +374,28 @@ Notice the repeating pattern:
 0 1 ...
 ```
 
-We need a simple operation that automatically produces this pattern.
+---
+
+# Implementation
+
+Assuming we keep track of the rear in a variable.
+
+```java
+rear++;
+
+if (queue.length == rear) rear = 0;
+```
+
+- This works, but it requires an extra if statement every time we advance the index.
+- (It's not a loop, so it's O(1), not O(n), but we could still think about how to improve it)
+
+> Wouldn't it be nice if a mathematical operation could automatically produce the repeating pattern for us?
 
 ---
 
-# The "Magic" of % (Modulo Operator)
+# Alternatively - use math!
+
+## Modulo (%)
 
 <!-- column -->
 

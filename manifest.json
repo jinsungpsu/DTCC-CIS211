@@ -62,10 +62,6 @@
                 {
                     "file": "01_ds_circular_array_queue.md",
                     "title": "Queue ADT"
-                },
-                {
-                    "file": "02_ds_deque_circular_array.md",
-                    "title": "Deque ADT Implemented Using an Array"
                 }
             ]
         },
@@ -74,7 +70,11 @@
             "title": "Doubly-Linked Node Implementation of the Deque ADT",
             "lectures": [
                 {
-                    "file": "01_ds_dll_deque.md",
+                    "file": "01_ds_circular_array_deque.md",
+                    "title": "Deque ADT Implemented Using an Array"
+                },
+                {
+                    "file": "02_ds_dll_deque.md",
                     "title": "Deque ADT Implemented with Linked Nodes"
                 }
             ]
