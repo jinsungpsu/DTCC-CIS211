@@ -456,5 +456,3 @@ The formula converts **any integer** into a valid array index in the range:
 ```
  
 This creates true wraparound behavior in both directions.
-
----
