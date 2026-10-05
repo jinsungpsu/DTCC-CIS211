@@ -1,4 +1,4 @@
-# Queue ADT
+# Queue ADT Implemented Using an Array
 
 ---
 
@@ -387,7 +387,8 @@ if (queue.length == rear) rear = 0;
 ```
 
 - This works, but it requires an extra if statement every time we advance the index.
-- (It's not a loop, so it's O(1), not O(n), but we could still think about how to improve it)
+- Code above does not contain a loop
+    - It's ***O(1), not O(n)***, but we could still think about how to improve it)
 
 > Wouldn't it be nice if a mathematical operation could automatically produce the repeating pattern for us?
 

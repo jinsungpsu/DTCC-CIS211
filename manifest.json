@@ -61,7 +61,7 @@
             "lectures": [
                 {
                     "file": "01_ds_circular_array_queue.md",
-                    "title": "Queue ADT"
+                    "title": "Queue ADT Implemented Using an Array"
                 },
                 {
                     "file": "02_ds_circular_array_deque.md",
