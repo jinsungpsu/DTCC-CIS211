@@ -1,4 +1,4 @@
-# Linked Node Implementation of Stack ADT
+# Linked Node Implementation of List ADT
 ## Overview
 - Reference Variables vs. Objects Review
 - Linked Lists

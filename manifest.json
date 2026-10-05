@@ -37,7 +37,7 @@
             "lectures": [
                 {
                     "file": "01_ds_singly_linked_list.md",
-                    "title": "Linked Node Implementation of Stack ADT"
+                    "title": "Linked Node Implementation of List ADT"
                 },
                 {
                     "file": "02_ds_linked_implementation_of_stack.md",
