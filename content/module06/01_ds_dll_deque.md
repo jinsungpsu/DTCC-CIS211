@@ -1,50 +1,4 @@
-# Deque ADT
-
----
-
-# Double-Ended Queue
-- Pronounced "deck"
-- Queue adds on one side and removes from the opposite side
-- Deque adds from both sides and removes from both sides
-
----
-
-# Deque ADT
-
-- `java.util.Deque`
-
-![Deque interface diagram](images/deque-interface-diagram.png)
-
-<!-- footer -->
-https://docs.oracle.com/javase/8/docs/api/java/util/Deque.html
-
----
-
-# All Known Implementing Classes
-
-- ArrayDeque
-- ConcurrentLinkedDeque
-- LinkedBlockingDeque
-- LinkedList
-
----
-
-# Uses of deques
-- Browser history management
-- Undo operations
-- Breadth-first search (BFS)
-- Task management systems
-- Queueing systems
-- Caching systems
-
-<!-- footer -->
-https://www.geeksforgeeks.org/applications-advantages-and-disadvantages-of-deque/
-
----
-
-# Let's just use an array instead
-
-- A circular array, since those are cool
+# Deque ADT Implemented with Linked Nodes
 
 ---
 
@@ -74,7 +28,7 @@ https://www.geeksforgeeks.org/applications-advantages-and-disadvantages-of-deque
 - Only keep track of the head node
 - Must traverse the entire list to reach the tail
 
-![Singly linked list issue](images/sll-tail-traversal.png)
+![Singly linked list issue](images/sll.png)
 
 ---
 
@@ -84,6 +38,8 @@ https://www.geeksforgeeks.org/applications-advantages-and-disadvantages-of-deque
 
 # Doubly Linked List Structure
 
+<!-- column -->
+
 References to:
 - Head
 - Tail
@@ -91,9 +47,11 @@ References to:
 Nodes contain:
 - Previous
 - Next
-- Data
 
-![Doubly linked list diagram](images/doubly-linked-list-diagram.png)
+- Data
+<!-- column -->
+
+![Doubly linked list diagram](images/dll-diagram.png)
 
 ---
 
@@ -131,9 +89,11 @@ https://visualgo.net/en/list
 
 Removing from the middle.
 
-![Remove node example](images/remove-middle-example-1.png)
+<!-- column -->
+![Remove node example](images/del-dll-viz2.png)
 
-![Remove node example](images/remove-middle-example-2.png)
+<!-- column -->
+![Remove node example](images/del-dll.png)
 
 ---
 
@@ -144,8 +104,6 @@ Removing from the middle.
 - Use a loop with a current iterator node
 - Orphan the target node
 - Stitch neighboring nodes together
-
-![Middle removal algorithm diagram](images/remove-middle-algorithm.png)
 
 ---
 
@@ -165,7 +123,7 @@ Removing from the middle.
 
 # Circular Doubly Linked List
 
-![Circular doubly linked list](images/circular-dll.png)
+![Circular doubly linked list](images/circular-dll2.png)
 
 ---
 
