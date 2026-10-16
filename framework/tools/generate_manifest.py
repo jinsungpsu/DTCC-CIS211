@@ -1,3 +1,4 @@
+import argparse
 import json
 import re
 from pathlib import Path
@@ -105,13 +106,17 @@ def get_course_message(path):
 #     └── tools/
 #         └── generate_manifest.py
 #
-# Note: This script is located at framework/tools/generate_manifest.py
-#       The root is two levels up from this script
-#
-
-# Going up 2 levels from framework/tools/ to root
-ROOT = Path(__file__).resolve().parents[2]
+# Default to the owning course, independent of the current working directory.
+script_path = Path(__file__).resolve()
+default_root = script_path.parents[2] if script_path.parents[1].name.lower() == "framework" else script_path.parents[1]
+parser = argparse.ArgumentParser(description="Generate a course manifest from its content folder.")
+parser.add_argument("--course-root", type=Path, default=default_root,
+                    help="Course directory containing content/ (defaults to the owning course).")
+args = parser.parse_args()
+ROOT = args.course_root.resolve()
 CONTENT_DIR = ROOT / "content"
+if not CONTENT_DIR.is_dir():
+    parser.error(f"Course content directory not found: {CONTENT_DIR}")
 
 
 #
