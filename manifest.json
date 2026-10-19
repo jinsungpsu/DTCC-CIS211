@@ -84,8 +84,24 @@
             "title": "Hash Table Implementation of the Dictionary/Map ADT",
             "lectures": [
                 {
-                    "file": "01_ds_.md",
-                    "title": "Dictionary/Map ADT"
+                    "file": "01_ds_dictionary_map_adt.md",
+                    "title": "Dictionary and Map ADTs"
+                },
+                {
+                    "file": "02_ds_hash_tables_functions.md",
+                    "title": "Hash Tables and Hash Functions"
+                },
+                {
+                    "file": "03_ds_closed_hashing.md",
+                    "title": "Closed Hashing and Probing"
+                },
+                {
+                    "file": "04_ds_open_hashing.md",
+                    "title": "Open Hashing and Separate Chaining"
+                },
+                {
+                    "file": "05_ds_hashing_implementation_review.md",
+                    "title": "Hash Table Implementation and ADT Review"
                 }
             ]
         },
