@@ -6,7 +6,6 @@
 
 - Identify keys, values, and entries.
 - Describe dictionary operations and unique-key behavior.
-- Use Java's Map and Set interfaces.
 - Compare array and linked-node implementation options.
 
 ---
@@ -24,6 +23,7 @@ Example: student ID -> student record
 
 # What is it?
 
+<!-- image bg="#ffffff" -->
 ![Dictionary mapping names to phone numbers](images/dictionary-phone-book-key-value-pairs.png)
 
 - Key: a person's name; value: a phone number.
@@ -33,6 +33,7 @@ Example: student ID -> student record
 
 # A Familiar Dictionary
 
+<!-- image size="30%" -->
 ![Printed dictionary definitions](images/dictionary-definition-photo.jpg)
 
 Look up a word to retrieve its definition.
@@ -84,19 +85,36 @@ Core operations:
 
 The ADT contract must define what happens for an existing key or a missing key.
 
-Java Map uses put to insert a new entry or replace an existing value.
+We will define insert as adding a new key or updating the value for an existing key.
 
 ---
 
 # How Could This Be Implemented?
 
+<!-- column -->
+
+- Arrays <!-- .element: class="fragment" data-fragment-index="0" -->
+- Linked Nodes <!-- .element: class="fragment" data-fragment-index="1" -->
+
+<!-- column -->
+
+<div class="fragment" data-fragment-index="2" data-markdown>
+
 - An array of key-value entries
 - A linked list whose nodes each contain a key and a value
-- Variations using circular arrays, singly linked lists, or doubly linked lists
 
+
+</div>
+
+<!-- endcolumns -->
+
+<div class="fragment" data-fragment-index="3" data-markdown>
+Or... variations using circular arrays, singly linked lists, or doubly linked lists
 Starting point: search through entries and compare their keys.
 
-Question: Does using an array automatically make lookup by key O(1)?
+> Question: Does using an array automatically make lookup by key O(1)?
+
+</div>
 
 ---
 
@@ -109,8 +127,6 @@ Assume an unsorted array of entries with unique keys.
 - Remove: find the key, then fill the gap or shift entries ? O(n).
 - Space: allocated capacity may exceed the number of entries.
 
-Demo: insert two entries, update one key, then remove the other.
-
 ---
 
 # Discussion/Demo of Linked List Implementation
@@ -122,10 +138,15 @@ Assume an unsorted singly linked list of entries with unique keys.
 - Remove: locating the node and its predecessor takes O(n); unlinking takes O(1).
 - Space: each node stores an entry and a link; no unused array slots.
 
-Question: Why does fast insertion at the head not make the entire insert/update operation O(1)?
-
 ---
 
+# Let's Try to Improve It!
+## Use an Associative Array
+
+- As we have done before, let's try to improve the common operations' efficiencies
+- Is it possible to move from O(n) to O(1)?
+
+---
 # Associative Array
 
 - In a regular array, an integer index identifies a position.
@@ -133,7 +154,7 @@ Question: Why does fast insertion at the head not make the entire insert/update 
 - "Associative array" is another name for a dictionary/map.
 - The name does not require an array-based implementation.
 
-Java arrays use integer indices; Java maps use methods such as put and get.
+Arrays use integer positions; dictionaries expose operations that accept keys.
 
 ---
 
@@ -148,95 +169,9 @@ studentNames[700000001] = "Jane Doe";
 ```
 
 - These indices require at least 700,000,002 array slots.
-- Indexed access is O(1), but most slots might be unused.
 - A map lets us store entries for the IDs that are present.
 
----
-
-# Java Map and HashMap
-
-```java
-import java.util.Map;
-import java.util.HashMap;
-
-Map<Integer, String> students = new HashMap<>();
-students.put(700000000, "John Smith");
-students.put(700000001, "Jane Doe");
-```
-
-- Map<K, V> is the interface; HashMap<K, V> is one implementation.
-- Integer is the key type; String is the value type.
-- Generics use reference types, so we use Integer rather than int.
-
-<!-- footer -->
-https://docs.oracle.com/javase/8/docs/api/java/util/Map.html
-
-https://docs.oracle.com/javase/8/docs/api/java/util/HashMap.html
-
----
-
-# Operations in Java
-
-```java
-students.put(700000001, "Jane Smith"); // Replace this key's value.
-String name = students.get(700000001); // "Jane Smith"
-boolean found = students.containsKey(700000001); // true
-String removed = students.remove(700000000); // "John Smith"
-```
-
-- put returns the previous value, or null if there was no mapping.
-- get and remove return null for a missing key.
-- A stored null value can make get ambiguous; containsKey checks whether the key exists.
-
----
-
-# Other Helpful Map Operations
-
-| Method | Purpose |
-|---|---|
-| size(), isEmpty() | Check the number of entries |
-| keySet() | Access the unique keys |
-| values() | Access the values, which may repeat |
-| entrySet() | Access key-value pairs |
-| forEach(...) | Perform an action on each entry |
-
-Also available: putAll(...) copies mappings; replaceAll(...) updates values.
-
-<!-- footer -->
-https://docs.oracle.com/javase/8/docs/api/java/util/Map.html
-
----
-
-# Set Interface
-
-A map's keys form a set because keys are unique.
-
-```java
-java.util.Set<Integer> ids = students.keySet();
-Integer[] idArray = ids.toArray(new Integer[0]);
-```
-
-- keySet() returns a view backed by the map.
-- Changes to the map are reflected in the view.
-- toArray(...) creates a separate array containing the current keys.
-
-<!-- footer -->
-https://docs.oracle.com/javase/8/docs/api/java/util/Set.html
-
----
-
-# What Is a Set?
-
-- A collection that contains no duplicate elements.
-- The Set interface does not guarantee an iteration order.
-- Specific implementations may provide ordering guarantees.
-
-For a map:
-
-- Two entries cannot have equal keys.
-- Different keys may have equal values.
-
-Example: two different student IDs may both map to "Alex Lee".
+> ***Indexed access is O(1)***, but most slots might be unused.
 
 ---
 
@@ -250,7 +185,7 @@ The same operations can be supported by different storage structures.
 | Unsorted linked list | Traverse nodes | Links stored with each node |
 | Hash table | Use a hash function | Collisions and unused capacity |
 
-Next lecture: how can a hash table improve average lookup time?
+Next lecture: what is a hash table and how can a hash table improve average lookup time?
 
 ---
 
@@ -258,6 +193,4 @@ Next lecture: how can a hash table improve average lookup time?
 
 - A dictionary associates unique keys with values; values may repeat.
 - Core operations insert/update, remove, and search by key.
-- Java Map defines the interface; HashMap provides an implementation.
-- A map's keys form a set, with no ordering guaranteed by Set itself.
 - Arrays and linked lists can implement dictionaries, but key lookup may require a scan.

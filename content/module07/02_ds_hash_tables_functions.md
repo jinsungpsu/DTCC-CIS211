@@ -15,7 +15,8 @@
 
 - A dictionary defines operations on key-value pairs.
 - A hash table is one implementation of that ADT.
-- Goal: find an entry without scanning every stored key.
+
+> Goal: find an entry without scanning every stored key.
 
 Recall: lookup in an unsorted array or linked list takes O(n) in the worst case.
 
@@ -26,7 +27,59 @@ Recall: lookup in an unsorted array or linked list takes O(n) in the worst case.
 - Use an array as the underlying storage.
 - Compute a starting location from the key.
 - Store both the key and value so we can check for a matching key.
-- Use a hash function and an index calculation to select that location.
+
+> Use a hash function and an index calculation to select that location.
+
+---
+
+# Hash Function as a Black Box
+
+<!-- column -->
+
+<!-- image size="50%" -->
+![Key: Apple enters a black box labeled Hash Function and produces Integer: 10](images/hash-function-black-box-apple-integer.png)
+
+<!-- column -->
+
+- A hash function takes a **key** as input and produces an **integer**.
+- That integer helps us choose where to store the key-value entry in an array.
+- To find the entry later, start with the key and repeat the calculation.
+- The black box hides the steps for now; this example maps Apple to 10.
+
+<!-- endcolumns -->
+
+---
+
+# From a Key to an Array Location
+
+<!-- image size="50%" -->
+![Hash function mapping name keys to storage indices](images/hash-function-key-to-index-mapping.png)
+
+- The key determines a starting location for its entry.
+- A table with 11 slots has valid indices from 0 through 10.
+- Our simplified black box includes the calculation needed to produce a valid index.
+
+---
+
+# Hash Functions
+
+A good hash function combines two goals:
+
+- The same key must lead us back to the same starting location.
+- Different keys should spread across the available locations.
+
+The first goal supports correctness; the second supports efficiency.
+
+---
+
+# Guidelines for Hash Functions
+
+- **Consistent:** the same unchanged key produces the same result.
+- **Fast:** the calculation should be inexpensive to repeat.
+- **Well distributed:** expected keys should spread across the table.
+- **Based on key equality:** equal keys must produce equal hash codes.
+
+Use stable key information so we can repeat the calculation during lookup.
 
 ---
 
@@ -63,54 +116,18 @@ Entry[] table = new Entry[11];
 
 ---
 
-# Associative Array
+# Hash Code vs. Array Index
 
-The key helps determine where its value is stored.
+In Java, we usually separate the process into two steps:
 
-```mermaid
-flowchart LR
-    K["Key: Apple"] -->|Hash function| H["Hash code: 65"]
-    H -->|Index calculation| I["Array index: 10"]
-    I --> E["Entry: Apple, value"]
-```
+1. **Hash the key:** produce an integer called a hash code.
+2. **Calculate the index:** fit that integer into the array's valid range.
 
-Example: first-character hash with a table size of 11.
+**Key** &rarr; **Hash code** &rarr; **Array index**
 
-- A hash function maps a key to an integer called a hash code.
-- Index calculation reduces that integer to the table's valid range.
-- During lookup, compare stored keys using equals() to confirm a match.
+Example: Apple &rarr; 65 &rarr; 65 % 11 = 10
 
----
-
-# Hash Functions
-
-A good hash function combines two goals:
-
-- The same key must lead us back to the same starting location.
-- Different keys should spread across the available locations.
-
-The first goal supports correctness; the second supports efficiency.
-
----
-
-# Hash Function
-
-```text
-Key -> Hash Function -> Integer Index
-```
-
-![Hash function mapping name keys to storage indices](images/hash-function-key-to-index-mapping.png)
-
----
-
-# Guidelines for Hash Functions
-
-- Be fast enough for frequent lookups and updates.
-- Use the information that defines key equality.
-- Distribute expected keys across the table.
-- Avoid depending on properties that change while a key is stored.
-
-A function can satisfy the equality contract and still distribute keys poorly.
+The first-character teaching example produces 65; Java String.hashCode() uses a different calculation.
 
 ---
 
@@ -119,33 +136,26 @@ A function can satisfy the equality contract and still distribute keys poorly.
 - Equal objects according to equals() must have equal hash codes.
 - Repeated calls during one execution must agree while the information used by equals() is unchanged.
 - Hash codes do not have to stay the same between program runs.
-- When overriding equals(), also override hashCode() consistently.
 
 <!-- footer -->
 https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html#hashCode--
 
 ---
 
-# Exploring Our Own Hash Functions
+# Exploring Hash Functions with toString()
 
-- Java objects have hashCode() and toString() methods inherited from Object or overridden by a class.
-- We will use non-empty String keys for the following experiments.
-- Character values let us construct simple teaching examples.
+- Every Java object has toString() through inheritance from Object; classes may override it.
+- This gives us a common starting point: obtain a string and turn its characters into an integer.
+- We can experiment with using one character, several characters, or every character.
+- For the following examples, we will use non-empty String keys; their toString() returns the string itself.
 
-Goal: identify weaknesses before improving the function.
+Goal: try simple approaches, identify weaknesses, and improve the function.
 
----
-
-# Should We Hash toString()?
-
-- toString() produces a textual representation, usually for people to read.
-- It is not a general replacement for a key's equality definition.
-- Equal custom objects could produce different text representations.
-- For a String key, use the string directly; calling toString() adds nothing.
-
-For general Java keys, use a hashCode() implementation consistent with equals().
+<!-- footer -->
+https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html#toString--
 
 ---
+
 
 # Basic Hash Function
 
@@ -163,7 +173,18 @@ int index = hash % tableSize; // 65 % 11 = 10
 | C | 67 |
 | D | 68 |
 
-Weakness: only the first character influences the result; the remaining characters are ignored.
+---
+
+# Associative Array
+
+```java
+String key = "Apple"; // Assume a non-empty string.
+int tableSize = 11;
+int hash = key.charAt(0);
+int index = hash % tableSize; // 65 % 11 = 10
+```
+<!-- image size="60%" -->
+![Apple passes through a first-character hash function to produce 65, then modulo 11 produces index 10 in an 11-slot array](images/hash-function-modulo-array-index.png)
 
 ---
 
@@ -188,10 +209,17 @@ More characters do not automatically guarantee good distribution.
 
 - How could we use every character?
 - How could character position affect the result?
-- How should empty strings be handled?
 - Which test keys would expose a weak function?
 
-Try: repeated prefixes, anagrams, short strings, and similar student IDs.
+---
+
+# Studying Established Hashing Methods
+
+- Our experiments show some ways to turn a key into an integer.
+- Next, we will study several established approaches: multiplication, mid-square, and bit mixing.
+- For each approach, consider how it works, how quickly it can be calculated, and how well it distributes keys.
+
+These examples give us ideas to compare and adapt when designing a hash function.
 
 ---
 
@@ -306,14 +334,6 @@ Suppose hash values are multiples of 10:
 
 ---
 
-# Check Your Understanding
-
-- With table size 11, where do hash codes 15, 27, and -8 map using floorMod?
-- What must be true of the hash codes of two equal keys?
-- Why does hashing only the first character work poorly for similar names?
-- How does table size affect the valid range of indices?
-
----
 
 # Summary
 

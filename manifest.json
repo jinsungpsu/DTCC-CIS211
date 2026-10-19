@@ -102,6 +102,10 @@
                 {
                     "file": "05_ds_hashing_implementation_review.md",
                     "title": "Hash Table Implementation and ADT Review"
+                },
+                {
+                    "file": "06_ds_java_maps_sets.md",
+                    "title": "Java Maps and Sets"
                 }
             ]
         },
