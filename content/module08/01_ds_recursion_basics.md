@@ -1,4 +1,12 @@
-# Recursion
+# Recursion Fundamentals
+
+---
+
+# Overview
+
+- Identify base and recursive cases
+- Trace countdown and factorial examples
+- Recognize common termination errors
 
 ---
 
@@ -114,65 +122,9 @@ int factorial(int n) {
 
 ---
 
-# Efficiency Implications
+# Summary
 
-- Time Complexity
-- Space Complexity
-
----
-
-# Time Complexity
-
-- O(n)
-- Same as iterative version
-
----
-
-# The “Problem”
-
-[Diagram showing recursive call stack growth]
-
----
-
-# Space complexity
-
-- O(n)
-- Requires extra stack space
-- Iterative version is O(1)
-
----
-
-# Recursion VS Iteration
-
-| Recursion | Iteration |
-|---|---|
-| Ends with base case | Ends when condition fails |
-| Uses functions | Uses loops |
-| Extra stack memory | No extra stack memory |
-| Smaller code size | Larger code size |
-
----
-
-# Some more simple problems
-
-- Count up
-- Binary Search
-
----
-
-# In our context: data structures
-
-- Iterate through an array
-- Iterate through a linked list
-
----
-
-# Challenge
-
-Head vs tail recursion
-
-<!-- footer -->
-https://dev.to/soorya54/head-recursion-vs-tail-recursion-22o3
-
----
-
+- Recursion expresses a problem using smaller instances of itself
+- A base case stops recursive calls
+- Each recursive step must make progress toward termination
+- Tracing calls helps explain how recursive results are produced

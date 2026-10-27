@@ -114,8 +114,12 @@
             "title": "Recursion",
             "lectures": [
                 {
-                    "file": "01_ds_.md",
-                    "title": "Recursion"
+                    "file": "01_ds_recursion_basics.md",
+                    "title": "Recursion Fundamentals"
+                },
+                {
+                    "file": "02_ds_recursion_efficiency.md",
+                    "title": "Recursion Efficiency and Applications"
                 }
             ]
         },
@@ -124,8 +128,16 @@
             "title": "Sorting Algorithms",
             "lectures": [
                 {
-                    "file": "01_ds_.md",
-                    "title": "Sorting"
+                    "file": "01_ds_sorting_basics.md",
+                    "title": "Sorting Fundamentals and Simple Sorts"
+                },
+                {
+                    "file": "02_ds_comparison_sorts.md",
+                    "title": "Shell Sort, Merge Sort, and Quick Sort"
+                },
+                {
+                    "file": "03_ds_specialized_sorts.md",
+                    "title": "Non-Comparison and Hybrid Sorting"
                 }
             ]
         },
@@ -134,8 +146,12 @@
             "title": "Tree ADT",
             "lectures": [
                 {
-                    "file": "01_ds_.md",
-                    "title": "Tree ADT"
+                    "file": "01_ds_tree_fundamentals.md",
+                    "title": "Tree Fundamentals and Representations"
+                },
+                {
+                    "file": "02_ds_binary_search_trees.md",
+                    "title": "Binary Trees and Binary Search Trees"
                 }
             ]
         },
@@ -144,8 +160,16 @@
             "title": "Graph ADT",
             "lectures": [
                 {
-                    "file": "01_ds_.md",
-                    "title": "Graphs"
+                    "file": "01_ds_graph_representations.md",
+                    "title": "Graph Fundamentals and Representations"
+                },
+                {
+                    "file": "02_ds_graph_traversal.md",
+                    "title": "Graph Traversal and Shortest Paths"
+                },
+                {
+                    "file": "03_ds_minimum_spanning_trees.md",
+                    "title": "Minimum Spanning Trees and Course Review"
                 }
             ]
         },
