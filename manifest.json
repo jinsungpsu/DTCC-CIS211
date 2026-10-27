@@ -120,6 +120,10 @@
                 {
                     "file": "02_ds_recursion_efficiency.md",
                     "title": "Recursion Efficiency and Applications"
+                },
+                {
+                    "file": "03_ds_experimental_runtime.md",
+                    "title": "Experimental Runtime Measurement in Java"
                 }
             ]
         },
