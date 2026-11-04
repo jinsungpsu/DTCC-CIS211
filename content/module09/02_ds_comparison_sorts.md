@@ -140,6 +140,8 @@ int partition(int arr[], int low, int high) {
 
 [Watch: Quick Sort](https://www.youtube.com/watch?v=kUon6854joI)
 
+[Robot Quicksort Video](https://www.youtube.com/watch?v=aXXWXz5rF64)
+
 [Optional fun video: Quick Sort — Hungarian Dance](https://www.youtube.com/watch?v=3San3uKKHgg)
 
 ---
