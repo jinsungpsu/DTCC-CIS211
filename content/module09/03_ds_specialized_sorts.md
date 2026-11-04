@@ -21,20 +21,20 @@ Only works for restricted data.
 
 ---
 
-# Appreciating what it means…
+# Read the Cost Model Carefully
 
-- O(n)
-- O(nk)
-- O(n+k)
-
-k = number of keys
+- **n:** number of items being sorted
+- **Counting sort:** O(n + r), where r is the size of the supported value range
+- **Radix sort:** O(d(n + b)) with counting-based passes; d is the number of digits and b the digit base
+- A linear-looking runtime is useful only when its other parameters stay manageable
 
 ---
 
 # Counting Sort
 
 - Uses count array
-- Works for small integer ranges
+- Count how often each value occurs instead of comparing pairs
+- Read the counts in key order to build the sorted output
 
 ---
 
@@ -42,28 +42,32 @@ k = number of keys
 
 ![Counting sort preview](images/counting-sort-video-preview.jpg)
 
----
-
-# Thoughts on Counting Sort
-
-- Requires extra space
-- Depends on value range
-- Does not work on decimal values
+[Watch: Counting Sort](https://www.youtube.com/watch?v=OKd534EWcdk)
 
 ---
 
-# Common Theme of Non-Comparison Sorts
+# Counting Sort: Big Ideas
 
-- Not general-purpose sorting
-- Solve only specific problems
+- **Work:** count the items and process the supported value range
+- **Memory:** a count for every possible key can be wasteful when the range is large
+- **Requirements:** keys must map to discrete indices; arbitrary decimals do not work directly
+- **Stability:** sorting records stably requires placing equal-key records in their original order
+
+---
+
+# From Counting Values to Grouping Ranges
+
+- Counting sort gives each possible value its own count
+- What if several nearby values share a bucket instead?
+- Bucket sort saves the exact ordering work for smaller groups, so their sizes matter
 
 ---
 
 # Bucket Sort
 
-- Scatter
-- Sort buckets
-- Gather
+- Scatter values into ordered ranges, such as scores 0–9, 10–19, and so on
+- Sort the values within each bucket
+- Gather the buckets in range order
 
 ---
 
@@ -73,19 +77,28 @@ k = number of keys
 
 ---
 
-# Thoughts on Bucket Sort
+# Bucket Sort: Big Ideas
 
-- Uniform distribution matters
-- K = number of buckets
-- Can degrade toward O(n²)
+- **Work:** distribute items, sort each bucket, then gather buckets in range order
+- **Input:** evenly distributed values keep buckets small; crowded buckets lose that advantage
+- **Memory:** buckets and their contents require additional storage
+- **Tradeoff:** performance depends on bucket choices and the inner sort; it can degrade to O(n²)
+
+---
+
+# From Buckets to Digit Passes
+
+- Bucket sort groups by value range, then sorts within each group
+- Radix sort instead groups repeatedly using one digit at a time
+- For least-significant-digit radix sort, each pass must preserve the order established by earlier passes
 
 ---
 
 # Radix Sort
 
-- Extension of bucket sort
 - Processes digits individually
-- Stable sorting approach
+- For least-significant-digit radix sort, work from the ones digit leftward
+- Each pass must preserve earlier digit ordering among equal current digits
 
 ---
 
@@ -93,30 +106,66 @@ k = number of keys
 
 ![Sorting animation preview](images/sorting-animation-pink-robot.jpg)
 
----
+[Watch: Radix Sort](https://www.youtube.com/watch?v=Uey0-GOMtT8)
 
-# Thoughts on Radix Sort
-
-- O(nk)
-- k = number of digits
-- Efficient when k is small
+[Watch: Radix Sort — Additional Video](https://www.youtube.com/watch?v=mVRHvZF8xtg)
 
 ---
 
-# Summary
+# Radix Sort: Big Ideas
+
+- **Work:** every digit adds another pass over the items
+- **Input:** short, consistently represented keys keep the number of passes small
+- **Stability:** each least-significant-digit pass must keep equal current digits in order
+- **Tradeoff:** fewer comparisons, but repeated passes and extra storage still have a cost
+
+---
+
+# Non-Comparison Sorts: What Replaces Comparisons?
+
+| Algorithm | What drives the work? | What can go wrong? |
+|---|---|---|
+| Counting | Number of items and size of the value range | A huge range wastes time and memory |
+| Bucket | Distribution of items among buckets | Crowded buckets leave large sorting jobs |
+| Radix | Number of digit passes and work per pass | Long keys require more passes |
+
+Avoiding comparisons does not mean avoiding work or extra storage.
+
+---
+
+# When Is a Specialized Sort Worth It?
+
+- **Check the keys first:** can values be mapped to counts, ranges, or digits?
+- **Check the input's shape:** a small range or short keys can make specialization useful
+- **Count all the costs:** allocating buckets, initializing counts, moving records, and repeated passes
+- **Check correctness requirements:** stability may require extra storage or a stable inner sort
+
+---
+
+# Comparing the Two Families
 
 | Feature | Comparison Sorting | Non-Comparison Sorting |
 |---|---|---|
-| Time Complexity | O(n log n) | O(n) special cases |
-| Uses Comparisons? | Yes | No |
+| Main cost driver | Comparisons and data movement | Key range, digits, or bucket distribution |
+| Typical goal | O(n log n) for efficient general sorts | Near-linear time when assumptions hold |
 | Examples | Quick, Merge | Counting, Radix |
 | Best Use Cases | General data | Integers and fixed ranges |
+
+---
+
+# From Choosing One Sort to Combining Sorts
+
+- Different inputs expose different strengths: small pieces, existing order, or predictable splits
+- One algorithm does not have to handle every stage of the job
+- A hybrid chooses strategies for parts of the problem while preserving the required guarantees
 
 ---
 
 # Hybrid Sort
 
 - Combines multiple sorting algorithms
+- Use different strategies for different input sizes or patterns
+- Often switches to insertion sort for small pieces to reduce overhead
 
 ---
 
@@ -125,15 +174,17 @@ k = number of keys
 - Primitives: Quicksort
 - Objects: TimSort
 - TimSort combines Merge Sort and Insertion Sort
+- TimSort finds already-sorted runs rather than always starting from single items
+- It extends short runs with insertion sort, then merges the runs
 
 ---
 
-# Overall takeaways…
+# Hybrid Sorting: Big Ideas
 
-- Many sorting algorithms exist
-- Runtime and space tradeoffs matter
-- Some are general-purpose
-- Some only solve specialized sorting problems
+- **Different scales favor different strategies:** insertion sort can handle small pieces with little overhead
+- **Existing order is useful:** recognizing sorted runs can avoid rebuilding work already done
+- **Requirements still matter:** combining algorithms must preserve any promised stability or memory limits
+- **Measure the whole job:** a better growth rate does not guarantee a faster result for every input size
 
 ---
 
@@ -144,3 +195,14 @@ k = number of keys
 - Bucket sort groups values before sorting within buckets
 - Radix sort processes keys one digit at a time
 - Hybrid sorts combine strategies to balance tradeoffs
+
+---
+
+# Many More Sorts, the Same Big Questions
+
+- **We studied only a sample:** many other algorithms and variations target different needs
+- **What work grows?** Count comparisons, swaps, shifts, copies, and passes as input grows
+- **What does the input offer?** Consider size, existing order, duplicate keys, range, and distribution
+- **What must we preserve?** Balance runtime, extra memory, stability, and worst-case guarantees
+
+The goal is to explain why a sorting strategy fits a problem, not just memorize its steps.

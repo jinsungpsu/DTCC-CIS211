@@ -133,11 +133,11 @@
             "lectures": [
                 {
                     "file": "01_ds_sorting_basics.md",
-                    "title": "Sorting Fundamentals and Simple Sorts"
+                    "title": "Sorting Fundamentals: Simple Sorts and Shell Sort"
                 },
                 {
                     "file": "02_ds_comparison_sorts.md",
-                    "title": "Shell Sort, Merge Sort, and Quick Sort"
+                    "title": "Divide and Conquer: Merge Sort and Quick Sort"
                 },
                 {
                     "file": "03_ds_specialized_sorts.md",

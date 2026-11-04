@@ -327,11 +327,11 @@
         const isLocal = window.location.hostname === '127.0.0.1' ||
             window.location.hostname === 'localhost';
 
-        const FRAMEWORK_BASE = isLocal
-            ? 'http://127.0.0.1:5500/DTCC-Lectures-RevealJS-Framework/'
-            : 'https://jinsungpsu.github.io/DTCC-Lectures-RevealJS-Framework/';
+        const COURSE_URL = new URL('.', window.location.href).href;
 
-        const COURSE_URL = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
+        const FRAMEWORK_BASE = isLocal
+            ? new URL('../DTCC-Lectures-RevealJS-Framework/', COURSE_URL).href
+            : 'https://jinsungpsu.github.io/DTCC-Lectures-RevealJS-Framework/';
 
         // Update environment badge
         setTimeout(() => {
