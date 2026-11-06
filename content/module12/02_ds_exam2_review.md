@@ -1,27 +1,30 @@
-# CIS 211 Exam 2
-
-Modules 3-4
+# CIS 211 Exam 2 Review
 
 ---
 
-# Policies
+# How to Prepare
 
-This assessment is closed resource (no notes, powerpoint, textbook, internet, etc.). If you open another internet browser or tab, it will be considered cheating. You may not leave the testing area for any reason. If you have any extenuating circumstances that may require any exceptions, please let the instructor/proctor know as soon as you can.
+- Review the main concepts and trade-offs for each topic.
+- Practice tracing code and predicting its output.
+- Practice writing short methods and pseudocode without an IDE.
+- Be ready to explain your reasoning, not just identify an answer.
+- The practice questions below are examples for studying; they are not exam questions.
+
+---
+
+# Assessment Policies
+
+This assessment is closed resource (no notes, PowerPoint, textbook, internet, etc.). If you open another internet browser or tab, it will be considered cheating. You may not leave the testing area for any reason. If you have any extenuating circumstances that may require any exceptions, please let the instructor/proctor know as soon as you can.
 
 This assessment MUST be completed using D2L on a lab computer during the scheduled time and location; you may not use your own device or take this assessment at a different location without prior approval.
 
 ---
 
-# Types of Questions
+# Exam Format
 
-- No IntelliJ
-- Types of questions
-- Multiple choice
-- Multi select
-- Written response
-- Conceptual
-- Specific code related
-- Pseudocode
+- No IntelliJ; be prepared to reason from concepts and short code examples.
+- Expect a mix of multiple choice, select-all-that-apply, conceptual, code-related, and written-response questions.
+- You may be asked to write short code or pseudocode.
 
 ---
 
@@ -41,8 +44,8 @@ This assessment MUST be completed using D2L on a lab computer during the schedul
 
 | Arrays | Linked Lists |
 |------|------|
-| Contiguous Memory | Not contiguous Memory |
-| Immutable (fixed in length/size) | Mutable/Flexible |
+| Contiguous memory | Nodes need not be contiguous |
+| Fixed length | Can grow or shrink |
 | No memory overhead per element | Extra memory overhead |
 | Random access | No random access |
 
@@ -181,9 +184,9 @@ public static void printGrid(int[][] grid) {
 
 ### Answer
 
-**O(rows × cols)** — the outer loop runs `rows` times, and for each row the inner loop runs `cols` times. If the grid is `n × m`, this is **O(n × m)**.
+**O(rows × cols)** — the outer loop runs `rows` times, and for each row the inner loop runs `cols` times. If the grid has `n` rows and `m` columns, this is **O(n × m)**.
 
-Note: this is different from the exam's `compareAllPairs` example, which is O(n²) because both loops iterate over the **same** array of size `n`.
+If both loops instead iterate over the same `n` items, the total work is **O(n²)**.
 
 </div>
 
@@ -198,7 +201,7 @@ Note: this is different from the exam's `compareAllPairs` example, which is O(n�
 
 ---
 
-# Sample: Linked List Check
+# Sample: Interpret a Linked-List Condition
 
 What is each condition checking for?
 
@@ -216,7 +219,7 @@ The list has **exactly one node** — `head` is also the tail.
 
 ---
 
-# What's Missing? (Find Tail)
+# Sample: Find the Tail
 
 ```java
 Node itr = head;
@@ -249,7 +252,7 @@ itr = itr.next;
 
 ---
 
-# Sample: Stack Design Trade-off
+# Sample: Choose a Linked-Stack Design
 
 You implement a stack with a singly linked list but only keep a reference to the **head**. Would you make the head the **top** or the **bottom** of the stack?
 
@@ -266,7 +269,7 @@ Make it the **top**.
 
 ---
 
-# What's Missing? (pop)
+# Sample: Remove the Top Stack Item
 
 ```java
 public T pop() {
@@ -293,7 +296,7 @@ count--;
 
 ---
 
-# What's Missing? (push)
+# Sample: Add the Top Stack Item
 
 ```java
 public void push(T item) {
@@ -324,7 +327,7 @@ node.next = head;
 
 ---
 
-# What's Missing? (Peek Bottom)
+# Sample: Find the Bottom Stack Item
 
 ```java
 public T peekBottom() {
@@ -351,12 +354,39 @@ while (itr.next != null) {
 
 ---
 
-# Pseudocode questions
+# Sample: Peek at the Bottom
 
-- With a stack implemented using a linked list where the head of the linked list is the top of the stack, how would you implement a "peekBottom" method?
+With a stack implemented using a linked list where the head is the top, describe how to return the bottom item without removing it.
+
+<div class="fragment">
+
+### One Possible Approach
+
+Start at `head` and follow `next` until reaching the last node (`itr.next == null`). Return that node's data without changing any links.
+
+</div>
 
 ---
 
-# Pseudocode questions
+# Sample: Display Every Other Stack Item
 
-- With a stack implemented using a linked list where the head of the linked list is the top of the stack, how would you implement a toString method that only displays every other element from top to bottom?
+With a stack implemented using a linked list where the head is the top, describe how to display every other item from top to bottom.
+
+<div class="fragment">
+
+### One Possible Approach
+
+Visit nodes from `head` toward the tail, appending every other node's data to the result. For example, maintain a position counter and append when the position is even.
+
+</div>
+---
+
+# Final Study Checklist
+
+- Can you compare arrays and linked lists in storage, size flexibility, memory overhead, and access time?
+- Can you analyze simple loops and state their Big O runtime?
+- Can you explain how references, shared objects, reassignment, and `null` work?
+- Can you traverse a linked list and identify its head, tail, and empty-list conditions?
+- Can you explain how an iterator moves through a linked list?
+- Can you choose a linked-stack design that keeps push, pop, and peek efficient?
+- Can you write or trace linked-list stack operations and pseudocode without an IDE?

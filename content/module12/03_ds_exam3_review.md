@@ -4,11 +4,27 @@
 
 # How to Prepare
 
-- Review the concepts and trade-offs for each data structure.
+- Review the main concepts and trade-offs for each topic.
 - Practice tracing code and predicting its output.
 - Practice writing short methods and pseudocode without an IDE.
 - Be ready to explain your reasoning, not just identify an answer.
 - The practice questions below are examples for studying; they are not exam questions.
+
+---
+
+# Assessment Policies
+
+This assessment is closed resource (no notes, PowerPoint, textbook, internet, etc.). If you open another internet browser or tab, it will be considered cheating. You may not leave the testing area for any reason. If you have any extenuating circumstances that may require any exceptions, please let the instructor/proctor know as soon as you can.
+
+This assessment MUST be completed using D2L on a lab computer during the scheduled time and location; you may not use your own device or take this assessment at a different location without prior approval.
+
+---
+
+# Exam Format
+
+- No IntelliJ; be prepared to reason from concepts and short code examples.
+- Expect a mix of multiple choice, select-all-that-apply, conceptual, code-related, and written-response questions.
+- You may be asked to write short code or pseudocode.
 
 ---
 
