@@ -406,4 +406,4 @@ These are previews, not prerequisites. For now, focus on tree vocabulary, relati
 - Every non-root node has one parent; a subtree is itself a tree
 - Depth counts edges from the root; height counts the longest downward path
 - Arrays and linked nodes can represent the same relationships
-- Later lectures add constraints to support specific operations
+- Later lectures add constraints to support specific operations.
