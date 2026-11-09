@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -11 900 461" role="img" aria-labelledby="title desc">
+<title id="title">Linked child references and an array of tree positions</title>
+<desc id="desc">Linked child references and an array of tree positions. Circular nodes; labels identify the illustrated steps.</desc>
+<rect y="-11" width="900" height="461" rx="12" fill="white"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#c2410c"/></marker></defs>
+<g font-family="Arial, sans-serif">
+<g id="linked" transform="translate(225 25)">
+<text x="0" y="0" font-size="21" fill="#334155" text-anchor="middle">Linked children</text>
+<g data-parent="r" data-child="l">
+<line x1="0" y1="55" x2="-120" y2="165" stroke="#94a3b8" stroke-width="2"/>
+</g>
+<g data-parent="r" data-child="q">
+<line x1="0" y1="55" x2="120" y2="165" stroke="#94a3b8" stroke-width="2"/>
+</g>
+<circle data-node-id="r" data-key="40" cx="0" cy="55" r="23" fill="#f1f5f9" stroke="#64748b" stroke-width="3"/>
+<text x="0" y="62" font-size="21" fill="#000000" text-anchor="middle">40</text>
+<text x="0" y="98" font-size="15" fill="#64748b" text-anchor="middle">root reference</text>
+<circle data-node-id="l" data-key="20" cx="-120" cy="165" r="23" fill="#f1f5f9" stroke="#64748b" stroke-width="3"/>
+<text x="-120" y="172" font-size="21" fill="#000000" text-anchor="middle">20</text>
+<circle data-node-id="q" data-key="60" cx="120" cy="165" r="23" fill="#f1f5f9" stroke="#64748b" stroke-width="3"/>
+<text x="120" y="172" font-size="21" fill="#000000" text-anchor="middle">60</text>
+</g>
+<text x="115" y="145" font-size="17" fill="#334155" text-anchor="middle">left</text>
+<text x="330" y="145" font-size="17" fill="#334155" text-anchor="middle">right</text>
+<text x="655" y="65" font-size="21" fill="#334155" text-anchor="middle">Same positions in an array</text>
+<rect x="545" y="160" width="75" height="45" fill="#f8fafc" stroke="#94a3b8"/>
+<text x="582.5" y="189" font-size="20" fill="#334155" text-anchor="middle">40</text>
+<text x="582.5" y="151" font-size="15" fill="#64748b" text-anchor="middle">0</text>
+<rect x="620" y="160" width="75" height="45" fill="#f8fafc" stroke="#94a3b8"/>
+<text x="657.5" y="189" font-size="20" fill="#334155" text-anchor="middle">20</text>
+<text x="657.5" y="151" font-size="15" fill="#64748b" text-anchor="middle">1</text>
+<rect x="695" y="160" width="75" height="45" fill="#dbeafe" stroke="#94a3b8"/>
+<text x="732.5" y="189" font-size="20" fill="#334155" text-anchor="middle">60</text>
+<text x="732.5" y="151" font-size="15" fill="#64748b" text-anchor="middle">2</text>
+<text x="655" y="270" font-size="18" fill="#334155" text-anchor="middle">Index 2 gives direct access to 60.</text>
+<text x="450" y="395" font-size="20" fill="#334155" text-anchor="middle">Relationships can be explicit references or implied by positions.</text>
+</g></svg>

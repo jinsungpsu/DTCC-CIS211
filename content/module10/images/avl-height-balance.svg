@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -36 680 436" role="img" aria-labelledby="title desc">
+<title id="title">AVL subtree heights and balance factors</title>
+<desc id="desc">AVL subtree heights and balance factors. Circular nodes; labels identify the illustrated steps.</desc>
+<rect y="-36" width="680" height="436" rx="12" fill="white"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#c2410c"/></marker></defs>
+<g font-family="Arial, sans-serif">
+<g id="avl" transform="translate(340 0)">
+<text x="0" y="0" font-size="21" fill="#334155" text-anchor="middle">Height h and balance b</text>
+<g data-parent="r" data-child="l">
+<line x1="0" y1="55" x2="-120" y2="155" stroke="#94a3b8" stroke-width="2"/>
+</g>
+<g data-parent="r" data-child="q">
+<line x1="0" y1="55" x2="120" y2="155" stroke="#94a3b8" stroke-width="2"/>
+</g>
+<g data-parent="l" data-child="ll">
+<line x1="-120" y1="155" x2="-175" y2="255" stroke="#94a3b8" stroke-width="2"/>
+</g>
+<circle data-node-id="r" data-key="30" cx="0" cy="55" r="23" fill="#f1f5f9" stroke="#64748b" stroke-width="3"/>
+<text x="0" y="62" font-size="21" fill="#000000" text-anchor="middle">30</text>
+<text x="0" y="98" font-size="15" fill="#64748b" text-anchor="middle">h=2, b=+1</text>
+<circle data-node-id="l" data-key="20" cx="-120" cy="155" r="23" fill="#f1f5f9" stroke="#64748b" stroke-width="3"/>
+<text x="-120" y="162" font-size="21" fill="#000000" text-anchor="middle">20</text>
+<text x="-120" y="198" font-size="15" fill="#64748b" text-anchor="middle">h=1, b=+1</text>
+<circle data-node-id="q" data-key="40" cx="120" cy="155" r="23" fill="#f1f5f9" stroke="#64748b" stroke-width="3"/>
+<text x="120" y="162" font-size="21" fill="#000000" text-anchor="middle">40</text>
+<text x="120" y="198" font-size="15" fill="#64748b" text-anchor="middle">h=0, b=0</text>
+<circle data-node-id="ll" data-key="10" cx="-175" cy="255" r="23" fill="#f1f5f9" stroke="#64748b" stroke-width="3"/>
+<text x="-175" y="262" font-size="21" fill="#000000" text-anchor="middle">10</text>
+<text x="-175" y="298" font-size="15" fill="#64748b" text-anchor="middle">h=0, b=0</text>
+</g>
+<text x="340" y="375" font-size="18" fill="#334155" text-anchor="middle">Empty subtree: h=-1. Balance = left height - right height.</text>
+</g></svg>

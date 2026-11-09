@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -36 640 411" role="img" aria-labelledby="title desc">
+<title id="title">BST search: follow 40 to 60 to 50</title>
+<desc id="desc">BST search: follow 40 to 60 to 50. Circular nodes; labels identify the illustrated steps.</desc>
+<rect y="-36" width="640" height="411" rx="12" fill="white"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#c2410c"/></marker></defs>
+<g font-family="Arial, sans-serif">
+<g id="bst" transform="translate(320 0)">
+<text x="0" y="0" font-size="21" fill="#334155" text-anchor="middle">Find key 50</text>
+<g data-parent="r" data-child="l">
+<line x1="0" y1="55" x2="-120" y2="145" stroke="#94a3b8" stroke-width="2"/>
+</g>
+<g data-parent="r" data-child="q">
+<line x1="20.00" y1="70.00" x2="96.80" y2="127.60" stroke="#c2410c" stroke-width="5" marker-end="url(#arrow)"/>
+</g>
+<g data-parent="l" data-child="ll">
+<line x1="-120" y1="145" x2="-175" y2="235" stroke="#94a3b8" stroke-width="2"/>
+</g>
+<g data-parent="l" data-child="lr">
+<line x1="-120" y1="145" x2="-65" y2="235" stroke="#94a3b8" stroke-width="2"/>
+</g>
+<g data-parent="q" data-child="ql">
+<line x1="106.96" y1="166.33" x2="80.12" y2="210.25" stroke="#c2410c" stroke-width="5" marker-end="url(#arrow)"/>
+</g>
+<g data-parent="q" data-child="qr">
+<line x1="120" y1="145" x2="175" y2="235" stroke="#94a3b8" stroke-width="2"/>
+</g>
+<circle data-node-id="r" data-key="40" cx="0" cy="55" r="23" fill="#dbeafe" stroke="#1d4ed8" stroke-width="3"/>
+<text x="0" y="62" font-size="21" fill="#000000" text-anchor="middle">40</text>
+<circle data-node-id="l" data-key="20" cx="-120" cy="145" r="23" fill="#f1f5f9" stroke="#64748b" stroke-width="3"/>
+<text x="-120" y="152" font-size="21" fill="#000000" text-anchor="middle">20</text>
+<circle data-node-id="q" data-key="60" cx="120" cy="145" r="23" fill="#dbeafe" stroke="#1d4ed8" stroke-width="3"/>
+<text x="120" y="152" font-size="21" fill="#000000" text-anchor="middle">60</text>
+<circle data-node-id="ll" data-key="10" cx="-175" cy="235" r="23" fill="#f1f5f9" stroke="#64748b" stroke-width="3"/>
+<text x="-175" y="242" font-size="21" fill="#000000" text-anchor="middle">10</text>
+<circle data-node-id="lr" data-key="30" cx="-65" cy="235" r="23" fill="#f1f5f9" stroke="#64748b" stroke-width="3"/>
+<text x="-65" y="242" font-size="21" fill="#000000" text-anchor="middle">30</text>
+<circle data-node-id="ql" data-key="50" cx="65" cy="235" r="23" fill="#dbeafe" stroke="#1d4ed8" stroke-width="3"/>
+<text x="65" y="242" font-size="21" fill="#000000" text-anchor="middle">50</text>
+<circle data-node-id="qr" data-key="70" cx="175" cy="235" r="23" fill="#f1f5f9" stroke="#64748b" stroke-width="3"/>
+<text x="175" y="242" font-size="21" fill="#000000" text-anchor="middle">70</text>
+</g>
+<text x="320" y="345" font-size="18" fill="#334155" text-anchor="middle">40 &lt; 50: right. 60 &gt; 50: left. Found 50.</text>
+</g></svg>

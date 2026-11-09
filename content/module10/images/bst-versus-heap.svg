@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -31 1000 406" role="img" aria-labelledby="title desc">
+<title id="title">Same keys: BST ordering versus heap ordering</title>
+<desc id="desc">Same keys: BST ordering versus heap ordering. Circular nodes; labels identify the illustrated steps.</desc>
+<rect y="-31" width="1000" height="406" rx="12" fill="white"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#c2410c"/></marker></defs>
+<g font-family="Arial, sans-serif">
+<g id="bst" transform="translate(250 5)">
+<text x="0" y="0" font-size="21" fill="#334155" text-anchor="middle">BST: key search and inorder traversal</text>
+<g data-parent="r" data-child="l">
+<line x1="0" y1="55" x2="-120" y2="145" stroke="#94a3b8" stroke-width="2"/>
+</g>
+<g data-parent="r" data-child="q">
+<line x1="0" y1="55" x2="120" y2="145" stroke="#94a3b8" stroke-width="2"/>
+</g>
+<g data-parent="l" data-child="ll">
+<line x1="-120" y1="145" x2="-175" y2="235" stroke="#94a3b8" stroke-width="2"/>
+</g>
+<g data-parent="l" data-child="lr">
+<line x1="-120" y1="145" x2="-65" y2="235" stroke="#94a3b8" stroke-width="2"/>
+</g>
+<g data-parent="q" data-child="ql">
+<line x1="120" y1="145" x2="65" y2="235" stroke="#94a3b8" stroke-width="2"/>
+</g>
+<g data-parent="q" data-child="qr">
+<line x1="120" y1="145" x2="175" y2="235" stroke="#94a3b8" stroke-width="2"/>
+</g>
+<circle data-node-id="r" data-key="40" cx="0" cy="55" r="23" fill="#f1f5f9" stroke="#64748b" stroke-width="3"/>
+<text x="0" y="62" font-size="21" fill="#000000" text-anchor="middle">40</text>
+<circle data-node-id="l" data-key="20" cx="-120" cy="145" r="23" fill="#f1f5f9" stroke="#64748b" stroke-width="3"/>
+<text x="-120" y="152" font-size="21" fill="#000000" text-anchor="middle">20</text>
+<circle data-node-id="q" data-key="60" cx="120" cy="145" r="23" fill="#f1f5f9" stroke="#64748b" stroke-width="3"/>
+<text x="120" y="152" font-size="21" fill="#000000" text-anchor="middle">60</text>
+<circle data-node-id="ll" data-key="10" cx="-175" cy="235" r="23" fill="#f1f5f9" stroke="#64748b" stroke-width="3"/>
+<text x="-175" y="242" font-size="21" fill="#000000" text-anchor="middle">10</text>
+<circle data-node-id="lr" data-key="30" cx="-65" cy="235" r="23" fill="#f1f5f9" stroke="#64748b" stroke-width="3"/>
+<text x="-65" y="242" font-size="21" fill="#000000" text-anchor="middle">30</text>
+<circle data-node-id="ql" data-key="50" cx="65" cy="235" r="23" fill="#f1f5f9" stroke="#64748b" stroke-width="3"/>
+<text x="65" y="242" font-size="21" fill="#000000" text-anchor="middle">50</text>
+<circle data-node-id="qr" data-key="70" cx="175" cy="235" r="23" fill="#f1f5f9" stroke="#64748b" stroke-width="3"/>
+<text x="175" y="242" font-size="21" fill="#000000" text-anchor="middle">70</text>
+</g>
+<g id="heap" transform="translate(750 5)">
+<text x="0" y="0" font-size="21" fill="#334155" text-anchor="middle">Min-heap: priority at the root</text>
+<g data-parent="0" data-child="1">
+<line x1="0.0" y1="55" x2="-105.0" y2="135" stroke="#94a3b8" stroke-width="2"/>
+</g>
+<g data-parent="0" data-child="2">
+<line x1="0.0" y1="55" x2="105.0" y2="135" stroke="#94a3b8" stroke-width="2"/>
+</g>
+<g data-parent="1" data-child="3">
+<line x1="-105.0" y1="135" x2="-157.5" y2="215" stroke="#94a3b8" stroke-width="2"/>
+</g>
+<g data-parent="1" data-child="4">
+<line x1="-105.0" y1="135" x2="-52.5" y2="215" stroke="#94a3b8" stroke-width="2"/>
+</g>
+<g data-parent="2" data-child="5">
+<line x1="105.0" y1="135" x2="52.5" y2="215" stroke="#94a3b8" stroke-width="2"/>
+</g>
+<g data-parent="2" data-child="6">
+<line x1="105.0" y1="135" x2="157.5" y2="215" stroke="#94a3b8" stroke-width="2"/>
+</g>
+<circle data-node-id="0" data-key="10" cx="0.0" cy="55" r="21" fill="#f1f5f9" stroke="#64748b" stroke-width="3"/>
+<text x="0.0" y="62" font-size="21" fill="#000000" text-anchor="middle">10</text>
+<circle data-node-id="1" data-key="20" cx="-105.0" cy="135" r="21" fill="#f1f5f9" stroke="#64748b" stroke-width="3"/>
+<text x="-105.0" y="142" font-size="21" fill="#000000" text-anchor="middle">20</text>
+<circle data-node-id="2" data-key="30" cx="105.0" cy="135" r="21" fill="#f1f5f9" stroke="#64748b" stroke-width="3"/>
+<text x="105.0" y="142" font-size="21" fill="#000000" text-anchor="middle">30</text>
+<circle data-node-id="3" data-key="40" cx="-157.5" cy="215" r="21" fill="#f1f5f9" stroke="#64748b" stroke-width="3"/>
+<text x="-157.5" y="222" font-size="21" fill="#000000" text-anchor="middle">40</text>
+<circle data-node-id="4" data-key="50" cx="-52.5" cy="215" r="21" fill="#f1f5f9" stroke="#64748b" stroke-width="3"/>
+<text x="-52.5" y="222" font-size="21" fill="#000000" text-anchor="middle">50</text>
+<circle data-node-id="5" data-key="60" cx="52.5" cy="215" r="21" fill="#f1f5f9" stroke="#64748b" stroke-width="3"/>
+<text x="52.5" y="222" font-size="21" fill="#000000" text-anchor="middle">60</text>
+<circle data-node-id="6" data-key="70" cx="157.5" cy="215" r="21" fill="#f1f5f9" stroke="#64748b" stroke-width="3"/>
+<text x="157.5" y="222" font-size="21" fill="#000000" text-anchor="middle">70</text>
+</g>
+<text x="500" y="345" font-size="19" fill="#334155" text-anchor="middle">Same seven keys. Different roots, different ordering rules, different fast operations.</text>
+</g></svg>

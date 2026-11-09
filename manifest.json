@@ -156,6 +156,14 @@
                 {
                     "file": "02_ds_binary_search_trees.md",
                     "title": "Binary Trees and Binary Search Trees"
+                },
+                {
+                    "file": "03_ds_avl_trees.md",
+                    "title": "AVL Trees: Balanced Search and Linked Nodes"
+                },
+                {
+                    "file": "04_ds_heaps.md",
+                    "title": "Binary Heaps: Priority Queues and Array Storage"
                 }
             ]
         },
@@ -183,19 +191,19 @@
             "lectures": [
                 {
                     "file": "01_ds_exam1_review.md",
-                    "title": "CIS 211 Exam 1"
+                    "title": "CIS 211 Exam 1 Review"
                 },
                 {
                     "file": "02_ds_exam2_review.md",
-                    "title": "CIS 211 Exam 2"
+                    "title": "CIS 211 Exam 2 Review"
                 },
                 {
                     "file": "03_ds_exam3_review.md",
-                    "title": "CIS 211 Exam 3"
+                    "title": "CIS 211 Exam 3 Review"
                 },
                 {
                     "file": "04_ds_exam4_review.md",
-                    "title": "CIS 211 Exam 4"
+                    "title": "CIS 211 Exam 4 Review"
                 }
             ]
         }

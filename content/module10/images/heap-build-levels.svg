@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -36 900 506" role="img" aria-labelledby="title desc">
+<title id="title">Most nodes in a complete tree are close to the leaves</title>
+<desc id="desc">Most nodes in a complete tree are close to the leaves. Circular nodes; labels identify the illustrated steps.</desc>
+<rect y="-36" width="900" height="506" rx="12" fill="white"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#c2410c"/></marker></defs>
+<g font-family="Arial, sans-serif">
+<g id="levels" transform="translate(450 0)">
+<text x="0" y="0" font-size="21" fill="#334155" text-anchor="middle">15 nodes: many short repairs, few long repairs</text>
+<g data-parent="0" data-child="1">
+<line x1="0.0" y1="55" x2="-105.0" y2="135" stroke="#94a3b8" stroke-width="2"/>
+</g>
+<g data-parent="0" data-child="2">
+<line x1="0.0" y1="55" x2="105.0" y2="135" stroke="#94a3b8" stroke-width="2"/>
+</g>
+<g data-parent="1" data-child="3">
+<line x1="-105.0" y1="135" x2="-157.5" y2="215" stroke="#94a3b8" stroke-width="2"/>
+</g>
+<g data-parent="1" data-child="4">
+<line x1="-105.0" y1="135" x2="-52.5" y2="215" stroke="#94a3b8" stroke-width="2"/>
+</g>
+<g data-parent="2" data-child="5">
+<line x1="105.0" y1="135" x2="52.5" y2="215" stroke="#94a3b8" stroke-width="2"/>
+</g>
+<g data-parent="2" data-child="6">
+<line x1="105.0" y1="135" x2="157.5" y2="215" stroke="#94a3b8" stroke-width="2"/>
+</g>
+<g data-parent="3" data-child="7">
+<line x1="-157.5" y1="215" x2="-183.75" y2="295" stroke="#94a3b8" stroke-width="2"/>
+</g>
+<g data-parent="3" data-child="8">
+<line x1="-157.5" y1="215" x2="-131.25" y2="295" stroke="#94a3b8" stroke-width="2"/>
+</g>
+<g data-parent="4" data-child="9">
+<line x1="-52.5" y1="215" x2="-78.75" y2="295" stroke="#94a3b8" stroke-width="2"/>
+</g>
+<g data-parent="4" data-child="10">
+<line x1="-52.5" y1="215" x2="-26.25" y2="295" stroke="#94a3b8" stroke-width="2"/>
+</g>
+<g data-parent="5" data-child="11">
+<line x1="52.5" y1="215" x2="26.25" y2="295" stroke="#94a3b8" stroke-width="2"/>
+</g>
+<g data-parent="5" data-child="12">
+<line x1="52.5" y1="215" x2="78.75" y2="295" stroke="#94a3b8" stroke-width="2"/>
+</g>
+<g data-parent="6" data-child="13">
+<line x1="157.5" y1="215" x2="131.25" y2="295" stroke="#94a3b8" stroke-width="2"/>
+</g>
+<g data-parent="6" data-child="14">
+<line x1="157.5" y1="215" x2="183.75" y2="295" stroke="#94a3b8" stroke-width="2"/>
+</g>
+<circle data-node-id="0" data-key="0" cx="0.0" cy="55" r="18" fill="#ffedd5" stroke="#9a3412" stroke-width="3"/>
+<text x="0.0" y="62" font-size="21" fill="#000000" text-anchor="middle">0</text>
+<circle data-node-id="1" data-key="1" cx="-105.0" cy="135" r="18" fill="#ffedd5" stroke="#9a3412" stroke-width="3"/>
+<text x="-105.0" y="142" font-size="21" fill="#000000" text-anchor="middle">1</text>
+<circle data-node-id="2" data-key="2" cx="105.0" cy="135" r="18" fill="#ffedd5" stroke="#9a3412" stroke-width="3"/>
+<text x="105.0" y="142" font-size="21" fill="#000000" text-anchor="middle">2</text>
+<circle data-node-id="3" data-key="3" cx="-157.5" cy="215" r="18" fill="#dbeafe" stroke="#1d4ed8" stroke-width="3"/>
+<text x="-157.5" y="222" font-size="21" fill="#000000" text-anchor="middle">3</text>
+<circle data-node-id="4" data-key="4" cx="-52.5" cy="215" r="18" fill="#dbeafe" stroke="#1d4ed8" stroke-width="3"/>
+<text x="-52.5" y="222" font-size="21" fill="#000000" text-anchor="middle">4</text>
+<circle data-node-id="5" data-key="5" cx="52.5" cy="215" r="18" fill="#dbeafe" stroke="#1d4ed8" stroke-width="3"/>
+<text x="52.5" y="222" font-size="21" fill="#000000" text-anchor="middle">5</text>
+<circle data-node-id="6" data-key="6" cx="157.5" cy="215" r="18" fill="#dbeafe" stroke="#1d4ed8" stroke-width="3"/>
+<text x="157.5" y="222" font-size="21" fill="#000000" text-anchor="middle">6</text>
+<circle data-node-id="7" data-key="7" cx="-183.75" cy="295" r="18" fill="#dcfce7" stroke="#166534" stroke-width="3"/>
+<text x="-183.75" y="302" font-size="21" fill="#000000" text-anchor="middle">7</text>
+<circle data-node-id="8" data-key="8" cx="-131.25" cy="295" r="18" fill="#dcfce7" stroke="#166534" stroke-width="3"/>
+<text x="-131.25" y="302" font-size="21" fill="#000000" text-anchor="middle">8</text>
+<circle data-node-id="9" data-key="9" cx="-78.75" cy="295" r="18" fill="#dcfce7" stroke="#166534" stroke-width="3"/>
+<text x="-78.75" y="302" font-size="21" fill="#000000" text-anchor="middle">9</text>
+<circle data-node-id="10" data-key="10" cx="-26.25" cy="295" r="18" fill="#dcfce7" stroke="#166534" stroke-width="3"/>
+<text x="-26.25" y="302" font-size="21" fill="#000000" text-anchor="middle">10</text>
+<circle data-node-id="11" data-key="11" cx="26.25" cy="295" r="18" fill="#dcfce7" stroke="#166534" stroke-width="3"/>
+<text x="26.25" y="302" font-size="21" fill="#000000" text-anchor="middle">11</text>
+<circle data-node-id="12" data-key="12" cx="78.75" cy="295" r="18" fill="#dcfce7" stroke="#166534" stroke-width="3"/>
+<text x="78.75" y="302" font-size="21" fill="#000000" text-anchor="middle">12</text>
+<circle data-node-id="13" data-key="13" cx="131.25" cy="295" r="18" fill="#dcfce7" stroke="#166534" stroke-width="3"/>
+<text x="131.25" y="302" font-size="21" fill="#000000" text-anchor="middle">13</text>
+<circle data-node-id="14" data-key="14" cx="183.75" cy="295" r="18" fill="#dcfce7" stroke="#166534" stroke-width="3"/>
+<text x="183.75" y="302" font-size="21" fill="#000000" text-anchor="middle">14</text>
+</g>
+<text x="450" y="380" font-size="18" fill="#334155" text-anchor="middle">8 leaves: 0 levels; 4 parents: at most 1; 2 nodes: at most 2; root: at most 3</text>
+<text x="450" y="430" font-size="19" fill="#334155" text-anchor="middle">Bottom-up build does not pay a full root-to-leaf path for every node.</text>
+</g></svg>

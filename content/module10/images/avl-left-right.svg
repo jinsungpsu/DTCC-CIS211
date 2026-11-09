@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -31 1080 391" role="img" aria-labelledby="title desc">
+<title id="title">Left-right double rotation</title>
+<desc id="desc">Left-right double rotation. Circular nodes; labels identify the illustrated steps.</desc>
+<rect y="-31" width="1080" height="391" rx="12" fill="white"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#c2410c"/></marker></defs>
+<g font-family="Arial, sans-serif">
+<g id="step0" transform="translate(180 5)">
+<text x="0" y="0" font-size="21" fill="#334155" text-anchor="middle">Before</text>
+<g data-parent="r" data-child="l">
+<line x1="0" y1="55" x2="-85" y2="145" stroke="#94a3b8" stroke-width="2"/>
+</g>
+<g data-parent="l" data-child="b">
+<line x1="-85" y1="145" x2="-10" y2="235" stroke="#94a3b8" stroke-width="2"/>
+</g>
+<circle data-node-id="r" data-key="30" cx="0" cy="55" r="22" fill="#f1f5f9" stroke="#64748b" stroke-width="3"/>
+<text x="0" y="62" font-size="21" fill="#000000" text-anchor="middle">30</text>
+<circle data-node-id="l" data-key="10" cx="-85" cy="145" r="22" fill="#f1f5f9" stroke="#64748b" stroke-width="3"/>
+<text x="-85" y="152" font-size="21" fill="#000000" text-anchor="middle">10</text>
+<circle data-node-id="b" data-key="20" cx="-10" cy="235" r="22" fill="#f1f5f9" stroke="#64748b" stroke-width="3"/>
+<text x="-10" y="242" font-size="21" fill="#000000" text-anchor="middle">20</text>
+</g>
+<g id="step1" transform="translate(540 5)">
+<text x="0" y="0" font-size="21" fill="#334155" text-anchor="middle">1: rotate left at child</text>
+<g data-parent="r" data-child="l">
+<line x1="0" y1="55" x2="-85" y2="145" stroke="#94a3b8" stroke-width="2"/>
+</g>
+<g data-parent="l" data-child="b">
+<line x1="-85" y1="145" x2="-155" y2="235" stroke="#94a3b8" stroke-width="2"/>
+</g>
+<circle data-node-id="r" data-key="30" cx="0" cy="55" r="22" fill="#f1f5f9" stroke="#64748b" stroke-width="3"/>
+<text x="0" y="62" font-size="21" fill="#000000" text-anchor="middle">30</text>
+<circle data-node-id="l" data-key="20" cx="-85" cy="145" r="22" fill="#f1f5f9" stroke="#64748b" stroke-width="3"/>
+<text x="-85" y="152" font-size="21" fill="#000000" text-anchor="middle">20</text>
+<circle data-node-id="b" data-key="10" cx="-155" cy="235" r="22" fill="#f1f5f9" stroke="#64748b" stroke-width="3"/>
+<text x="-155" y="242" font-size="21" fill="#000000" text-anchor="middle">10</text>
+</g>
+<g id="step2" transform="translate(900 5)">
+<text x="0" y="0" font-size="21" fill="#334155" text-anchor="middle">2: rotate right at root</text>
+<g data-parent="r" data-child="l">
+<line x1="0" y1="55" x2="-100" y2="155" stroke="#94a3b8" stroke-width="2"/>
+</g>
+<g data-parent="r" data-child="q">
+<line x1="0" y1="55" x2="100" y2="155" stroke="#94a3b8" stroke-width="2"/>
+</g>
+<circle data-node-id="r" data-key="20" cx="0" cy="55" r="22" fill="#f1f5f9" stroke="#64748b" stroke-width="3"/>
+<text x="0" y="62" font-size="21" fill="#000000" text-anchor="middle">20</text>
+<circle data-node-id="l" data-key="10" cx="-100" cy="155" r="22" fill="#f1f5f9" stroke="#64748b" stroke-width="3"/>
+<text x="-100" y="162" font-size="21" fill="#000000" text-anchor="middle">10</text>
+<circle data-node-id="q" data-key="30" cx="100" cy="155" r="22" fill="#f1f5f9" stroke="#64748b" stroke-width="3"/>
+<text x="100" y="162" font-size="21" fill="#000000" text-anchor="middle">30</text>
+</g>
+<text x="540" y="335" font-size="20" fill="#334155" text-anchor="middle">First straighten the bent heavy path; then rebalance the subtree.</text>
+</g></svg>

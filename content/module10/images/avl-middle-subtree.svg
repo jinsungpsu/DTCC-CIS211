@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -21 1000 391" role="img" aria-labelledby="title desc">
+<title id="title">Right rotation retains the middle subtree rooted at 30</title>
+<desc id="desc">Right rotation retains the middle subtree rooted at 30. Circular nodes; labels identify the illustrated steps.</desc>
+<rect y="-21" width="1000" height="391" rx="12" fill="white"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#c2410c"/></marker></defs>
+<g font-family="Arial, sans-serif">
+<g id="before" transform="translate(250 15)">
+<text x="0" y="0" font-size="21" fill="#334155" text-anchor="middle">Before</text>
+<g data-parent="y" data-child="x">
+<line x1="0" y1="55" x2="-110" y2="145" stroke="#94a3b8" stroke-width="2"/>
+</g>
+<g data-parent="y" data-child="c">
+<line x1="0" y1="55" x2="120" y2="145" stroke="#94a3b8" stroke-width="2"/>
+</g>
+<g data-parent="x" data-child="a">
+<line x1="-110" y1="145" x2="-170" y2="235" stroke="#94a3b8" stroke-width="2"/>
+</g>
+<g data-parent="x" data-child="b">
+<line x1="-110" y1="145" x2="-50" y2="235" stroke="#94a3b8" stroke-width="2"/>
+</g>
+<circle data-node-id="y" data-key="40" cx="0" cy="55" r="23" fill="#f1f5f9" stroke="#64748b" stroke-width="3"/>
+<text x="0" y="62" font-size="21" fill="#000000" text-anchor="middle">40</text>
+<circle data-node-id="x" data-key="20" cx="-110" cy="145" r="23" fill="#f1f5f9" stroke="#64748b" stroke-width="3"/>
+<text x="-110" y="152" font-size="21" fill="#000000" text-anchor="middle">20</text>
+<circle data-node-id="a" data-key="10" cx="-170" cy="235" r="23" fill="#f1f5f9" stroke="#64748b" stroke-width="3"/>
+<text x="-170" y="242" font-size="21" fill="#000000" text-anchor="middle">10</text>
+<circle data-node-id="b" data-key="30" cx="-50" cy="235" r="23" fill="#ffedd5" stroke="#9a3412" stroke-width="3"/>
+<text x="-50" y="242" font-size="21" fill="#000000" text-anchor="middle">30</text>
+<circle data-node-id="c" data-key="50" cx="120" cy="145" r="23" fill="#f1f5f9" stroke="#64748b" stroke-width="3"/>
+<text x="120" y="152" font-size="21" fill="#000000" text-anchor="middle">50</text>
+</g>
+<g id="after" transform="translate(750 15)">
+<text x="0" y="0" font-size="21" fill="#334155" text-anchor="middle">After</text>
+<g data-parent="x" data-child="a">
+<line x1="0" y1="55" x2="-120" y2="145" stroke="#94a3b8" stroke-width="2"/>
+</g>
+<g data-parent="x" data-child="y">
+<line x1="0" y1="55" x2="110" y2="145" stroke="#94a3b8" stroke-width="2"/>
+</g>
+<g data-parent="y" data-child="b">
+<line x1="110" y1="145" x2="50" y2="235" stroke="#94a3b8" stroke-width="2"/>
+</g>
+<g data-parent="y" data-child="c">
+<line x1="110" y1="145" x2="170" y2="235" stroke="#94a3b8" stroke-width="2"/>
+</g>
+<circle data-node-id="y" data-key="40" cx="110" cy="145" r="23" fill="#f1f5f9" stroke="#64748b" stroke-width="3"/>
+<text x="110" y="152" font-size="21" fill="#000000" text-anchor="middle">40</text>
+<circle data-node-id="x" data-key="20" cx="0" cy="55" r="23" fill="#f1f5f9" stroke="#64748b" stroke-width="3"/>
+<text x="0" y="62" font-size="21" fill="#000000" text-anchor="middle">20</text>
+<circle data-node-id="a" data-key="10" cx="-120" cy="145" r="23" fill="#f1f5f9" stroke="#64748b" stroke-width="3"/>
+<text x="-120" y="152" font-size="21" fill="#000000" text-anchor="middle">10</text>
+<circle data-node-id="b" data-key="30" cx="50" cy="235" r="23" fill="#ffedd5" stroke="#9a3412" stroke-width="3"/>
+<text x="50" y="242" font-size="21" fill="#000000" text-anchor="middle">30</text>
+<circle data-node-id="c" data-key="50" cx="170" cy="235" r="23" fill="#f1f5f9" stroke="#64748b" stroke-width="3"/>
+<text x="170" y="242" font-size="21" fill="#000000" text-anchor="middle">50</text>
+</g>
+<text x="500" y="160" font-size="42" fill="#334155" text-anchor="middle">&#8594;</text>
+<text x="500" y="345" font-size="20" fill="#334155" text-anchor="middle">Inorder key order is preserved; the subtree root changes.</text>
+</g></svg>
