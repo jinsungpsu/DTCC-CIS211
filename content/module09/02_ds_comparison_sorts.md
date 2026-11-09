@@ -69,6 +69,39 @@ void mergeSort(int arr[], int l, int r) {
 
 ---
 
+# Merge Sort: Splits Across, Levels Down
+
+Each bracket is one subproblem. Rows group calls at the same recursion depth.
+
+| Depth | Subproblems across the row |
+|---|---|
+| 0 | [8 3 6 1 7 2 5 4] |
+| 1 | [8 3 6 1] [7 2 5 4] |
+| 2 | [8 3] [6 1] [7 2] [5 4] |
+| 3 | [8] [3] [6] [1] [7] [2] [5] [4] |
+
+- Eight items need only three levels of splitting to reach single items
+- The pieces get smaller while the total number of items across each row stays eight
+- Java completes recursive branches in order; this table groups levels, not simultaneous execution
+
+---
+
+# Merge Sort: Sorted Runs Grow During Merging
+
+Read downward as completed smaller results are combined into larger sorted runs.
+
+| Merge stage | Sorted runs across the row | Items processed at this stage |
+|---|---|---|
+| Single-item runs | [8] [3] [6] [1] [7] [2] [5] [4] | Base cases |
+| Runs of 2 | [3 8] [1 6] [2 7] [4 5] | 4 merges × 2 = 8 |
+| Runs of 4 | [1 3 6 8] [2 4 5 7] | 2 merges × 4 = 8 |
+| Run of 8 | [1 2 3 4 5 6 7 8] | 1 merge × 8 = 8 |
+
+- Sorted runs are not yet in their final global positions until merged with the other runs
+- O(n) processing per merge level × O(log n) merge levels gives O(n log n)
+
+---
+
 # Merge Sort: One Merge Step
 
 - Start with two already-sorted halves: [2, 7] and [3, 5]
@@ -131,6 +164,42 @@ int partition(int arr[], int low, int high) {
 - The shown partition function puts the pivot at its final sorted index
 - Recursively sort the values to its left and right, excluding the pivot
 - Stop when a subarray has zero or one item; no merge step is needed
+
+---
+
+# Quick Sort: Balanced Partitions Across the Row
+
+Use the code's **last-item pivot**. Bold pivots are fixed; brackets are the remaining subproblems.
+
+| Stage grouped by depth | Array and partitions across the row |
+|---|---|
+| Start | [1 3 2 6 5 7 4] |
+| Partition at depth 0 | [1 3 2] **4** [5 7 6] |
+| Partition at depth 1 | [1] **2** [3] **4** [5] **6** [7] |
+| Base cases at depth 2 | **1 2 3 4 5 6 7** |
+
+- Both sides keep shrinking quickly; singleton subproblems require no partition scan
+- A partition groups values but does not sort each group internally
+- Rows group recursion depth; the code processes the left branch before the right
+
+---
+
+# Quick Sort: Balanced vs Uneven Table Height
+
+Same seven items; last-item pivot. Cells show **subproblem sizes**, not values. Fixed pivots are omitted.
+
+| Depth | Balanced example | Already-sorted input: uneven splits |
+|---|---|---|
+| 0 | [7] | [7] |
+| 1 | [3] [3] | [6] |
+| 2 | [1] [1] [1] [1] — stop | [5] |
+| 3 | Finished | [4] |
+| 4 | Finished | [3] |
+| 5 | Finished | [2] |
+| 6 | Finished | [1] — stop |
+
+- Balanced splits make a short table: O(log n) depth and O(n log n) total work
+- Uneven splits make a tall table: O(n) depth and shrinking scans totaling O(n²)
 
 ---
 

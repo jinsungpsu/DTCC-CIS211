@@ -38,6 +38,23 @@ Only works for restricted data.
 
 ---
 
+# Counting Sort: Iterations Update Counts
+
+Input: [3, 1, 2, 1]. Columns are **keys**, and cells are counts rather than array positions.
+
+| Input iteration | Count of 1 | Count of 2 | Count of 3 |
+|---|---|---|---|
+| Start | 0 | 0 | 0 |
+| Read 3 | 0 | 0 | 1 |
+| Read 1 | 1 | 0 | 1 |
+| Read 2 | 1 | 1 | 1 |
+| Read 1 | 2 | 1 | 1 |
+
+- After counting, scan the keys in order: two 1s, one 2, one 3 → [1, 1, 2, 3]
+- Work includes the input scan **and** the key-range scan; counts are not sorted runs
+
+---
+
 # Counting Sort Video
 
 ![Counting sort preview](images/counting-sort-video-preview.jpg)
@@ -71,6 +88,22 @@ Only works for restricted data.
 
 ---
 
+# Bucket Sort: Groups Across, Stages Down
+
+Input: [23, 8, 17, 4, 21, 12]. Each column holds a value range.
+
+| Stage | Bucket 0–9 | Bucket 10–19 | Bucket 20–29 |
+|---|---|---|---|
+| Before distribution | [] | [] | [] |
+| After distributing all 6 items | [8 4] | [17 12] | [23 21] |
+| After sorting within each bucket | [4 8] | [12 17] | [21 23] |
+
+- Gather left to right: [4, 8, 12, 17, 21, 23]
+- Each stage contains iterations; the bucket-sorting row hides each inner sort's work
+- If all values land in one bucket, the inner sorting job is still large
+
+---
+
 # Bucket Sort Video
 
 ![Bucket sort preview](images/bucket-sort-video-preview.jpg)
@@ -99,6 +132,23 @@ Only works for restricted data.
 - Processes digits individually
 - For least-significant-digit radix sort, work from the ones digit leftward
 - Each pass must preserve earlier digit ordering among equal current digits
+
+---
+
+# Radix Sort: One Digit Pass per Row
+
+Read array positions across each row. Treat missing leading digits as zero.
+
+| After pass | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
+|---|---|---|---|---|---|---|---|---|
+| Start | 170 | 45 | 75 | 90 | 802 | 24 | 2 | 66 |
+| Ones | 170 | 90 | 802 | 2 | 24 | 45 | 75 | 66 |
+| Tens | 802 | 2 | 24 | 45 | 66 | 170 | 75 | 90 |
+| Hundreds | 2 | 24 | 45 | 66 | 75 | 90 | 170 | 802 |
+
+- After the tens pass, values are ordered by their last two digits, not their whole values
+- Stable digit passes preserve earlier ordering; each row still processes all eight items
+- More digits mean more rows; a short table helps only if each pass is affordable
 
 ---
 
@@ -176,6 +226,22 @@ Avoiding comparisons does not mean avoiding work or extra storage.
 - TimSort combines Merge Sort and Insertion Sort
 - TimSort finds already-sorted runs rather than always starting from single items
 - It extends short runs with insertion sort, then merges the runs
+
+---
+
+# Hybrid Sorting: Small Runs, Then Merges
+
+One possible hybrid uses insertion sort for small blocks, then merges the resulting runs.
+
+| Stage | Groups or sorted runs across the row |
+|---|---|
+| Small unsorted blocks | [7 1 4] [8 3 2] [6 0 5] |
+| After insertion-sorting each block | [1 4 7] [2 3 8] [0 5 6] |
+| After merging the first two runs | [1 2 3 4 7 8] [0 5 6] |
+| After the final merge | [0 1 2 3 4 5 6 7 8] |
+
+- These rows are phases, not individual comparisons; each phase contains its own iterations
+- A run is internally sorted, but its values can move when merged with another run
 
 ---
 

@@ -96,6 +96,17 @@ Specialized sorts use different cost models; we will compare those separately.
 
 ---
 
+# Reading the Sorting Tables
+
+- **Across a row:** follow array positions or separate groups from left to right
+- **Down the rows:** follow successive passes, iterations, or recursion levels, as labeled
+- **Iteration:** one repetition of a loop; an outer pass usually contains several inner iterations
+- **Sorted run:** a consecutive group already in order; it may still need merging or shifting
+
+Table height counts the stages shown; row width and the work hidden inside each stage also matter.
+
+---
+
 # Selection Sort
 
 - Select smallest element
@@ -122,6 +133,23 @@ void selectionSort(int arr[]) {
     }
 }
 ```
+
+---
+
+# Selection Sort: Passes Down, Positions Across
+
+**Bold values are fixed in their final positions.** Each row follows a complete scan for the next minimum.
+
+| After outer pass | 0 | 1 | 2 | 3 | 4 |
+|---|---|---|---|---|---|
+| Start | 5 | 2 | 4 | 1 | 3 |
+| 1 | **1** | 2 | 4 | 5 | 3 |
+| 2 | **1** | **2** | 4 | 5 | 3 |
+| 3 | **1** | **2** | **3** | 5 | 4 |
+| 4 | **1** | **2** | **3** | **4** | **5** |
+
+- The sorted left section grows; the unsorted right section shrinks
+- Inner comparisons per pass: 4 + 3 + 2 + 1; an unchanged row still costs work
 
 ---
 
@@ -167,6 +195,23 @@ void bubbleSort(int arr[]) {
     }
 }
 ```
+
+---
+
+# Bubble Sort: Passes Down, Positions Across
+
+**Bold values are fixed in their final positions.** Within each row's pass, comparisons move left to right.
+
+| After outer pass | 0 | 1 | 2 | 3 | 4 |
+|---|---|---|---|---|---|
+| Start | 5 | 2 | 4 | 1 | 3 |
+| 1 | 2 | 4 | 1 | 3 | **5** |
+| 2 | 2 | 1 | 3 | **4** | **5** |
+| 3 | 1 | 2 | **3** | **4** | **5** |
+| 4 | **1** | **2** | **3** | **4** | **5** |
+
+- The sorted right section grows; each pass skips that finished section
+- The shown code still performs the fourth pass, even though the third row is already sorted
 
 ---
 
@@ -238,6 +283,23 @@ void insertionSort(int arr[]) {
 
 ---
 
+# Insertion Sort: A Sorted Run That Can Still Move
+
+**Bold marks the sorted prefix, not guaranteed final positions.** Each row inserts one more item.
+
+| After insertion | 0 | 1 | 2 | 3 | 4 |
+|---|---|---|---|---|---|
+| Start | **5** | 2 | 4 | 1 | 3 |
+| i = 1 | **2** | **5** | 4 | 1 | 3 |
+| i = 2 | **2** | **4** | **5** | 1 | 3 |
+| i = 3 | **1** | **2** | **4** | **5** | 3 |
+| i = 4 | **1** | **2** | **3** | **4** | **5** |
+
+- Watch 5 move right as the sorted prefix grows
+- The inner loop shifts as many larger values as needed; one row is not one comparison
+
+---
+
 # Insertion Sort vs Bubble Sort Video
 
 ![Sorting animation preview](images/sorting-animation-orange-robot.jpg)
@@ -301,6 +363,23 @@ void shellSort(int arr[]) {
     }
 }
 ```
+
+---
+
+# Shell Sort: Gaps and Inner Iterations
+
+The shown code uses gaps 3, then 1 for six items.
+
+| Stage | 0 | 1 | 2 | 3 | 4 | 5 |
+|---|---|---|---|---|---|---|
+| Start | 6 | 5 | 4 | 3 | 2 | 1 |
+| gap 3, i = 3 | 3 | 5 | 4 | 6 | 2 | 1 |
+| gap 3, i = 4 | 3 | 2 | 4 | 6 | 5 | 1 |
+| gap 3, i = 5 | 3 | 2 | 1 | 6 | 5 | 4 |
+| gap 1, after all 5 insertions | 1 | 2 | 3 | 4 | 5 | 6 |
+
+- Gap 3 orders the spaced groups (0, 3), (1, 4), and (2, 5)
+- Two gap passes contain many iterations; the final row compresses five insertions
 
 ---
 
