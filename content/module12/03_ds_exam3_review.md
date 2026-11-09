@@ -378,7 +378,7 @@ Use modulo table length to wrap from the last slot to index `0`. Stop when an un
 - Can you trace a circular queue when its front is near the end of the array?
 - Can you write a nondestructive peek using a logical offset and modulo?
 - Can you update both links when inserting or removing a doubly linked node?
-- Can you handle empty-list and end-node cases?
+- Can you handle empty-list?
 - Can you traverse a doubly linked list in either direction?
 - Can you compare O(1) end operations with O(n) traversal?
 - Can you compute a hash index and identify collisions?
