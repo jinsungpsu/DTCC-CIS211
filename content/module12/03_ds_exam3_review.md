@@ -351,7 +351,7 @@ What should a `put` method do if the bucket for a key is currently `null`? What 
 
 ### Answer
 
-- Create an empty bucket collection before iterating through it.
+- Create an empty bucket collection before adding the new item.
 - If an entry with an equal key is found, replace its value and return without increasing the number of keys.
 - Otherwise, add a new entry and increase the size.
 
