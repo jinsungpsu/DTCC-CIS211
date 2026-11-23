@@ -10,36 +10,46 @@
 
 ---
 
-# MST (Minimum Spanning Tree)
+# Minimum spanning trees
 
-A spanning tree is a tree-like subgraph of a connected, undirected graph that includes all vertices of the graph.
-
-The minimum spanning tree has the minimum possible weights among all spanning trees.
-
----
-
-# Connected Graphs and Cycles
-
-- Connected graph: there is a path between every pair of vertices.
-- Strongly connected and weakly connected for directed graphs.
-- Cycle: path that starts and ends at the same vertex.
-- Acyclic graphs contain no cycles.
+- A **spanning tree** uses all the vertices of a connected, undirected graph and enough of its original edges to connect them without cycles.
+- A spanning tree on `V` vertices has exactly `V - 1` edges.
+- A **minimum spanning tree** (MST) minimizes the sum of the selected edge weights. Ties can produce more than one MST.
 
 ---
 
-# Creating an MST from a graph - Kruskal’s
+# Why avoid cycles?
 
-- Sort all edges by weight
-- Add lowest-weight edges
-- Do not create cycles
+- A tree has exactly one simple path between any pair of vertices.
+- Adding an edge between two vertices already connected in a tree creates a cycle.
+- Removing one edge from a cycle preserves connectivity because the rest of the cycle supplies another route.
+- A disconnected graph has no spanning tree covering all its vertices. A **minimum spanning forest** contains an MST for each connected component.
 
 ---
 
-# Creating an MST from a graph - Prim’s
+# Kruskal's algorithm
 
-- Start with an arbitrary vertex
-- Repeatedly add minimum edge connecting MST to a new vertex
-- Continue until all vertices are included
+1. Start with every vertex in its own component.
+2. Consider edges in increasing weight order. Accept an edge if it joins two different components, then merge those components.
+3. Stop after accepting `V - 1` edges in a connected graph. A disjoint-set structure (union-find) can track the components.
+
+---
+
+# Prim's algorithm
+
+1. Start with any vertex.
+2. Choose the lightest edge from a vertex already in the growing tree to a vertex outside it.
+3. Add the edge and its outside vertex. Repeat until all vertices are included.
+
+---
+
+# MST versus shortest paths
+
+Consider an undirected triangle with weights `A-B = 2`, `B-C = 2`, and `A-C = 3`.
+
+- The MST uses `A-B` and `B-C` and has total edge weight 4.
+- The shortest route from `A` to `C` uses the direct edge of weight 3. The route inside the MST costs 4.
+- An MST minimizes the total cost of the network. A shortest-path algorithm minimizes the cost of a route.
 
 ---
 

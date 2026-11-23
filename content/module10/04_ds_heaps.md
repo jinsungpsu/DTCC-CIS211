@@ -392,20 +392,6 @@ All three can store ordered keys, but they maintain different relationships to m
 
 ---
 
-# Check Your Understanding
-
-1. At index 4, where are the potential parent and children in a zero-based heap array?
-2. Does an eight-node heap have to be full or perfect?
-3. Why can't we search a min-heap like a BST?
-
-<div class="fragment">
-
-**Discuss:** parent 1, children 9 and 10 if in bounds; no; neither child subtree is selected by a BST key-ordering rule.
-
-</div>
-
----
-
 # Same Keys, Different Guarantees
 
 ![A BST and a min-heap store the same keys with different roots and ordering](images/bst-versus-heap.svg)

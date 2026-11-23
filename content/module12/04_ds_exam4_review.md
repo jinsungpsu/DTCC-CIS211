@@ -67,20 +67,6 @@ This assessment MUST be completed using D2L on a lab computer during the schedul
 
 ---
 
-# Sample: Choose a Structure
-
-A program frequently reads items by index, and the number of items is known in advance. Which structure is a natural fit, and what is one trade-off?
-
-<div class="fragment">
-
-### One Possible Answer
-
-An **array** provides fast indexed access and avoids per-node link references. Its size is fixed, so the program must allocate enough capacity in advance.
-
-</div>
-
----
-
 # Recursion
 
 - A recursive method solves a problem by calling itself on a smaller or simpler input.
@@ -88,24 +74,6 @@ An **array** provides fast indexed access and avoids per-node link references. I
 - Each recursive call should make progress toward a base case.
 - Calls are stored in the call stack; many nested calls use additional memory and can cause stack overflow.
 - Recursion can make naturally nested problems easier to express, but it is not automatically faster or more memory-efficient than iteration.
-
----
-
-# Sample: Trace a Recursive Method
-
-Consider a method that returns `1` when `n` is `0`; otherwise, it returns `n` multiplied by the result of calling itself with `n - 1`. What value does it return for `n = 4`?
-
-<div class="fragment">
-
-### Answer
-
-It returns **24**:
-
-`4 × 3 × 2 × 1 × 1 = 24`
-
-The call reaches the base case at `n = 0`, then returns through the pending calls.
-
-</div>
 
 ---
 
@@ -132,24 +100,6 @@ The call reaches the base case at `n = 0`, then returns through the pending call
 
 ---
 
-# Sample: Identify Divide and Conquer
-
-Which approach is divide and conquer?
-
-- Repeatedly compare neighboring items and swap them if needed.
-- Split a collection into smaller parts, solve those parts, and combine the results.
-- Process each number's digits from least significant to most significant.
-
-<div class="fragment">
-
-### Answer
-
-The second approach describes **divide and conquer**. Mergesort and quicksort are examples.
-
-</div>
-
----
-
 # Mergesort and Quicksort
 
 **Mergesort**
@@ -167,20 +117,6 @@ The second approach describes **divide and conquer**. Mergesort and quicksort ar
 
 ---
 
-# Sample: Compare Sorting Choices
-
-You need predictable O(n log n) worst-case time for an array sort and can use extra storage. Which algorithm is a reasonable choice, and what is its main space trade-off?
-
-<div class="fragment">
-
-### Answer
-
-**Mergesort** is a reasonable choice. Its usual array implementation uses O(n) extra storage.
-
-</div>
-
----
-
 # Non-Comparison Sorting
 
 - Comparison sorts determine order by comparing values.
@@ -188,20 +124,6 @@ You need predictable O(n log n) worst-case time for an array sort and can use ex
 - Radix sort processes keys by individual digits or components, using a stable sort for each position.
 - Its runtime depends on both the number of items and the number of positions processed.
 - Radix sort is not suitable for arbitrary data without a way to represent and process its keys.
-
----
-
-# Sample: When Radix Sort Fits
-
-What kind of input is a good candidate for radix sort? Name one reason it cannot be used as a general replacement for comparison sorts.
-
-<div class="fragment">
-
-### One Possible Answer
-
-Fixed-format values such as nonnegative integers with a limited number of digits can be a good fit. Arbitrary objects may not have a meaningful digit-by-digit representation, and performance depends on key length and representation.
-
-</div>
 
 ---
 

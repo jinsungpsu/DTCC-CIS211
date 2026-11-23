@@ -67,7 +67,16 @@ Marking a vertex when it enters the queue keeps two neighbors from enqueueing it
 
 ---
 
-# Search Algorithms
+# Traversing cycles and disconnected graphs
+
+- In `A -> B -> C -> A`, mark each vertex when first discovered. When examining `C -> A`, the search skips `A` because it is already discovered.
+- From one source, BFS and DFS visit only the vertices reachable from it.
+- To traverse an entire graph, scan its vertices and start a new search at each undiscovered vertex. Keep the same discovered set across searches.
+- In an undirected graph, each new search visits one connected component.
+
+---
+
+# Reconstructing a path
 
 - When a vertex is first discovered, record the vertex that led to it as its predecessor.
 - To recover a path, follow predecessors backward from the destination to the source, then reverse the sequence.
@@ -92,12 +101,11 @@ Marking a vertex when it enters the queue keeps two neighbors from enqueueing it
 
 ---
 
-# Algorithm Overview
+# Dijkstra's algorithm
 
-- Starting from the source node
-- Repeatedly choosing the unvisited vertex with the smallest known distance
-- Relaxing each outgoing edge by testing whether going through the current vertex gives a smaller distance
-- Marking the vertex as visited
+1. Choose the unsettled vertex with the smallest tentative distance. Its distance is now final because edge weights are nonnegative.
+2. Relax its outgoing edges. For `u -> v`, compare `distance[u] + weight(u, v)` with `distance[v]`. If the candidate is smaller, update the distance and set `u` as `v`'s predecessor.
+3. Repeat until no reachable unsettled vertex remains. Unreachable vertices keep distance infinity.
 
 ---
 
