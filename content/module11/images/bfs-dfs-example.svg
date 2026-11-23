@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="202" viewBox="0 0 520 220" role="img" aria-labelledby="title desc">
+  <title id="title">Directed graph for BFS and DFS</title>
+  <desc id="desc">Start at A. A points to B and C. B and C each point to D.</desc>
+  <rect width="520" height="220" rx="12" fill="#ffffff"/>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#64748b"/>
+    </marker>
+  </defs>
+  <g stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)">
+    <line x1="239" y1="49" x2="175" y2="94"/>
+    <line x1="281" y1="49" x2="345" y2="94"/>
+    <line x1="175" y1="126" x2="236" y2="169"/>
+    <line x1="345" y1="126" x2="284" y2="169"/>
+  </g>
+  <g font-family="Arial, sans-serif" font-size="21" font-weight="700" text-anchor="middle" stroke-width="3">
+    <circle cx="260" cy="34" r="23" fill="#dbeafe" stroke="#1d4ed8"/>
+    <text x="260" y="41" fill="#000000">A</text>
+    <circle cx="153" cy="110" r="23" fill="#f1f5f9" stroke="#64748b"/>
+    <text x="153" y="117" fill="#000000">B</text>
+    <circle cx="367" cy="110" r="23" fill="#f1f5f9" stroke="#64748b"/>
+    <text x="367" y="117" fill="#000000">C</text>
+    <circle cx="260" cy="186" r="23" fill="#f1f5f9" stroke="#64748b"/>
+    <text x="260" y="193" fill="#000000">D</text>
+  </g>
+</svg>

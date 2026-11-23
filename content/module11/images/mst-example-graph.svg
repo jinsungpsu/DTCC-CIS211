@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="184" viewBox="0 0 520 200" role="img" aria-labelledby="title desc">
+  <title id="title">Weighted graph</title>
+  <desc id="desc">Edges A to B cost 2, B to C costs 3, A to C costs 4, C to D costs 5, and B to D costs 7.</desc>
+  <rect width="520" height="200" rx="12" fill="#ffffff"/>
+  <line x1="105" y1="45" x2="240" y2="45" stroke="#94a3b8" stroke-width="2"/>
+  <line x1="240" y1="45" x2="240" y2="151" stroke="#94a3b8" stroke-width="2"/>
+  <line x1="105" y1="45" x2="240" y2="151" stroke="#94a3b8" stroke-width="2"/>
+  <line x1="240" y1="151" x2="397" y2="151" stroke="#94a3b8" stroke-width="2"/>
+  <line x1="240" y1="45" x2="397" y2="151" stroke="#94a3b8" stroke-width="2"/>
+  <g font-family="Arial, sans-serif" font-size="20" font-weight="700" text-anchor="middle">
+    <text x="172" y="34" fill="#334155">2</text>
+    <text x="256" y="105" fill="#334155">3</text>
+    <text x="157" y="116" fill="#334155">4</text>
+    <text x="319" y="140" fill="#334155">5</text>
+    <text x="336" y="90" fill="#334155">7</text>
+    <circle cx="105" cy="45" r="23" fill="#f1f5f9" stroke="#64748b" stroke-width="3"/>
+    <text x="105" y="52" fill="#000000">A</text>
+    <circle cx="240" cy="45" r="23" fill="#f1f5f9" stroke="#64748b" stroke-width="3"/>
+    <text x="240" y="52" fill="#000000">B</text>
+    <circle cx="240" cy="151" r="23" fill="#f1f5f9" stroke="#64748b" stroke-width="3"/>
+    <text x="240" y="158" fill="#000000">C</text>
+    <circle cx="397" cy="151" r="23" fill="#f1f5f9" stroke="#64748b" stroke-width="3"/>
+    <text x="397" y="158" fill="#000000">D</text>
+  </g>
+</svg>

@@ -20,6 +20,36 @@ A graph `G = (V, E)` consists of a set of vertices and a set of edges.
 
 ---
 
+# Why use the Graph ADT?
+
+A graph models **connections** between entities. The application decides which connections to follow and what to compute from them.
+
+| Application | What the graph represents | What we can ask |
+| --- | --- | --- |
+| Road navigation | Intersections connected by roads | Which route takes the least time? |
+| Course planning | Courses connected by prerequisite links | What must I complete before taking this course? |
+| Social networks | People connected by friendships | Which friends do two people have in common? |
+| Network design | Sites connected by possible cable links | How can we connect every site at the lowest total cost? |
+
+The same graph can support several tasks. On a road map, you can list nearby intersections, check whether a destination is reachable, or find the fastest route.
+
+---
+
+# Contrast with other data structures
+
+Many structures we studied are organized around particular operations or access rules.
+
+| Structure | Operations and access rules |
+| --- | --- |
+| Stack | Push, pop, and peek at the most recently added item (LIFO). |
+| Queue | Enqueue at the back and dequeue from the front (FIFO). |
+| Binary search tree | Use key ordering to guide search, insertion, and removal. |
+| Heap | Peek at or remove the minimum or maximum, and restore heap order after updates. |
+
+The Graph ADT provides operations such as adding an edge or retrieving neighbors. The same connections can then support different algorithms, depending on whether the problem calls for reachability, a shortest route, or a minimum-cost network.
+
+---
+
 # Types of graphs
 
 - **Directed:** `A -> B` goes from `A` to `B`. A reverse edge can be stored separately.
@@ -107,6 +137,8 @@ Let `V` be the number of vertices and `E` the number of edges.
   - One list per vertex storing its outgoing neighbors
 - Edge List
   - One row per edge storing its endpoints and, for a weighted graph, its weight
+
+We'll focus on **adjacency matrices** and **adjacency lists** because many graph operations start at a vertex and need to find its neighbors or check for a direct edge. An edge list may have to scan all edges for those operations. **Kruskal's algorithm** is an exception. It processes all edges in weight order, so a sorted edge list is a natural fit.
 
 ---
 

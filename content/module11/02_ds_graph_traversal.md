@@ -11,6 +11,20 @@
 
 ---
 
+# Why mark vertices as visited?
+
+A cycle can lead a traversal back to a vertex it has already seen.
+
+```text
+A -> B -> C -> A
+```
+
+- Start at `A`. Following each edge without tracking visits can repeat `A, B, C` indefinitely.
+- Mark `A` as soon as it is discovered. When the traversal reaches `C` and sees the edge back to `A`, it skips `A`.
+- Keep a shared set of discovered vertices for the whole traversal. This also prevents duplicate work when two branches lead to the same vertex.
+
+---
+
 # DFS and BFS
 
 - Breadth-first search (BFS) explores vertices in order of distance from the start, measured in edges.
@@ -19,16 +33,15 @@
 
 ---
 
-# BFS
+# BFS explores by layers
 
-- Visit neighbors/closest nodes first, then starts spreading out
-- Great if we expect to find what we’re looking for to be near the starting point
-- e.g. a search perimeter for a missing person
+- Start at distance 0. Discover all vertices one edge away before exploring vertices two edges away.
+- Each layer groups vertices by their distance from the source, measured in edges.
+- On an unweighted subway map, BFS finds a route with the fewest links between stations. The fastest route may depend on travel times.
 
-<!-- footer -->
-https://www.freemaptools.com/blog/2014/10/drawing-concentric-circles-on-a-map/
+![Start at A. A points to B and C, and both B and C point to D.](images/bfs-dfs-example.svg)
 
-https://www.geeksforgeeks.org/breadth-first-search-or-bfs-for-a-graph/
+Start at `A` and consider `B` before `C`.
 
 ---
 
@@ -43,33 +56,122 @@ Marking a vertex when it enters the queue keeps two neighbors from enqueueing it
 
 ---
 
-# BFS uses a queue!
+# BFS in Java
 
-- First in, first out (FIFO) processes vertices in discovery order.
-- If `A` has neighbors `B` and `C`, and `B` leads to `D`, the queue processes `C` before `D`.
-- With neighbors examined in that order, BFS visits `A, B, C, D`.
+Here and in DFS, `map` is a `Map<T, List<T>>` with an outgoing list for every vertex. The source is a valid vertex.
+
+```java
+void breadthFirstSearch(T source) {
+    HashMap<T, Boolean> visited = new HashMap<>();
+    Queue<T> queue = new LinkedList<>();
+    visited.put(source, true);
+    queue.add(source);
+
+    while (!queue.isEmpty()) {
+        T current = queue.remove();
+        System.out.println(current);
+        for (T next : map.get(current)) {
+            if (visited.putIfAbsent(next, true) == null) {
+                queue.add(next);
+            }
+        }
+    }
+}
+```
+
+Mark each vertex when it enters the queue so it is queued once.
 
 ---
 
-# DFS
+# Trace the BFS queue
 
-- Follow an undiscovered neighbor, then continue from that neighbor.
-- When the current vertex has no undiscovered neighbors left, backtrack to the previous vertex.
-- On the same graph, DFS can visit `A, B, D, C` by following `B`'s branch before returning to `C`.
+The queue is FIFO, with the front on the left. Mark a vertex visited when it is enqueued.
+
+| Vertex processed | Newly discovered | Queue after processing | Visited nodes |
+| --- | --- | --- | --- |
+| Start | A | A | A |
+| A | B, C | B, C | A, B, C |
+| B | D | C, D | A, B, C, D |
+| C | None. D is already discovered. | D | A, B, C, D |
+| D | None | Empty | A, B, C, D |
+
+BFS processes **A, B, C, D**. Marking `D` when it enters the queue lets us skip the second discovery through `C`.
 
 ---
 
-# DFS uses a STACK!
+# DFS follows a branch
 
-- A stack follows last in, first out (LIFO) order.
-- Recursive DFS uses the call stack. When a call finishes, execution resumes at the previous vertex.
-- Iterative DFS can use an explicit stack. The order in which neighbors are pushed can change the visit order.
+![Start at A. A points to B and C, and both B and C point to D.](images/bfs-dfs-example.svg)
+
+Start at `A` and consider `B` before `C`. DFS follows the branch through `B` as far as it can, then backtracks to explore `C`.
 
 ---
 
-# Traversing cycles and disconnected graphs
+# DFS uses a stack
 
-- In `A -> B -> C -> A`, mark each vertex when first discovered. When examining `C -> A`, the search skips `A` because it is already discovered.
+Recursion uses the call stack to remember where to resume in each neighbor list.
+
+```text
+dfs(u):
+    mark u as discovered
+    process u
+    for each outgoing neighbor v of u:
+        if v is undiscovered:
+            dfs(v)
+```
+
+An iterative DFS can keep the current vertex and its next neighbor on an explicit stack. Popping that frame is equivalent to returning from a recursive call.
+
+---
+
+# Iterative DFS in Java
+
+```java
+void depthFirstSearch(T source) {
+    HashMap<T, Boolean> visited = new HashMap<>();
+    Stack<T> stack = new Stack<>();
+    stack.push(source);
+
+    while (!stack.isEmpty()) {
+        T current = stack.pop();
+        if (visited.putIfAbsent(current, true) != null) {
+            continue;
+        }
+        System.out.println(current);
+        List<T> neighbors = map.get(current);
+        ListIterator<T> it = neighbors.listIterator(neighbors.size());
+        while (it.hasPrevious()) {
+            T next = it.previous();
+            if (!visited.containsKey(next)) {
+                stack.push(next);
+            }
+        }
+    }
+}
+```
+
+Push neighbors in reverse order so the first listed neighbor is processed first. This version marks a vertex when it is popped. If another branch already processed it, skip the duplicate entry before expanding its neighbors.
+
+---
+
+# Trace the DFS stack
+
+Use the same graph as BFS. The stack is LIFO, with the top on the left. Mark a vertex visited when it is first popped. Push neighbors in reverse order.
+
+| Vertex processed | Neighbors pushed | Stack after processing | Visited nodes |
+| --- | --- | --- | --- |
+| Start | A | A | Empty |
+| A | C, then B | B, C | A |
+| B | D | D, C | A, B |
+| D | None | C | A, B, D |
+| C | None. D is already visited. | Empty | A, B, D, C |
+
+DFS processes **A, B, D, C**. The stack puts `D` ahead of `C`, so DFS finishes the branch through `B` first.
+
+---
+
+# Traversing disconnected graphs
+
 - From one source, BFS and DFS visit only the vertices reachable from it.
 - To traverse an entire graph, scan its vertices and start a new search at each undiscovered vertex. Keep the same discovered set across searches.
 - In an undirected graph, each new search visits one connected component.
@@ -84,46 +186,107 @@ Marking a vertex when it enters the queue keeps two neighbors from enqueueing it
 
 ---
 
-# DFS and BFS in a weighted graph
+# BFS versus DFS
 
-- Both DFS and BFS can find a path between two points
-- In an unweighted graph, BFS finds a path with the fewest edges.
-- In a weighted graph, a path with more edges can have lower total cost.
-- If `A → C` costs 9 and `A → B → C` costs 2 + 3, the two-edge path has lower cost.
+| | BFS | DFS |
+| --- | --- | --- |
+| Worklist | Queue (FIFO) | Stack (LIFO) or recursion |
+| Next vertex | Oldest pending vertex | Most recently pushed vertex |
+| Search pattern | Explore one distance layer at a time | Follow a branch before backtracking |
+| Path found | Fewest edges in an unweighted graph | A path determined by neighbor order |
 
----
-
-# Dijkstra’s Algorithm
-
-- Finds shortest paths from one source in a graph with nonnegative edge weights.
-- Starts with distance 0 for the source and infinity for every other vertex.
-- Records a predecessor each time a better path to a vertex is found.
+On the same example, BFS visits **A, B, C, D** and DFS visits **A, B, D, C**. Both use a visited map to avoid processing a vertex twice.
 
 ---
 
-# Dijkstra's algorithm
+# Fewest edges versus lowest cost
 
-1. Choose the unsettled vertex with the smallest tentative distance. Its distance is now final because edge weights are nonnegative.
-2. Relax its outgoing edges. For `u -> v`, compare `distance[u] + weight(u, v)` with `distance[v]`. If the candidate is smaller, update the distance and set `u` as `v`'s predecessor.
-3. Repeat until no reachable unsettled vertex remains. Unreachable vertices keep distance infinity.
+- **DFS** can find a route. The first route it finds depends on neighbor order.
+- **BFS** finds a route with the fewest edges. This also minimizes total cost when all edges have the same positive cost.
+- When edge weights differ, compare the **sum** of the weights along each route.
+
+![Weighted directed graph with A to B costing 2, B to C costing 3, and A to C costing 9.](images/dijkstra-example.svg)
+
+| Route | Edges | Total cost |
+| --- | --- | --- |
+| `A -> C` | 1 | 9 |
+| `A -> B -> C` | 2 | 2 + 3 = 5 |
+
+BFS prefers the first route by edge count. The second route has the lower total cost.
 
 ---
 
-# Relaxing an edge
+# What Dijkstra tracks
 
-Using the weighted example, start at `A`.
+[Watch the Dijkstra's algorithm video](https://www.youtube.com/watch?v=pVfj6mxhdMw)
 
-1. Processing `A` gives tentative distances of 2 to `B` and 9 to `C`.
-2. Process `B` next because its tentative distance is smaller.
-3. The route through `B` costs 2 + 3 = 5 to reach `C`. Update `C`'s distance to 5 and its predecessor to `B`.
+[Step through Dijkstra's algorithm interactively](https://www.cs.usfca.edu/~galles/visualization/Dijkstra.html)
+
+Dijkstra finds minimum-cost paths from one source when every edge weight is nonnegative.
+
+- **Tentative distance:** the best cost found so far. Start at 0 for the source and infinity for every other vertex.
+- **Predecessor:** the vertex that led to the current best route. Update it whenever the tentative distance improves.
 
 ---
 
-# Time Complexity
+# Dijkstra vocabulary: Settle and relax
 
-- BFS and DFS with adjacency lists take O(V + E) in the worst case.
-- With an adjacency matrix, BFS and DFS can take O(V²) because each processed vertex requires scanning a row.
-- Dijkstra with adjacency lists and a binary-heap priority queue takes O((V + E) log V).
+**Settle a vertex.** Finalize its shortest distance from the source. Dijkstra does this when the vertex has the smallest tentative distance among those still waiting.
+
+**Relax an edge.** Test whether reaching the destination through that edge gives a cheaper route. If so, update the destination's cost and predecessor.
+
+**Example.** Once `B` is settled at cost 2, relax `B -> C` (weight 3). The candidate cost is 5, so update `C` from 9 to 5.
+
+---
+
+# Settle a vertex and relax its edges
+
+1. Remove the vertex `u` with the smallest tentative distance from the priority queue. Settle it.
+2. For each outgoing edge `u -> v`, compute `distance[u] + weight(u, v)`. If that candidate is smaller than `distance[v]`, update the distance, predecessor, and queue.
+3. Repeat while there are reachable unsettled vertices. If searching for one destination, stop when it is settled. Unreachable vertices keep distance infinity.
+
+A negative edge could create a cheaper route after a vertex has already been settled. Dijkstra relies on nonnegative weights to rule that out.
+
+---
+
+# Trace Dijkstra from A
+
+Use the three edges from the route example. Each row shows the distances after relaxing the outgoing edges of the vertex just settled.
+
+| Just settled | Cost to A | Cost to B | Cost to C | Predecessor of C |
+| --- | --- | --- | --- | --- |
+| None | 0 | Infinity | Infinity | None |
+| A | 0 | 2 | 9 | A |
+| B | 0 | 2 | 5 | B |
+| C | 0 | 2 | 5 | B |
+
+The first route found to `C` costs 9. Relaxing `B -> C` lowers it to 5. Follow predecessors `C, B, A` backward and reverse them to get `A -> B -> C`.
+
+---
+
+# Dijkstra's final results
+
+A full run of Dijkstra's algorithm computes the shortest cost from the source to **every vertex**. Unreachable vertices keep a cost of infinity and have no predecessor.
+
+| Node | Shortest cost from A | Predecessor |
+| --- | --- | --- |
+| A | 0 | None (source) |
+| B | 2 | A |
+| C | 5 | B |
+
+To recover the shortest path to any reachable node, follow its predecessors back to the source, then reverse that sequence. For `C`, follow `C -> B -> A` backward to get **A -> B -> C**, with total cost **5**.
+
+---
+
+# Time complexity
+
+Let `V` be the number of vertices and `E` the number of edges.
+
+| Algorithm and representation | Worst-case time | Work |
+| --- | --- | --- |
+| BFS or DFS, adjacency lists | O(V + E) | Visit vertices and examine their stored neighbors. |
+| BFS or DFS, adjacency matrix | O(V^2) | Scan a row of V cells for each processed vertex. |
+| Dijkstra, adjacency lists and a binary heap | O((V + E) log V) | Examine edges and maintain tentative distances in the heap. |
 
 ---
 
