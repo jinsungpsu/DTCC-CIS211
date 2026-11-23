@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="227" viewBox="0 0 520 246" role="img" aria-labelledby="title desc">
+  <title id="title">Tree just after inserting 10</title>
+  <desc id="desc">Root 30 has left child 20. The newly inserted left child of 20 is 10, shown in blue.</desc>
+  <rect width="520" height="246" rx="12" fill="#ffffff"/>
+  <g stroke="#94a3b8" stroke-width="2">
+    <line x1="325" y1="34" x2="260" y2="110"/>
+    <line x1="260" y1="110" x2="195" y2="185"/>
+  </g>
+  <g font-family="Arial, sans-serif" text-anchor="middle">
+    <circle cx="325" cy="34" r="23" fill="#f1f5f9" stroke="#64748b" stroke-width="3"/>
+    <text x="325" y="41" fill="#000000" font-size="21" font-weight="700">30</text>
+    <circle cx="260" cy="110" r="23" fill="#f1f5f9" stroke="#64748b" stroke-width="3"/>
+    <text x="260" y="117" fill="#000000" font-size="21" font-weight="700">20</text>
+    <circle cx="195" cy="185" r="23" fill="#dbeafe" stroke="#1d4ed8" stroke-width="3"/>
+    <text x="195" y="192" fill="#000000" font-size="21" font-weight="700">10</text>
+    <text x="260" y="233" fill="#334155" font-size="16">10 was just inserted. Rebalancing has not started.</text>
+  </g>
+</svg>

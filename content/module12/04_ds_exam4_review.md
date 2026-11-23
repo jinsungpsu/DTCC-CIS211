@@ -231,13 +231,15 @@ Do not confuse a binary tree with a binary search tree: a binary tree alone does
 
 # Sample: Identify a Tree Property
 
-A binary tree has a root value of `18`, with children `11` and `27`. Does this information alone prove that it is a BST, a min-heap, or a max-heap?
+A binary tree has a root value of `18`, with left child `11` and right child `27`. Any deeper nodes are unknown. Does this information alone prove that it is a BST, a min-heap, or a max-heap?
+
+![Root 18 with left child 11 and right child 27. Lower levels are not shown.](images/review-tree-property.svg)
 
 <div class="fragment">
 
 ### Answer
 
-It is a **binary tree**. These values satisfy the root ordering for both a BST and a min-heap, but the whole tree must be checked to establish those properties. It is not a max-heap because the root is smaller than one of its children.
+The root and children are consistent with BST ordering. Any deeper nodes would need to satisfy the BST bounds too. The edge from `18` to `11` rules out a min-heap, and the edge from `18` to `27` rules out a max-heap.
 
 </div>
 
@@ -258,6 +260,8 @@ It is a **binary tree**. These values satisfy the root ordering for both a BST a
 # Sample: BST Search Path
 
 Insert `18`, `9`, `26`, and `13` into an initially empty BST, in that order. Which nodes are visited when searching for `13`?
+
+![Root 18, left child 9, right child 26, and 13 as the right child of 9.](images/review-bst-search.svg)
 
 <div class="fragment">
 
@@ -288,6 +292,8 @@ For a BST with distinct values, inorder traversal visits values in sorted order.
 
 For a tree with root `18`, left child `9`, and right child `26`, write the preorder, inorder, and postorder sequences.
 
+![Root 18 with left leaf 9 and right leaf 26.](images/review-tree-traversal.svg)
+
 <div class="fragment">
 
 ### Answer
@@ -316,6 +322,8 @@ Remember: preorder visits the node first; postorder visits it last.
 # Sample: AVL Insertion Reasoning
 
 After inserting a new value into an AVL tree, what should you check on the path from the inserted node toward the root? Why might a rotation be needed?
+
+![Before rebalancing, 30 has left child 20, and 20 has newly inserted left child 10.](images/review-avl-insertion.svg)
 
 <div class="fragment">
 
@@ -358,11 +366,13 @@ parent      = (index - 1) / 2
 
 A complete binary tree has the largest value at its root, and every parent is at least as large as its children. Does this make it a max-heap, a BST, both, or neither?
 
+![Root 40 has children 30 and 35. Node 30 has children 12 and 25. Node 35 has left child 20.](images/review-heap-or-bst.svg)
+
 <div class="fragment">
 
 ### Answer
 
-It is a **max-heap**. The heap rule does not impose the left-smaller/right-larger ordering required of a BST.
+It is a **max-heap** because it is complete and every parent is at least as large as its children. In the example, the right child `35` is smaller than the root `40`, so the tree violates BST ordering.
 
 </div>
 

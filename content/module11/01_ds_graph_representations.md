@@ -41,7 +41,11 @@ A tree is a specific type of graph
 
 # What is a path?
 
-A path is a sequence of edges/vertices
+A path follows edges from one vertex to the next.
+
+- If the graph has `A → B` and `B → C`, then `A → B → C` is a path of two edges.
+- Two vertices are adjacent when a single edge joins them in the specified direction.
+- In a directed graph, follow each edge in its stored direction.
 
 ---
 
@@ -77,30 +81,55 @@ A path is a sequence of edges/vertices
 
 # Implementation Details
 
-Yep - We still only have arrays and linked nodes!
-
----
-
 # Implementation Details
 
-We still only have arrays and linked nodes!
+Let `V` be the number of vertices and `E` the number of edges.
 
 - Adjacency Matrix
-  - 2D array (N x N, where N is number of nodes)
+  - `V × V` array with a row for the source and a column for the destination
 - Adjacency List
-  - Array of Linked Nodes
+  - One list per vertex storing its outgoing neighbors
 - Edge List
-  - 2D array (N x 2, where N is number of edges) or (N x 3 for weighted, where N is number of edges)
+  - One row per edge storing its endpoints and, for a weighted graph, its weight
 
 ---
 
-# Pros and Cons?
+# Checking for a direct edge
 
-- Still the same!!!
-- Consider
-  - Memory overhead
-  - Random access
-  - mutability
+For a directed, unweighted graph, assume `from` and `to` are valid vertices.
+
+```java
+// boolean[][] edges, indexed by vertex number
+return edges[from][to];
+```
+
+```java
+// Map<Integer, List<Integer>> neighbors,
+// with one outgoing-neighbor list per vertex
+return neighbors.get(from).contains(to);
+```
+
+Either return statement can implement `isConnected(from, to)` when its contract is to check for a direct edge.
+
+---
+
+# Storing an undirected edge
+
+- Matrix: set both `edges[a][b]` and `edges[b][a]`.
+- Adjacency list: add `b` to `a`'s list and `a` to `b`'s list.
+- Edge list: store the pair once and check for the pair in either order when looking up the edge.
+
+---
+
+# Representation trade-offs
+
+| Representation | Space | Check for a direct edge |
+| --- | --- | --- |
+| Adjacency matrix | O(V²) | O(1) with vertex indices |
+| Array of adjacency lists | O(V + E) | Scan the source's list |
+| Unsorted edge list | O(E) for edge records | Scan up to E edges |
+
+An adjacency list makes it easy to iterate over the neighbors of a vertex. A matrix makes repeated direct-edge checks fast, with a cell for every possible pair.
 
 ---
 

@@ -11,17 +11,11 @@
 
 ---
 
-# Graph Traversals
-
----
-
 # DFS and BFS
 
-- Already saw some examples with trees
-- BFS - breadth first search
-- Traverses closer nodes/neighbors first
-- DFS - depth first search
-- Traverses as far as possible, then backtracks
+- Breadth-first search (BFS) explores vertices in order of distance from the start, measured in edges.
+- Depth-first search (DFS) follows one branch as far as it can before backtracking.
+- Both track discovered vertices to handle cycles and converging paths.
 
 ---
 
@@ -40,55 +34,61 @@ https://www.geeksforgeeks.org/breadth-first-search-or-bfs-for-a-graph/
 
 # BFS Algorithm
 
-Starting from the root, all the nodes at a particular level are visited first and then the nodes of the next level are traversed till all the nodes are visited.
+1. Mark the start vertex as discovered and enqueue it.
+2. Dequeue a vertex and examine its outgoing neighbors.
+3. For each undiscovered neighbor, mark it as discovered and enqueue it.
+4. Repeat until the queue is empty. This visits every vertex reachable from the start.
 
-To do this a queue is used. All the adjacent unvisited nodes of the current level are pushed into the queue and the nodes of the current level are marked visited and popped from the queue.
+Marking a vertex when it enters the queue keeps two neighbors from enqueueing it twice.
 
 ---
 
 # BFS uses a queue!
 
-- Why?
-- FIFO
-- First in first out facilitates dealing with things that are “close” first
+- First in, first out (FIFO) processes vertices in discovery order.
+- If `A` has neighbors `B` and `C`, and `B` leads to `D`, the queue processes `C` before `D`.
+- With neighbors examined in that order, BFS visits `A, B, C, D`.
 
 ---
 
 # DFS
 
-- Visit farthest nodes first, then backtrack
-- Great if we expect to find what we’re looking far from the starting point
+- Follow an undiscovered neighbor, then continue from that neighbor.
+- When the current vertex has no undiscovered neighbors left, backtrack to the previous vertex.
+- On the same graph, DFS can visit `A, B, D, C` by following `B`'s branch before returning to `C`.
 
 ---
 
 # DFS uses a STACK!
 
-- Why?
-- FILO
-- First in last out facilitates dealing with things that are “far” first
+- A stack follows last in, first out (LIFO) order.
+- Recursive DFS uses the call stack. When a call finishes, execution resumes at the previous vertex.
+- Iterative DFS can use an explicit stack. The order in which neighbors are pushed can change the visit order.
 
 ---
 
 # Search Algorithms
 
-- In a graph, we can extend that idea to find a path between a source and destination.
-- As we traverse the graph, we keep track of the visited nodes in order, then we stop the algorithm once we encounter the destination
+- When a vertex is first discovered, record the vertex that led to it as its predecessor.
+- To recover a path, follow predecessors backward from the destination to the source, then reverse the sequence.
+- If the search finishes before discovering the destination, it is unreachable from the source.
 
 ---
 
 # DFS and BFS in a weighted graph
 
 - Both DFS and BFS can find a path between two points
-- In an unweighted graph, BFS will result in the shortest path found.
-- In a weighted graph, BFS CANNOT guarantee the shortest path.
+- In an unweighted graph, BFS finds a path with the fewest edges.
+- In a weighted graph, a path with more edges can have lower total cost.
+- If `A → C` costs 9 and `A → B → C` costs 2 + 3, the two-edge path has lower cost.
 
 ---
 
 # Dijkstra’s Algorithm
 
-- Solves the issue of finding the shortest path in a weighted graph
-- Calculate shortest path to each vertex
-- Keep track of previous node in the path
+- Finds shortest paths from one source in a graph with nonnegative edge weights.
+- Starts with distance 0 for the source and infinity for every other vertex.
+- Records a predecessor each time a better path to a vertex is found.
 
 ---
 
@@ -96,16 +96,26 @@ To do this a queue is used. All the adjacent unvisited nodes of the current leve
 
 - Starting from the source node
 - Repeatedly choosing the unvisited vertex with the smallest known distance
-- Relaxing its edges
+- Relaxing each outgoing edge by testing whether going through the current vertex gives a smaller distance
 - Marking the vertex as visited
+
+---
+
+# Relaxing an edge
+
+Using the weighted example, start at `A`.
+
+1. Processing `A` gives tentative distances of 2 to `B` and 9 to `C`.
+2. Process `B` next because its tentative distance is smaller.
+3. The route through `B` costs 2 + 3 = 5 to reach `C`. Update `C`'s distance to 5 and its predecessor to `B`.
 
 ---
 
 # Time Complexity
 
-- BFS: O(V+E)
-- DFS: O(V+E)
-- Dijkstra: O((V + E) log V)
+- BFS and DFS with adjacency lists take O(V + E) in the worst case.
+- With an adjacency matrix, BFS and DFS can take O(V²) because each processed vertex requires scanning a row.
+- Dijkstra with adjacency lists and a binary-heap priority queue takes O((V + E) log V).
 
 ---
 
