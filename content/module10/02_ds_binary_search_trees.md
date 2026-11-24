@@ -195,6 +195,45 @@ boolean contains(Node node, int key) {
 
 ---
 
+# Refresher: Comparable Keys in a BST
+
+- In sorting, the sign of `a.compareTo(b)` tells us where `a` belongs relative to `b`. In a BST, it tells us which branch to follow.
+- Compare the search key with the current node's key using `key.compareTo(node.key)`.
+
+| Result | Search | Insert |
+|---|---|---|
+| Negative | Go left | Go left |
+| Zero | Key found | Ignore the duplicate key |
+| Positive | Go right | Go right |
+
+In a tree of strings, searching for `"Bee"` starts left of `"Cat"`. If the next node is `"Ant"`, the search goes right from there.
+
+---
+
+# Searching a BST with Object Keys
+
+```java
+class KeyNode<K extends Comparable<K>> {
+    K key;
+    KeyNode<K> left;
+    KeyNode<K> right;
+}
+
+// Inside the tree class:
+static <K extends Comparable<K>> boolean contains(KeyNode<K> node, K key) {
+    while (node != null) {
+        int comparison = key.compareTo(node.key);
+        if (comparison == 0) return true;
+        node = comparison < 0 ? node.left : node.right;
+    }
+    return false;
+}
+```
+
+The bound `K extends Comparable<K>` lets the search call `compareTo` on a key of type `K`. Use the same ordering when inserting and searching.
+
+---
+
 # The Same Keys Can Have Very Different Heights
 
 <!-- column -->

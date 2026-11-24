@@ -6,6 +6,7 @@
 
 - Compare sorting strategies through an activity
 - Identify time, space, and stability tradeoffs
+- Define a natural ordering for objects with `Comparable<T>`
 - Trace selection, bubble, and insertion sorts
 - Extend insertion sort using Shell sort's decreasing gaps
 
@@ -31,6 +32,59 @@ Common algorithms:
 - Enables Binary Search
 - Organizes data
 - Improves database indexing
+
+---
+
+# Comparing Objects for Sorting
+
+- A comparison sort needs to decide which of two elements comes first.
+- A Java class implements `Comparable<T>` to define its **natural order**, the default order used when sorting its objects.
+- Read `a.compareTo(b)` as “Where does `a` belong relative to `b`?”
+
+| Result | Meaning for ascending order |
+|---|---|
+| Negative | `a` comes before `b` |
+| Zero | `a` and `b` tie under this ordering |
+| Positive | `a` comes after `b` |
+
+Check the sign using `< 0`, `== 0`, or `> 0`. Any negative or positive value can represent the corresponding result.
+
+---
+
+# Implementing Comparable
+
+```java
+class Task implements Comparable<Task> {
+    final int priority;
+
+    Task(int priority) {
+        this.priority = priority;
+    }
+
+    @Override
+    public int compareTo(Task other) {
+        return Integer.compare(this.priority, other.priority);
+    }
+}
+```
+
+Smaller priority numbers come first. Two tasks with the same priority tie in the sort even if they are separate objects.
+
+---
+
+# Sorting Comparable Objects
+
+```java
+import java.util.Arrays;
+
+// Inside a method:
+Task[] tasks = {new Task(30), new Task(10), new Task(20)};
+Arrays.sort(tasks);
+// Priorities are now 10, 20, 30.
+```
+
+- `Arrays.sort(tasks)` uses the natural order defined by `Task.compareTo`.
+- In selection sort, `tasks[j].compareTo(tasks[minIndex]) < 0` means the candidate becomes the new minimum.
 
 ---
 
